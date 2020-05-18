@@ -6,42 +6,11 @@ variables:
   ADMISSION-EVENT-SERVICE-VERSION: ${RELEASE}.${CI_PIPELINE_ID}
 
 stages:
-#   - unittest
-  - analysis
   - build
   - dockerize
   - deploy
 
-# unit test:
-#   image: hub.ues21.edu.ar/algarrobo/student-records/docker-mvn-builder:3-jdk-11-slim_b 
-#   stage: unittest
-#   script:
-#     - mvn test dependency:copy-dependencies jacoco:report
-#   artifacts:
-#     paths:
-#       - /builds/algarrobo/admission-event-service/target/surefire-reports
-#       - /builds/algarrobo/admission-event-service/target/site/jacoco/
-#       - /builds/algarrobo/admission-event-service/target/jacoco.exec
-#       - /builds/algarrobo/admission-event-service/target/dependency
-#     expire_in: 1 day
-
-code analysis:
-  image: hub.ues21.edu.ar/algarrobo/cigroup/docker-sonar-scanner:4.2.0
-  stage: analysis
-  script:
-    - sonar-scanner
-      -Dsonar.sources=.
-      -Dsonar.exclusions=target/**,src/test/**
-      -Dsonar.junit.reportPaths=/target/surefire-reports
-#      -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
-      -Dsonar.projectName=algarrobo-${CI_PROJECT_PATH}
-      -Dsonar.java.binaries=${PWD}
-#      -Dsonar.java.libraries=target/dependency/*.jar
-      -Dsonar.projectKey=algarroboProject${CI_PROJECT_ID}
-      -Dsonar.projectVersion=${ADMISSION-EVENT-SERVICE-VERSION}
-      -Dsonar.analysis.mode=publish
-
-build:
+  build:
   image: hub.ues21.edu.ar/algarrobo/student-records/docker-mvn-builder:3-jdk-11-slim_b 
   stage: build
   script:

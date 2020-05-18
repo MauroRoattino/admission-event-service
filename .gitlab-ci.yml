@@ -12,18 +12,18 @@ stages:
   - dockerize
   - deploy
 
-#unit test:
-#  image: hub.ues21.edu.ar/algarrobo/student-records/docker-mvn-builder:3-jdk-11-slim_b 
-#  stage: unittest
-#  script:
-#    - mvn test dependency:copy-dependencies jacoco:report
-#  artifacts:
-#    paths:
-#      - /builds/algarrobo/admission-event-service/target/surefire-reports
-#      - /builds/algarrobo/admission-event-service/target/site/jacoco/
-#      - /builds/algarrobo/admission-event-service/target/jacoco.exec
-#      - /builds/algarrobo/admission-event-service/target/dependency
-#    expire_in: 1 day
+# unit test:
+#   image: hub.ues21.edu.ar/algarrobo/student-records/docker-mvn-builder:3-jdk-11-slim_b 
+#   stage: unittest
+#   script:
+#     - mvn test dependency:copy-dependencies jacoco:report
+#   artifacts:
+#     paths:
+#       - /builds/algarrobo/admission-event-service/target/surefire-reports
+#       - /builds/algarrobo/admission-event-service/target/site/jacoco/
+#       - /builds/algarrobo/admission-event-service/target/jacoco.exec
+#       - /builds/algarrobo/admission-event-service/target/dependency
+#     expire_in: 1 day
 
 code analysis:
   image: hub.ues21.edu.ar/algarrobo/cigroup/docker-sonar-scanner:4.2.0
@@ -33,14 +33,14 @@ code analysis:
       -Dsonar.sources=.
       -Dsonar.exclusions=target/**,src/test/**
       -Dsonar.junit.reportPaths=/target/surefire-reports
-      #-Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+#      -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
       -Dsonar.projectName=algarrobo-${CI_PROJECT_PATH}
       -Dsonar.java.binaries=${PWD}
-      #-Dsonar.java.libraries=target/dependency/*.jar
+#      -Dsonar.java.libraries=target/dependency/*.jar
       -Dsonar.projectKey=algarroboProject${CI_PROJECT_ID}
       -Dsonar.projectVersion=${ADMISSION-EVENT-SERVICE-VERSION}
       -Dsonar.analysis.mode=publish
-    
+
 build:
   image: hub.ues21.edu.ar/algarrobo/student-records/docker-mvn-builder:3-jdk-11-slim_b 
   stage: build
@@ -52,7 +52,6 @@ build:
       - /builds/algarrobo/admission-event-service/pom.xml
       - /builds/algarrobo/admission-event-service/target/admission-event-service-${ADMISSION-EVENT-SERVICE-VERSION}.jar
     expire_in: 1 day
-
 
 dockerize branch:
   image: hub.ues21.edu.ar/algarrobo/cigroup/docker:latest
@@ -98,7 +97,6 @@ dockerize aws:
     - docker push 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:latest
     - docker push 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
 
-
 dockerize stable:
   image: hub.ues21.edu.ar/algarrobo/cigroup/docker:aws
   only:
@@ -128,7 +126,6 @@ dockerize stable:
     - docker push 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:stable
     - docker push 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
     - docker push 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:${CI_COMMIT_TAG}
-
 
 deploy:
   image: bitlogicos/gitlab-ssh

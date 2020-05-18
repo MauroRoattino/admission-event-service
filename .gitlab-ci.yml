@@ -11,7 +11,7 @@ stages:
   - dockerize
   - deploy
 
-  build:
+build:
   image: hub.ues21.edu.ar/algarrobo/student-records/docker-mvn-builder:3-jdk-11-slim_b 
   stage: build
   script:

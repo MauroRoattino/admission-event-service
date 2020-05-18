@@ -8,6 +8,9 @@ server:
     min-response-size: 32KB
     use-forward-headers: true
 
+admission-event-service:
+  oauthserver: ${OAUTH_HOST:http://ecampus2-trimix.uesiglo21.edu.ar:8080}
+
 security:
   oauth2:
     client:
@@ -16,11 +19,12 @@ security:
     resource:
       tokenInfoUri: ${admission-event-service.oauthserver}/menu/api/oauth2/token_info
 
-admission-event-service:
-  oauthserver: ${OAUTH_HOST:http://ecampus2-trimix.uesiglo21.edu.ar:8080}
-
 spring:
   profiles: local
   kafka:
     producer:
       bootstrap-servers: ${BOOTSTRAP_SERVER:localhost:9092}
+
+kafka.topic.admission.pre_enrollment: admission.preenrollment
+ssl.enabled: ${SSL_ENABLED:false}
+resources.truststore.location: ${PRODUCER_SECRET_PATH:msk-secrets.properties}

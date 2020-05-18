@@ -5,7 +5,6 @@ variables:
   REGISTRY_NAME: admission-event-service
   ADMISSION_EVENT_SERVICE_VERSION: ${RELEASE}.${CI_PIPELINE_ID}
 
-
 stages:
   - build
   - dockerize
@@ -22,7 +21,6 @@ build:
       - /builds/algarrobo/admission-event-service/pom.xml
       - /builds/algarrobo/admission-event-service/target/admission-event-service-${ADMISSION_EVENT_SERVICE_VERSION}.jar
     expire_in: 1 day
-
 
 dockerize branch:
   image: hub.ues21.edu.ar/algarrobo/cigroup/docker:latest
@@ -68,7 +66,6 @@ dockerize aws:
     - docker push 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:latest
     - docker push 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
 
-
 dockerize stable:
   image: hub.ues21.edu.ar/algarrobo/cigroup/docker:aws
   only:
@@ -98,7 +95,6 @@ dockerize stable:
     - docker push 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:stable
     - docker push 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
     - docker push 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:${CI_COMMIT_TAG}
-
 
 deploy:
   image: bitlogicos/gitlab-ssh

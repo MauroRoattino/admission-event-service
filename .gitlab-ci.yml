@@ -40,61 +40,61 @@ dockerize branch:
     - docker push ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION}
     - docker push ${CI_REGISTRY_IMAGE}:latest
 
-dockerize aws:
-  image: hub.ues21.edu.ar/algarrobo/cigroup/docker:aws
-  services:
-    - name: hub.ues21.edu.ar/algarrobo/cigroup/docker:dind
-      alias: docker
-  except:
-    - tags
-  variables:
-    DOCKER_HOST: tcp://docker:2375
-    AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
-    AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
-    AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
-  stage: dockerize
-  script:
-    - $(aws ecr get-login --no-include-email --region us-west-1)
-    - docker build --build-arg ADMISSION_EVENT_SERVICE_VERSION=${ADMISSION_EVENT_SERVICE_VERSION} -t ${REGISTRY_NAME} -f Dockerfile . 
-    - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.us-west-1.amazonaws.com/${REGISTRY_NAME}:latest
-    - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.us-west-1.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
-    - docker push 930137440523.dkr.ecr.us-west-1.amazonaws.com/${REGISTRY_NAME}:latest
-    - docker push 930137440523.dkr.ecr.us-west-1.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
-    - $(aws ecr get-login --no-include-email --region us-east-1)
-    - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:latest
-    - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
-    - docker push 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:latest
-    - docker push 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
+# dockerize aws:
+#   image: hub.ues21.edu.ar/algarrobo/cigroup/docker:aws
+#   services:
+#     - name: hub.ues21.edu.ar/algarrobo/cigroup/docker:dind
+#       alias: docker
+#   except:
+#     - tags
+#   variables:
+#     DOCKER_HOST: tcp://docker:2375
+#     AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+#     AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+#     AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
+#   stage: dockerize
+#   script:
+#     - $(aws ecr get-login --no-include-email --region us-west-1)
+#     - docker build --build-arg ADMISSION_EVENT_SERVICE_VERSION=${ADMISSION_EVENT_SERVICE_VERSION} -t ${REGISTRY_NAME} -f Dockerfile . 
+#     - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.us-west-1.amazonaws.com/${REGISTRY_NAME}:latest
+#     - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.us-west-1.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
+#     - docker push 930137440523.dkr.ecr.us-west-1.amazonaws.com/${REGISTRY_NAME}:latest
+#     - docker push 930137440523.dkr.ecr.us-west-1.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
+#     - $(aws ecr get-login --no-include-email --region us-east-1)
+#     - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:latest
+#     - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
+#     - docker push 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:latest
+#     - docker push 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
 
-dockerize stable:
-  image: hub.ues21.edu.ar/algarrobo/cigroup/docker:aws
-  only:
-    - tags
-  services:
-    - name: hub.ues21.edu.ar/algarrobo/cigroup/docker:dind
-      alias: docker
-  variables:
-    DOCKER_HOST: tcp://docker:2375
-    AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
-    AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
-    AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
-  stage: dockerize
-  script:
-    - $(aws ecr get-login --no-include-email --region us-west-1)
-    - docker build --build-arg ADMISSION_EVENT_SERVICE_VERSION=${ADMISSION_EVENT_SERVICE_VERSION} -t ${REGISTRY_NAME} -f Dockerfile . 
-    - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.us-west-1.amazonaws.com/${REGISTRY_NAME}:stable
-    - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.us-west-1.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
-    - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.us-west-1.amazonaws.com/${REGISTRY_NAME}:${CI_COMMIT_TAG}
-    - docker push 930137440523.dkr.ecr.us-west-1.amazonaws.com/${REGISTRY_NAME}:stable
-    - docker push 930137440523.dkr.ecr.us-west-1.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
-    - docker push 930137440523.dkr.ecr.us-west-1.amazonaws.com/${REGISTRY_NAME}:${CI_COMMIT_TAG}
-    - $(aws ecr get-login --no-include-email --region us-east-1)
-    - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:stable
-    - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
-    - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:${CI_COMMIT_TAG}
-    - docker push 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:stable
-    - docker push 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
-    - docker push 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:${CI_COMMIT_TAG}
+# dockerize stable:
+#   image: hub.ues21.edu.ar/algarrobo/cigroup/docker:aws
+#   only:
+#     - tags
+#   services:
+#     - name: hub.ues21.edu.ar/algarrobo/cigroup/docker:dind
+#       alias: docker
+#   variables:
+#     DOCKER_HOST: tcp://docker:2375
+#     AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+#     AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+#     AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
+#   stage: dockerize
+#   script:
+#     - $(aws ecr get-login --no-include-email --region us-west-1)
+#     - docker build --build-arg ADMISSION_EVENT_SERVICE_VERSION=${ADMISSION_EVENT_SERVICE_VERSION} -t ${REGISTRY_NAME} -f Dockerfile . 
+#     - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.us-west-1.amazonaws.com/${REGISTRY_NAME}:stable
+#     - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.us-west-1.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
+#     - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.us-west-1.amazonaws.com/${REGISTRY_NAME}:${CI_COMMIT_TAG}
+#     - docker push 930137440523.dkr.ecr.us-west-1.amazonaws.com/${REGISTRY_NAME}:stable
+#     - docker push 930137440523.dkr.ecr.us-west-1.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
+#     - docker push 930137440523.dkr.ecr.us-west-1.amazonaws.com/${REGISTRY_NAME}:${CI_COMMIT_TAG}
+#     - $(aws ecr get-login --no-include-email --region us-east-1)
+#     - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:stable
+#     - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
+#     - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:${CI_COMMIT_TAG}
+#     - docker push 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:stable
+#     - docker push 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
+#     - docker push 930137440523.dkr.ecr.us-east-1.amazonaws.com/${REGISTRY_NAME}:${CI_COMMIT_TAG}
 
 deploy:
   image: bitlogicos/gitlab-ssh
@@ -110,44 +110,44 @@ deploy:
     - gitlab-ssh "docker service create --name admission-event-service --secret ues21-oracle-db.properties --secret ues21-sqlserver-db.properties --label traefik.port=8080 --label 'traefik.frontend.rule=Host:apidev.ues21.edu.ar;PathPrefix:/user/api' --label 'traefik.docker.network=lb_traefik' --network lb_traefik ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION}"
   when: manual
 
-deploy master:
-  image: hub.ues21.edu.ar/algarrobo/cigroup/docker:aws
-  only:
-    - master
-  except:
-    - tags
-  services:
-    - name: hub.ues21.edu.ar/algarrobo/cigroup/docker:dind
-      alias: docker
-  variables:
-    DOCKER_HOST: tcp://docker:2375
-    AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
-    AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
-    AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
-    SERVICE_NAME: ${STACK_NAME}_${REGISTRY_NAME}
-  stage: deploy
-  script:
-    - $(aws ecr get-login --no-include-email --region ${AWS_REGION})
-    - docker pull 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${AWS_DEPLOY_TOOL}:latest
-    - docker run --rm -e DOCKER_MANAGER_IP=${AWS_INT_BACK_SWARM_MANAGER_HOST} -e AWS_REGION=${AWS_REGION} 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${AWS_DEPLOY_TOOL}:latest docker "service update --image 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID} --with-registry-auth ${SERVICE_NAME}"
+# deploy master:
+#   image: hub.ues21.edu.ar/algarrobo/cigroup/docker:aws
+#   only:
+#     - master
+#   except:
+#     - tags
+#   services:
+#     - name: hub.ues21.edu.ar/algarrobo/cigroup/docker:dind
+#       alias: docker
+#   variables:
+#     DOCKER_HOST: tcp://docker:2375
+#     AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+#     AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+#     AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
+#     SERVICE_NAME: ${STACK_NAME}_${REGISTRY_NAME}
+#   stage: deploy
+#   script:
+#     - $(aws ecr get-login --no-include-email --region ${AWS_REGION})
+#     - docker pull 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${AWS_DEPLOY_TOOL}:latest
+#     - docker run --rm -e DOCKER_MANAGER_IP=${AWS_INT_BACK_SWARM_MANAGER_HOST} -e AWS_REGION=${AWS_REGION} 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${AWS_DEPLOY_TOOL}:latest docker "service update --image 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID} --with-registry-auth ${SERVICE_NAME}"
 
-deploy stable:
-  image: hub.ues21.edu.ar/algarrobo/cigroup/docker:aws
-  only:
-    - tags
-  except:
-    - master
-  services:
-    - name: hub.ues21.edu.ar/algarrobo/cigroup/docker:dind
-      alias: docker
-  variables:
-    DOCKER_HOST: tcp://docker:2375
-    AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
-    AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
-    AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
-    SERVICE_NAME: ${STACK_NAME}_${REGISTRY_NAME}
-  stage: deploy
-  script:
-    - $(aws ecr get-login --no-include-email --region ${AWS_REGION})
-    - docker pull 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${AWS_DEPLOY_TOOL}:stable
-    - docker run --rm -e DOCKER_MANAGER_IP=${AWS_QA_BACK_SWARM_MANAGER_HOST} -e AWS_REGION=${AWS_REGION} 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${AWS_DEPLOY_TOOL}:stable docker "service update --image 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID} --with-registry-auth ${SERVICE_NAME}"
+# deploy stable:
+#   image: hub.ues21.edu.ar/algarrobo/cigroup/docker:aws
+#   only:
+#     - tags
+#   except:
+#     - master
+#   services:
+#     - name: hub.ues21.edu.ar/algarrobo/cigroup/docker:dind
+#       alias: docker
+#   variables:
+#     DOCKER_HOST: tcp://docker:2375
+#     AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+#     AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+#     AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
+#     SERVICE_NAME: ${STACK_NAME}_${REGISTRY_NAME}
+#   stage: deploy
+#   script:
+#     - $(aws ecr get-login --no-include-email --region ${AWS_REGION})
+#     - docker pull 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${AWS_DEPLOY_TOOL}:stable
+#     - docker run --rm -e DOCKER_MANAGER_IP=${AWS_QA_BACK_SWARM_MANAGER_HOST} -e AWS_REGION=${AWS_REGION} 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${AWS_DEPLOY_TOOL}:stable docker "service update --image 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID} --with-registry-auth ${SERVICE_NAME}"

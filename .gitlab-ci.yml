@@ -3,7 +3,7 @@ variables:
   COMPOSE_HTTP_TIMEOUT: 300
   STACK_NAME: algarrobo
   REGISTRY_NAME: admission-event-service
-  ADMISSION-EVENT-SERVICE-VERSION: ${RELEASE}.${CI_PIPELINE_ID}
+  ADMISSION_EVENT_SERVICE_VERSION: ${RELEASE}.${CI_PIPELINE_ID}
 
 
 stages:
@@ -15,12 +15,12 @@ build:
   image: hub.ues21.edu.ar/algarrobo/student-records/docker-mvn-builder:3-jdk-11-slim_b 
   stage: build
   script:
-    - mvn -DnewVersion=${ADMISSION-EVENT-SERVICE-VERSION} versions:set
+    - mvn -DnewVersion=${ADMISSION_EVENT_SERVICE_VERSION} versions:set
     - mvn clean install -DskipTests
   artifacts:
     paths:
       - /builds/algarrobo/admission-event-service/pom.xml
-      - /builds/algarrobo/admission-event-service/target/admission-event-service-${ADMISSION-EVENT-SERVICE-VERSION}.jar
+      - /builds/algarrobo/admission-event-service/target/admission-event-service-${ADMISSION_EVENT_SERVICE_VERSION}.jar
     expire_in: 1 day
 
 dockerize branch:
@@ -36,9 +36,9 @@ dockerize branch:
   script:
     - ls target/
     - docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} ${CI_REGISTRY}
-    - docker build --build-arg ADMISSION-EVENT-SERVICE-VERSION=${ADMISSION-EVENT-SERVICE-VERSION} -t ${CI_REGISTRY_IMAGE}:${ADMISSION-EVENT-SERVICE-VERSION} .
-    - docker tag ${CI_REGISTRY_IMAGE}:${ADMISSION-EVENT-SERVICE-VERSION} ${CI_REGISTRY_IMAGE}:latest
-    - docker push ${CI_REGISTRY_IMAGE}:${ADMISSION-EVENT-SERVICE-VERSION}
+    - docker build --build-arg ADMISSION_EVENT_SERVICE_VERSION=${ADMISSION_EVENT_SERVICE_VERSION} -t ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION} .
+    - docker tag ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION} ${CI_REGISTRY_IMAGE}:latest
+    - docker push ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION}
     - docker push ${CI_REGISTRY_IMAGE}:latest
 
 dockerize aws:
@@ -56,7 +56,7 @@ dockerize aws:
   stage: dockerize
   script:
     - $(aws ecr get-login --no-include-email --region us-west-1)
-    - docker build --build-arg ADMISSION-EVENT-SERVICE-VERSION=${ADMISSION-EVENT-SERVICE-VERSION} -t ${REGISTRY_NAME} -f Dockerfile . 
+    - docker build --build-arg ADMISSION_EVENT_SERVICE_VERSION=${ADMISSION_EVENT_SERVICE_VERSION} -t ${REGISTRY_NAME} -f Dockerfile . 
     - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.us-west-1.amazonaws.com/${REGISTRY_NAME}:latest
     - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.us-west-1.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
     - docker push 930137440523.dkr.ecr.us-west-1.amazonaws.com/${REGISTRY_NAME}:latest
@@ -82,7 +82,7 @@ dockerize stable:
   stage: dockerize
   script:
     - $(aws ecr get-login --no-include-email --region us-west-1)
-    - docker build --build-arg ADMISSION-EVENT-SERVICE-VERSION=${ADMISSION-EVENT-SERVICE-VERSION} -t ${REGISTRY_NAME} -f Dockerfile . 
+    - docker build --build-arg ADMISSION_EVENT_SERVICE_VERSION=${ADMISSION_EVENT_SERVICE_VERSION} -t ${REGISTRY_NAME} -f Dockerfile . 
     - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.us-west-1.amazonaws.com/${REGISTRY_NAME}:stable
     - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.us-west-1.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
     - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.us-west-1.amazonaws.com/${REGISTRY_NAME}:${CI_COMMIT_TAG}
@@ -107,8 +107,8 @@ deploy:
   script:
     - gitlab-ssh "docker service rm user-cmp || true"
     - gitlab-ssh "docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} ${CI_REGISTRY}"
-    - gitlab-ssh "docker pull ${CI_REGISTRY_IMAGE}:${ADMISSION-EVENT-SERVICE-VERSION}"
-    - gitlab-ssh "docker service create --name admission-event-service --secret ues21-oracle-db.properties --secret ues21-sqlserver-db.properties --label traefik.port=8080 --label 'traefik.frontend.rule=Host:apidev.ues21.edu.ar;PathPrefix:/user/api' --label 'traefik.docker.network=lb_traefik' --network lb_traefik ${CI_REGISTRY_IMAGE}:${ADMISSION-EVENT-SERVICE-VERSION}"
+    - gitlab-ssh "docker pull ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION}"
+    - gitlab-ssh "docker service create --name admission-event-service --secret ues21-oracle-db.properties --secret ues21-sqlserver-db.properties --label traefik.port=8080 --label 'traefik.frontend.rule=Host:apidev.ues21.edu.ar;PathPrefix:/user/api' --label 'traefik.docker.network=lb_traefik' --network lb_traefik ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION}"
   when: manual
 
 deploy master:

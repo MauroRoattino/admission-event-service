@@ -1,202 +1,67 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
-
-import javax.persistence.*;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @ApiModel("ContactAddress")
-@Entity
-@Table(name = "UE_DOMICILIOS", schema = "UE21")
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ContactAddress {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "UE_DOMICILIOS_SEQ")
-    @SequenceGenerator(name = "UE_DOMICILIOS_SEQ", sequenceName = "UE_DOMICILIOS_SEQ", allocationSize = 1)
+    @ApiModelProperty(value = "id", example = "1341178")
     private Long id;
 
-    @Column(name = "TIPO_DOMICILIO")
+    @ApiModelProperty(value = "type", example = "2")
     private Long type;
 
-    @Column(name = "CALLE")
+    @ApiModelProperty(value = "street", example = "Raymundo Montenegro")
     private String street;
 
-    @Column(name = "CAL_ID")
+    @ApiModelProperty(value = "streetId", example = "21246")
     private Long streetId;
 
-    @Column(name = "NRO")
+    @ApiModelProperty(value = "number", example = "2678")
     private String number;
 
-    @Column(name = "PISO")
+    @ApiModelProperty(value = "floor", example = "1")
     private String floor;
 
-    @Column(name = "DPTO")
+    @ApiModelProperty(value = "apartment", example = "a")
     private String apartment;
 
-    @Column(name = "TORRE")
+    @ApiModelProperty(value = "tower", example = "b")
     private String tower;
 
-    @Column(name = "BARRIO")
+    @ApiModelProperty(value = "neighborhood", example = "Sachi")
     private String neighborhood;
 
-    @Column(name = "BAR_ID")
+    @ApiModelProperty(value = "neighborhoodId", example = "21234")
     private Long neighborhoodId;
 
-    @Column(name = "LOCALIDAD")
+    @ApiModelProperty(value = "location", example = "Cordoba")
     private String location;
 
-    @Column(name = "LOC_ID")
+    @ApiModelProperty(value = "locationId", example = "232")
     private Long locationId;
 
-    @Column(name = "CP")
+    @ApiModelProperty(value = "postalCode", example = "5002")
     private String postalCode;
 
-    @Column(name = "TELEFONO1")
+    @ApiModelProperty(value = "primaryPhone", example = "115484631")
     private String primaryPhone;
 
-    @Column(name = "TELEFONO2")
+    @ApiModelProperty(value = "secondaryPhone", example = "654847")
     private String secondaryPhone;
 
-    @Column(name = "FAX")
+    @ApiModelProperty(value = "fax", example = "-")
     private String fax;
 
-    @Column(name = "OBSERVACIONES")
+    @ApiModelProperty(value = "details", example = "-")
     private String details;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public Long getType() {
-        return type;
-    }
-
-    public void setType(final Long type) {
-        this.type = type;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(final String streetname) {
-        this.street = streetname;
-    }
-
-    public Long getStreetId() {
-        return streetId;
-    }
-
-    public void setStreetId(final Long streetId) {
-        this.streetId = streetId;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(final String number) {
-        this.number = number;
-    }
-
-    public String getFloor() {
-        return floor;
-    }
-
-    public void setFloor(final String floor) {
-        this.floor = floor;
-    }
-
-    public String getApartment() {
-        return apartment;
-    }
-
-    public void setApartment(final String apartment) {
-        this.apartment = apartment;
-    }
-
-    public String getTower() {
-        return tower;
-    }
-
-    public void setTower(final String tower) {
-        this.tower = tower;
-    }
-
-    public String getNeighborhood() {
-        return neighborhood;
-    }
-
-    public void setNeighborhood(final String neighborhood) {
-        this.neighborhood = neighborhood;
-    }
-
-    public Long getNeighborhoodId() {
-        return neighborhoodId;
-    }
-
-    public void setNeighborhoodId(final Long neighborhoodId) {
-        this.neighborhoodId = neighborhoodId;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(final String location) {
-        this.location = location;
-    }
-
-    public Long getLocationId() {
-        return this.locationId;
-    }
-
-    public void setLocationId(final Long locationId) {
-        this.locationId = locationId;
-    }
-
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(final String postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    public String getPrimaryPhone() {
-        return primaryPhone;
-    }
-
-    public void setPrimaryPhone(final String primaryPhone) {
-        this.primaryPhone = primaryPhone;
-    }
-
-    public String getSecondaryPhone() {
-        return secondaryPhone;
-    }
-
-    public void setSecondaryPhone(final String secondaryPhone) {
-        this.secondaryPhone = secondaryPhone;
-    }
-
-    public String getFax() {
-        return fax;
-    }
-
-    public void setFax(final String fax) {
-        this.fax = fax;
-    }
-
-    public String getDetails() {
-        return details;
-    }
-
-    public void setDetails(final String details) {
-        this.details = details;
-    }
 }

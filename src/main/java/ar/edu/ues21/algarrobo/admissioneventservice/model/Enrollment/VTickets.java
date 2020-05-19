@@ -6,8 +6,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -20,8 +18,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class VTickets implements Serializable {
-    private static final long serialVersionUID = 2257529528213654182L;
+public class VTickets{
+
     @JsonProperty("id")
     private String ticketNum;
 
@@ -66,10 +64,7 @@ public class VTickets implements Serializable {
 
     @Builder.Default
     private List<Scholarship> scholarships = new ArrayList<>();
-/* 
-    @JsonProperty("price")
-    private Double ticketPrecio = 0d;
- */
+
     public Double getPrice() {
         Double basePrice = getBasePrice();
         var otherPromotions = descuentos.stream().map(d -> d.getAmmount() ).reduce(0d, Double::sum) ;
@@ -81,16 +76,9 @@ public class VTickets implements Serializable {
         return round( valorBruto - getDiscountAmmount(),2);
     }
 
-
-/*     // importe de beca o descuento otorgado durante la generacion del ticket
-    @JsonProperty("discount")
-    private Double importeDescuento = 0d;
- */
-    // price list - scholarship or discount at ticket generation time.
     public Double getDiscountAmmount() {
         return round( valorBruto * ((porcentajeBeca + porcentajeDescuento) / 100d),2);
     }
-
 
     public static double round(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
@@ -115,7 +103,6 @@ public class VTickets implements Serializable {
     @JsonProperty("type")
     private String tipo;
 
-    // precio segun el sistema de pricing sin ningun descuento / beca aplicado
     @JsonProperty("listPrice")
     @Builder.Default()
     private double valorBruto = 0d;
@@ -134,7 +121,6 @@ public class VTickets implements Serializable {
     @JsonProperty("period")
     private String periodo;
 
-    // para obtener precio
     @JsonProperty("group")
     private String modalidad;
 
@@ -143,7 +129,6 @@ public class VTickets implements Serializable {
 
     @JsonProperty("ticketType")
     private String tipoticket;
-    // promocion en oracle
     @JsonProperty("promotion")
     private String promocion;
 
@@ -177,52 +162,35 @@ public class VTickets implements Serializable {
 		return  Integer.valueOf( this.getCuota());
 	}
 
-public enum EstadoPago{
+    public enum EstadoPago{
 	PAGADO(1),
 	PENDIENTE(2),
 	ANULADO(3);
 	
-	EstadoPago(Integer v) {
-		
-		this.valor = v;
-		
-	}
+	    EstadoPago(Integer v) {
+		    this.valor = v;
+	    }
+
+	    public Integer getValor() { return valor; }
+
+	    private final Integer valor;
+        }
+
+        public enum EstadoPagoDiplomatura{
+	    PAGADO("F"),
+	    PENDIENTE("P"),
+	    ANULADO("A");
 	
-	public Integer getValor() {
+	    EstadoPagoDiplomatura(String v) {
+		
+		    this.valor = v;
+		
+	    }
+	
+	    private final String valor;
+
+	    public String getValor() {
 		return valor;
 	}
-
-	private final Integer valor;
-	
-	
-	
-	
-}
-
-public enum EstadoPagoDiplomatura{
-	PAGADO("F"),
-	PENDIENTE("P"),
-	ANULADO("A");
-	
-	EstadoPagoDiplomatura(String v) {
-		
-		this.valor = v;
-		
-	}
-	
-	private final String valor;
-
-	public String getValor() {
-		return valor;
-	}
-	
-	
-	
-	
-}
-
-
-
-
-
+        }
 }

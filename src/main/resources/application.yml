@@ -1,7 +1,7 @@
 server:
   port: 8080
   servlet:
-    context-path: /admission-event-service/api
+    context-path: /admission-event-service
   compression:
     enabled: true
     mime-types: application/json,application/xml,text/html,text/xml,text/plain

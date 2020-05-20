@@ -1,5 +1,6 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -31,6 +32,8 @@ public class PreviousStudies {
 
 	private Long estado;
 
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	@ApiModelProperty(example = "2019-06-31")
 	private LocalDate graduationDate;
 
 	private Long institutionId;

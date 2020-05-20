@@ -42,7 +42,7 @@ public class SubPeriod {
     @ApiModelProperty(value = "the subperiod's enrollment flag", example = "S")
     private String enrollment;
 
-    @ApiModelProperty(value = "Subperiod type, a.k.a tipo_cursado", example = "S")
+    @ApiModelProperty(value = "Subperiod type, a.k.a tipo_cursado", example = "2")
     private Long type;
     
     @JsonIgnore

@@ -40,7 +40,7 @@ public class Contact {
     @ApiModelProperty(value = "The informado's document type")
     private DocumentType documentType;
 
-    @ApiModelProperty(value = "The informado's document number", example = "2018-02-20")
+    @ApiModelProperty(value = "The informado's document number", example = "24235454")
     private Long documentNumber;
 
     @ApiModelProperty(value = "The informado's primary email", example = "DQGMJRWZBF@gmail.com")
@@ -58,7 +58,7 @@ public class Contact {
     @ApiModelProperty(value = "The study class", example = "1")
     private String studyClass;
 
-    @ApiModelProperty(value = "The amount of relatives that the user has in charge", example = "NAPELLIDO")
+    @ApiModelProperty(value = "The amount of relatives that the user has in charge", example = "2")
     private Long relatives;
 
     @ApiModelProperty(value = "Requested information", example = "GENERAL")

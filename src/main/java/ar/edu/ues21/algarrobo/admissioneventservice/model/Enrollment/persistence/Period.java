@@ -1,5 +1,6 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.persistence;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -23,14 +24,15 @@ public class Period {
     
     @ApiModelProperty(value = "the period's start date", example = "2019-01-03")
     private LocalDate from;
-    
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @ApiModelProperty(value = "the period's end date", example = "2019-06-31")
     private LocalDate to;
     
     @ApiModelProperty(value = "the period's name", example = "1/19 A")
     private String subPeriod;
 
-    @ApiModelProperty(value = "the period's name", example = "1/19 A")
+    @ApiModelProperty(value = "the period's name", example = "1")
     private Integer tipo;
 
     @JsonIgnore

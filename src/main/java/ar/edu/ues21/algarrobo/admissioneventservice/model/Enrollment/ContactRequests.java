@@ -1,5 +1,6 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -39,6 +40,7 @@ public class ContactRequests {
     @ApiModelProperty(value = "The preEnrollment CRM")
     private Long preEnrollmentCrm;
 
-    @ApiModelProperty(value = "The request's date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @ApiModelProperty(value = "The request's date", example="2019-06-31")
     private LocalDate requestDate;
 }

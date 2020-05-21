@@ -14,12 +14,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Location {
 
-    @ApiModelProperty(value = "location's id", example = "33")
+    @ApiModelProperty(value = "location's id", example = "42")
     private Long id;
 
-    @ApiModelProperty(value = "location's name", example = "JESUS MARIA")
+    @ApiModelProperty(value = "location's name", example = "MALAGUEÑO")
     private String name;
 
-    @ApiModelProperty(value = "location's province", example = "ARGENTINA")
+    @ApiModelProperty(value = "location's province")
     private Province province;
 }

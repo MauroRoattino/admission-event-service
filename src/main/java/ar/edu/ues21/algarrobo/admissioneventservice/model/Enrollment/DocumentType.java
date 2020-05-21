@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class DocumentType {
 
+    @ApiModelProperty(value = "Id", example = "1")
     private Long id;
 
     @ApiModelProperty(value = "name", example = "DNI")

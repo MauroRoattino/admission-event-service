@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CourseMode {
 
-    @ApiModelProperty(value = "the CourseMode's id")
+    @ApiModelProperty(value = "the CourseMode's id", example = "1")
     private Long id;
 
     @ApiModelProperty(value = "the CourseMode's code", example = "1")

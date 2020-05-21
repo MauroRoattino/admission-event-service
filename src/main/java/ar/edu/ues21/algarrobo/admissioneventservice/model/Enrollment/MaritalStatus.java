@@ -14,11 +14,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MaritalStatus {
 
+    @ApiModelProperty(value = "Id", example = "1")
     private Long id;
 
-    @ApiModelProperty(value = "the marital status", example = "CASADO")
+    @ApiModelProperty(value = "the marital status", example = "SOLTERO")
     private String name;
 
-    @ApiModelProperty(value = "The representation code", example = "C")
+    @ApiModelProperty(value = "The representation code", example = "S")
     private String code;
 }

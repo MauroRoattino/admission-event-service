@@ -1,6 +1,7 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.persistence;
 
 import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.exception.ServiceException;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,21 +11,29 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CalipsoCode {
 
+    @ApiModelProperty(example = "WI.01.12.01.05.07.02.22.10.EH")
     private String id;
 
+    @ApiModelProperty(example = "AM1")
     private String code;
 
     // rubro
+    @ApiModelProperty(example = "AM")
     private String sector;
 
+    @ApiModelProperty(example = "01")
     private String calypsoCareerId;
-    
+
+    @ApiModelProperty(example = "ARG-WI.01.12.01.05.07.02.22.10.EH")
     private String costCenter;
-    
+
+    @ApiModelProperty(example = "001")
     private String unidOp;
-    
+
+    @ApiModelProperty(example = "AM1")
     public String base;
-    
+
+    @ApiModelProperty(example = "1")
     public String productCode;
 
     public CalipsoCode(String id, String base, String unidOp) {

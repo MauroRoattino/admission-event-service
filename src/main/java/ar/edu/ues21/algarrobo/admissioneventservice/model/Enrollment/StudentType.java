@@ -1,9 +1,13 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public enum StudentType {
     NI("I"), RI("RI");
 
+    @ApiModelProperty(example = "RI")
     private String oraValue;
+    @ApiModelProperty(example = "R")
     private String sqlValue;
 
     StudentType(String val) {

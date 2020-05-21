@@ -1,5 +1,6 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,13 +13,18 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class User {
 
+    @ApiModelProperty(example = "92448")
     private Long id;
 
+    @ApiModelProperty(example = "OLIOTTA")
     private String usrPortal;
 
+    @ApiModelProperty(example = "S")
     private String active;
-    
+
+    @ApiModelProperty(example = "2019-03-20T03:00:00Z")
     private LocalDateTime fromDate;
 
+    @ApiModelProperty(example = "2019-03-20T03:00:00Z")
     private LocalDateTime passwordExpiration;
 }

@@ -14,33 +14,33 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Institution {
 
-    @ApiModelProperty(value = "institution's id", example = "33")
+    @ApiModelProperty(value = "institution's id", example = "414")
     private Long id;
 
-    @ApiModelProperty(value = "institution's name")
+    @ApiModelProperty(value = "institution's name", example = "UNIVERSIDAD NACIONAL DE TUCUMÁN")
     private String description;
 
     @ApiModelProperty(value = "location")
     private Location location;
 
-    @ApiModelProperty(value = "equivValid")
+    @ApiModelProperty(value = "equivValid", example = "2")
     private Long equivValid;
 
-    @ApiModelProperty(value = "sector")
+    @ApiModelProperty(value = "sector", example = "2")
     private Long sector;
 
-    @ApiModelProperty(value = "state")
+    @ApiModelProperty(value = "state", example = "2")
     private Long state;
 
-    @ApiModelProperty(value = "domId")
+    @ApiModelProperty(value = "domId", example = "1")
     private Long domId;
 
-    @ApiModelProperty(value = "kind")
+    @ApiModelProperty(value = "kind", example = "1")
     private Long kind;
 
-    @ApiModelProperty(value = "email")
+    @ApiModelProperty(value = "email", example = "-")
     private String email;
 
-    @ApiModelProperty(value = "cue")
+    @ApiModelProperty(value = "cue", example = "1")
     private Long cue;
 }

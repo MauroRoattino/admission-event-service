@@ -14,9 +14,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class StudyPlan{
 
-    @ApiModelProperty(value = "the StudyPlan's id")
+    @ApiModelProperty(value = "the StudyPlan's id", example = "2007")
     private Long id;
 
-    @ApiModelProperty(value = "the StudyPlan's name")
+    @ApiModelProperty(value = "the StudyPlan's name", example = "PLAN 2007")
     private String name;
 }

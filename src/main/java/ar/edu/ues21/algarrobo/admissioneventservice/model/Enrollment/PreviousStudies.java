@@ -23,7 +23,6 @@ public class PreviousStudies {
 
 	private long id;
 
-	@ApiModelProperty(value = "The student id", example = "1")
 	private Student studentId;
 
 	private Long cambioColegio;
@@ -33,7 +32,7 @@ public class PreviousStudies {
 	private Long estado;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-	@ApiModelProperty(example = "2019-06-31")
+	@ApiModelProperty(example = "2018-06-31")
 	private LocalDate graduationDate;
 
 	private Long institutionId;
@@ -52,12 +51,16 @@ public class PreviousStudies {
 
 	private Long motivoCambio;
 
+	@ApiModelProperty(example = "-")
 	private String observaciones;
 
+	@ApiModelProperty(example = "-")
 	private String otraLocalidadColegio;
 
+	@ApiModelProperty(example = "-")
 	private String otroColegio;
 
+	@ApiModelProperty(example = "-")
 	private String otroTitulo;
 
 	private Long paisId;

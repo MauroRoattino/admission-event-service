@@ -18,11 +18,13 @@ public class ContactRequests {
 
     private ContactRequestId id;
 
+    @ApiModelProperty(example = "2")
     private Long Status;
 
+    @ApiModelProperty(example = "19-FEB-03")
     private String statusDate;
 
-    @ApiModelProperty(value = "The attendance mode")
+    @ApiModelProperty(value = "The attendance mode", example = "1")
     private String attendanceMode;
 
     @ApiModelProperty(value = "The course mode")
@@ -34,10 +36,10 @@ public class ContactRequests {
     @ApiModelProperty(value = "The career information")
     private Career career;
 
-    @ApiModelProperty(value = "The user portal information")
+    @ApiModelProperty(value = "The user portal information", example = "CRSANCHEZ")
     private String usrPortal;
 
-    @ApiModelProperty(value = "The preEnrollment CRM")
+    @ApiModelProperty(value = "The preEnrollment CRM", example = "1")
     private Long preEnrollmentCrm;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")

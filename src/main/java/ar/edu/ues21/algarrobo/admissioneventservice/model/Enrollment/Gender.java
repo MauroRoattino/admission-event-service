@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Gender {
 
+    @ApiModelProperty(value = "id", example = "1")
     private Long id;
 
     @ApiModelProperty(value = "name", example = "MASCULINO")

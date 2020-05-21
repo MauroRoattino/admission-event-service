@@ -16,7 +16,7 @@ import java.math.RoundingMode;
 @NoArgsConstructor
 public class Scholarship {
 
-
+    @ApiModelProperty(example = "scholarship")
     private String description;
 
     @Builder.Default

@@ -20,13 +20,13 @@ import java.util.List;
 @JsonIgnoreProperties({"level"})
 public class StudyClass {
 
-    @ApiModelProperty(value = "the StudyClass's id")
+    @ApiModelProperty(value = "the StudyClass's id", example = "4")
     private Long id;
 
-    @ApiModelProperty(value = "the StudyClass's name")
+    @ApiModelProperty(value = "the StudyClass's name", example = "GRADO PRESENCIAL HOME")
     private String name;
 
-    @ApiModelProperty(value = "the StudyClass's code")
+    @ApiModelProperty(value = "the StudyClass's code", example = "4")
     private String code;
 
     @ApiModelProperty(value = "the StudyClass's state", example = "ACTIVE")

@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CreationSource {
 
+    @ApiModelProperty(value = "id", example = "6")
     private String id;
 
     @ApiModelProperty(value = "name", example = "WEB")

@@ -20,6 +20,6 @@ public class InstitutionTitle {
     @ApiModelProperty(value = "description", example = "TECNICO AGRONOMO GENERAL")
     private String description;
 
-    @ApiModelProperty(value = "institutionTitleLevel", example = "1")
+    @ApiModelProperty(value = "institutionTitleLevel")
     private InstitutionTitleLevel institutionTitleLevel;
 }

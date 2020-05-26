@@ -1,0 +1,35 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /admission-event-service
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+    min-response-size: 32KB
+    use-forward-headers: true
+
+admission-event-service:
+  oauthserver: ${OAUTH_HOST:http://ecampus2-trimix.uesiglo21.edu.ar:8080}
+
+security:
+  oauth2:
+    client:
+      clientid: ${SERVICES_OAUTH_CLIENT_ID:desa}
+      clientsecret: ${SERVICES_OAUTH_CLIENT_SECRET:desa}
+    resource:
+      tokenInfoUri: ${admission-event-service.oauthserver}/menu/api/oauth2/token_info
+
+messaging-prototype-version: ${MESSAGING_PROTOTYPE_VERSION:1.0.0}
+
+kafka:
+  bootstrap-servers: ${BOOTSTRAP_SERVER:localhost:9092}
+  topic:
+    admission:
+      pre_enrollment: admission.preenrollment
+
+ssl:
+  enabled: ${SSL_ENABLED:false}
+
+resources:
+  truststore:
+    location: ${PRODUCER_SECRET_PATH:msk-secrets.properties}

@@ -7,4 +7,4 @@ ARG ADMISSION_EVENT_SERVICE_VERSION
 COPY target/admission-event-service-${ADMISSION_EVENT_SERVICE_VERSION}.jar /opt/admission-event-service/admission-event-service.jar
 
 WORKDIR /opt/admission-event-service
-ENTRYPOINT ["java", "-Djsse.enableSNIExtension=false", "-jar", "admission-event-service.jar"]
+ENTRYPOINT ["java", "-Duser.timezone=America/Buenos_Aires", "-Djsse.enableSNIExtension=false", "-jar", "admission-event-service.jar"]

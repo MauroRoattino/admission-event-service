@@ -17,6 +17,8 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Configuration
 @PropertySources({
         @PropertySource("classpath:${resources.truststore.location}")
@@ -45,8 +47,8 @@ public class SenderConfig {
     public Map<String, Object> producerConfigs() {
         Map<String, Object> props = new HashMap<>();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+        //props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        //props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
         props.put(JsonSerializer.ADD_TYPE_INFO_HEADERS, false);
         if (sslEnabled) {
             props.put("security.protocol", "SSL");
@@ -60,7 +62,11 @@ public class SenderConfig {
 
     @Bean
     public ProducerFactory<String, EnrollmentEvent> enrollmentEventProducerFactory() {
-        return new DefaultKafkaProducerFactory<>(producerConfigs());
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.findAndRegisterModules();
+        JsonSerializer<EnrollmentEvent> jsonSerializer = new JsonSerializer<EnrollmentEvent>(objectMapper);
+
+        return new DefaultKafkaProducerFactory<>(producerConfigs(), new StringSerializer(), jsonSerializer);
     }
 
     @Bean

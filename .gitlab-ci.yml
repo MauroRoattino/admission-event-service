@@ -34,6 +34,7 @@ dockerize branch:
   stage: dockerize
   script:
     - ls target/
+    - docker-compose --version
     - docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} ${CI_REGISTRY}
     - docker build --build-arg ADMISSION_EVENT_SERVICE_VERSION=${ADMISSION_EVENT_SERVICE_VERSION} -t ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION} .
     - docker tag ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION} ${CI_REGISTRY_IMAGE}:latest
@@ -104,7 +105,6 @@ deploy:
     SSH_USERNAME: "deploy"
     SSH_KEY: ${SSH_PRIVATE_KEY_SIGLO21}
   script:
-    - gitlab-ssh "docker-compose --version"
     - gitlab-ssh "docker service rm admission-event-service || true"
     - gitlab-ssh "docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} ${CI_REGISTRY}"
     - gitlab-ssh "docker pull ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION}"

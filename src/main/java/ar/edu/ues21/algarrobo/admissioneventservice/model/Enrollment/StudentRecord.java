@@ -1,5 +1,6 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
@@ -25,9 +26,11 @@ public class StudentRecord {
     @JsonIgnore
     private String clientId;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @ApiModelProperty(example = "2011-08-01T13:17:14")
     private LocalDateTime startDate;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @ApiModelProperty(example = "2013-11-26T12:10:06")
     private LocalDateTime statusDate;
 
@@ -37,9 +40,11 @@ public class StudentRecord {
     @ApiModelProperty(example = "1")
     private Long accountantStatus;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @ApiModelProperty(example = "2008-01-30T18:11:29")
     private LocalDateTime academicStatusDate;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @ApiModelProperty(example = "2008-01-30T18:11:29")
     private LocalDateTime accountantStatusDate;
 

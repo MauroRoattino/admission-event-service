@@ -1,6 +1,8 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment;
 
 import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.persistence.Scholarship;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -38,9 +40,10 @@ public class VTickets{
     @JsonIgnore
     private String centroCostoId;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZ")
     @ApiModelProperty(example = "2020-06-20T00:00:00")
     @JsonProperty("expires")
-    private LocalDateTime vence;
+    private Date vence;
 
     @ApiModelProperty(example = "3")
     @JsonProperty( "installment")

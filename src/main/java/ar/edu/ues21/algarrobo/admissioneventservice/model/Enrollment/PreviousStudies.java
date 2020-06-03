@@ -1,5 +1,8 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,6 +22,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties({"cambioColegio", "cantMatAdeud","estado","materiasRecuperadas1","materiasRecuperadas2","materiasRecuperadas3","materiasRecuperadas4","materiasRecuperadas5","materiasRecuperadas6","motivoCambio","observaciones", "otraLocalidadColegio", "otroColegio","otroTitulo", "repeticionAnio1", "repeticionAnio2", "repeticionAnio3", "repeticionAnio4", "repeticionAnio5", "repeticionAnio6", "paisId" })
+@JsonInclude(Include.NON_NULL)
 public class PreviousStudies {
 
 	private long id;

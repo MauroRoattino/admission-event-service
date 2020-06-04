@@ -1,8 +1,5 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +10,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonInclude(Include.NON_NULL)
 public class CareerStudyPlanId {
 
 	@ApiModelProperty(value = "the CareerStudyPlan's career")

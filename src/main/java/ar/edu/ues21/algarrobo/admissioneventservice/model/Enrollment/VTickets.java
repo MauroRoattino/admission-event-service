@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.persistence.Scholarship;
@@ -18,13 +19,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.ToString;
-import lombok.var;
+//import lombok.var;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class VTickets{
 
     @ApiModelProperty(example = "435645")
@@ -88,7 +90,7 @@ public class VTickets{
 
     public Double getPrice() {
         Double basePrice = getBasePrice();
-        var otherPromotions = descuentos.stream().map(d -> d.getAmmount() ).reduce(0d, Double::sum) ;
+        Double otherPromotions = descuentos.stream().map(d -> d.getAmmount() ).reduce(0d, Double::sum) ;
         return round( basePrice - otherPromotions ,2);
 
     }

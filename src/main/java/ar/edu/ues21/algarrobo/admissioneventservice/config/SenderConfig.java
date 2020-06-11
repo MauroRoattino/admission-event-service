@@ -2,69 +2,63 @@ package ar.edu.ues21.algarrobo.admissioneventservice.config;
 
 import ar.edu.ues21.algarrobo.admissioneventservice.model.EnrollmentEvent;
 import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.common.config.SslConfigs;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.PropertySources;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
-@PropertySources({
-        @PropertySource("classpath:${resources.truststore.location}")
-})
 public class SenderConfig {
+
+    @Value("${kafka.config.path}")
+    private String KAFKA_CONFIG_PATH;
 
     @Value("${kafka.bootstrap-servers}")
     private String bootstrapServers;
 
-    @Value("${ssl.enabled}")
-    private boolean sslEnabled;
-
-    @Value("${ssl.truststore.location}")
-    private String truststoreLocation;
-
-    @Value("${ssl.keystore.location}")
-    private String keyStoreLocation;
-
-    @Value("${ssl.keystore.password}")
-    private String keyStorePassword;
-
-    @Value("${ssl.key.password}")
-    private String keyPassword;
-
     @Bean
     public Map<String, Object> producerConfigs() {
-        Map<String, Object> props = new HashMap<>();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        //props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        //props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
-        props.put(JsonSerializer.ADD_TYPE_INFO_HEADERS, false);
-        if (sslEnabled) {
-            props.put("security.protocol", "SSL");
-            props.put(SslConfigs.SSL_TRUSTSTORE_LOCATION_CONFIG, truststoreLocation);
-            props.put(SslConfigs.SSL_KEYSTORE_LOCATION_CONFIG, keyStoreLocation);
-            props.put(SslConfigs.SSL_KEYSTORE_PASSWORD_CONFIG, keyStorePassword);
-            props.put(SslConfigs.SSL_KEY_PASSWORD_CONFIG, keyPassword);
+        Map<String, Object> map = new HashMap<>();
+
+        Properties props = new Properties();
+        try {
+            props = loadConfig(KAFKA_CONFIG_PATH);
+        } catch (final IOException e) {
+            props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         }
-        return props;
+
+        props.put(ProducerConfig.ACKS_CONFIG, "all");
+        props.put(ProducerConfig.CLIENT_ID_CONFIG, "producer-prototype");
+        props.put(JsonSerializer.ADD_TYPE_INFO_HEADERS, false);
+
+        props.put(ProducerConfig.BATCH_SIZE_CONFIG, 12000 * 200);
+        props.put(ProducerConfig.LINGER_MS_CONFIG, 5);
+        props.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, "snappy");
+
+        map = (Map) props;
+
+        return map;
     }
 
     @Bean
     public ProducerFactory<String, EnrollmentEvent> enrollmentEventProducerFactory() {
-        ObjectMapper objectMapper = new ObjectMapper();
+        final ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.findAndRegisterModules();
-        JsonSerializer<EnrollmentEvent> jsonSerializer = new JsonSerializer<EnrollmentEvent>(objectMapper);
+        final JsonSerializer<EnrollmentEvent> jsonSerializer = new JsonSerializer<EnrollmentEvent>(objectMapper);
 
         return new DefaultKafkaProducerFactory<>(producerConfigs(), new StringSerializer(), jsonSerializer);
     }
@@ -72,5 +66,17 @@ public class SenderConfig {
     @Bean
     public KafkaTemplate<String, EnrollmentEvent> kafkaEnrollmentEventTemplate() {
         return new KafkaTemplate<>(enrollmentEventProducerFactory());
+    }
+
+    private static Properties loadConfig(final String configFile) throws IOException {
+        final File file = new File(configFile);
+        
+        System.out.println(file.getAbsolutePath());
+
+        final Properties cfg = new Properties();
+        try (InputStream inputStream = new FileInputStream(file)) {
+            cfg.load(inputStream);
+        }
+        return cfg;
     }
 }

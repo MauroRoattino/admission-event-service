@@ -19,17 +19,10 @@ security:
     resource:
       tokenInfoUri: ${admission-event-service.oauthserver}/menu/api/oauth2/token_info
 
-messaging-prototype-version: ${MESSAGING_PROTOTYPE_VERSION:1.0.0}
-
 kafka:
   bootstrap-servers: ${BOOTSTRAP_SERVER:localhost:9092}
+  config:
+    path: ${KAFKA_CONFIG_PATH:/run/secrets/kafka-producer-prototype.properties}
   topic:
     admission:
       pre_enrollment: admission.preenrollment
-
-ssl:
-  enabled: ${SSL_ENABLED:false}
-
-resources:
-  truststore:
-    location: ${PRODUCER_SECRET_PATH:msk-secrets.properties}

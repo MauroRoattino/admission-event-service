@@ -107,7 +107,7 @@ deploy:
     - gitlab-ssh "docker service rm admission-event-service || true"
     - gitlab-ssh "docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} ${CI_REGISTRY}"
     - gitlab-ssh "docker pull ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION}"
-    - gitlab-ssh "docker service create --name admission-event-service --label traefik.port=8080 --label 'traefik.frontend.rule=Host:apidev.ues21.edu.ar;PathPrefix:/admission-event-service/api' --label 'traefik.docker.network=lb_traefik' --network lb_traefik ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION}"
+    - gitlab-ssh "docker service create --name admission-event-service --secret kafka-producer-prototype.properties --label traefik.port=8080 --label 'traefik.frontend.rule=Host:apidev.ues21.edu.ar;PathPrefix:/admission-event-service/api' --label 'traefik.docker.network=lb_traefik' --network lb_traefik ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION}"
   when: manual
 
 # deploy master:

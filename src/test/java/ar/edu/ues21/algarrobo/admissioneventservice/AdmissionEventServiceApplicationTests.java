@@ -1,5 +1,10 @@
 package ar.edu.ues21.algarrobo.admissioneventservice;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertThat;
+import static org.springframework.kafka.test.assertj.KafkaConditions.key;
+import static org.springframework.kafka.test.hamcrest.KafkaMatchers.hasValue;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
@@ -22,9 +27,7 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.listener.ContainerProperties;
 import org.springframework.kafka.listener.KafkaMessageListenerContainer;
@@ -39,11 +42,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.EnrollmentEvent;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.Enrollment;
 import ar.edu.ues21.algarrobo.admissioneventservice.service.ProducerService;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertThat;
-import static org.springframework.kafka.test.assertj.KafkaConditions.key;
-import static org.springframework.kafka.test.hamcrest.KafkaMatchers.hasValue;
 
 @DirtiesContext
 @RunWith(SpringRunner.class)

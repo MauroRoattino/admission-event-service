@@ -18,6 +18,9 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -32,24 +35,22 @@ public class SenderConfig {
 
     @Bean
     public Map<String, Object> producerConfigs() {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map;
 
-        Properties props = new Properties();
         try {
-            props = loadConfig(KAFKA_CONFIG_PATH);
+            map = loadConfig(KAFKA_CONFIG_PATH);
         } catch (final IOException e) {
-            props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+            map = new HashMap<>();
+            map.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         }
 
-        props.put(ProducerConfig.ACKS_CONFIG, "all");
-        props.put(ProducerConfig.CLIENT_ID_CONFIG, "producer-prototype");
-        props.put(JsonSerializer.ADD_TYPE_INFO_HEADERS, false);
+        map.put(ProducerConfig.ACKS_CONFIG, "all");
+        map.put(ProducerConfig.CLIENT_ID_CONFIG, "producer-prototype");
+        map.put(JsonSerializer.ADD_TYPE_INFO_HEADERS, false);
 
-        props.put(ProducerConfig.BATCH_SIZE_CONFIG, 12000 * 200);
-        props.put(ProducerConfig.LINGER_MS_CONFIG, 5);
-        props.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, "snappy");
-
-        map = (Map) props;
+        map.put(ProducerConfig.BATCH_SIZE_CONFIG, 12000 * 200);
+        map.put(ProducerConfig.LINGER_MS_CONFIG, 5);
+        map.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, "snappy");
 
         return map;
     }
@@ -68,7 +69,7 @@ public class SenderConfig {
         return new KafkaTemplate<>(enrollmentEventProducerFactory());
     }
 
-    private static Properties loadConfig(final String configFile) throws IOException {
+    private static Map<String, Object> loadConfig(final String configFile) throws IOException {
         final File file = new File(configFile);
         
         System.out.println(file.getAbsolutePath());
@@ -77,6 +78,12 @@ public class SenderConfig {
         try (InputStream inputStream = new FileInputStream(file)) {
             cfg.load(inputStream);
         }
-        return cfg;
+
+        Stream<Entry<Object, Object>> stream = cfg.entrySet().stream();
+        Map<String, Object> mapOfProperties = stream.collect(Collectors.toMap(
+                e -> String.valueOf(e.getKey()),
+                e -> e.getValue()));
+
+        return mapOfProperties;
     }
 }

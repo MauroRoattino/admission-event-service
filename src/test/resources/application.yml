@@ -1,0 +1,10 @@
+admission-event-service:
+  oauthserver: ${OAUTH_HOST:http://ecampus2-trimix.uesiglo21.edu.ar:8080}
+
+kafka:
+  bootstrap-servers: ${spring.embedded.kafka.brokers}
+  config:
+    path: ${KAFKA_CONFIG_PATH:/run/secrets/kafka-producer-prototype-test.properties}
+  topic:
+    admission:
+      pre_enrollment: admission.test.preenrollment

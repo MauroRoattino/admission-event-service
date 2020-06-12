@@ -1,15 +1,17 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Set;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -30,12 +32,14 @@ public class Contact {
     @ApiModelProperty(value = "The informado's gender")
     private Gender gender;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @ApiModelProperty(value = "The informado's bithdate", example = "1977-05-16")
     private LocalDate birthdate;
 
     @ApiModelProperty(value = "The informado's gender")
     private MaritalStatus maritalStatus;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @ApiModelProperty(value = "The informado's status date", example = "2011-08-05")
     private LocalDate statusDate;
 

@@ -1,25 +1,32 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment;
 
-import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.persistence.Scholarship;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.persistence.Scholarship;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.ToString;
+//import lombok.var;
+
 @Data
 @Builder
-@JsonInclude(Include.NON_NULL)
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class VTickets{
 
     @ApiModelProperty(example = "435645")
@@ -38,9 +45,10 @@ public class VTickets{
     @JsonIgnore
     private String centroCostoId;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZ")
     @ApiModelProperty(example = "2020-06-20T00:00:00")
     @JsonProperty("expires")
-    private LocalDateTime vence;
+    private Date vence;
 
     @ApiModelProperty(example = "3")
     @JsonProperty( "installment")
@@ -82,7 +90,7 @@ public class VTickets{
 
     public Double getPrice() {
         Double basePrice = getBasePrice();
-        var otherPromotions = descuentos.stream().map(d -> d.getAmmount() ).reduce(0d, Double::sum) ;
+        Double otherPromotions = descuentos.stream().map(d -> d.getAmmount() ).reduce(0d, Double::sum) ;
         return round( basePrice - otherPromotions ,2);
 
     }

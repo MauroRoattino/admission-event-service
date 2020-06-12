@@ -40,14 +40,19 @@ public class ProducerService {
         future.addCallback(new ListenableFutureCallback<>() {
             @Override
             public void onSuccess(SendResult<String, EnrollmentEvent> response) {
-                System.out.println("Sent enrollment event=[" + enrollmentEvent.getEventType() +
-                        "] with offset=[" + response.getRecordMetadata().offset() + "]");
+                LOGGER.info("Sent [" + enrollmentEvent.getEventType() +
+                        "] in topic=[" + response.getRecordMetadata().topic() +
+                        "] to partition=[" + response.getRecordMetadata().partition() +
+                        "] with offset=[" + response.getRecordMetadata().offset() +
+                        "] and timestamp=[" + response.getRecordMetadata().timestamp() + "]");
+                        
                 result.setResult(ResponseEntity.ok(enrollmentEvent));
             }
             @Override
             public void onFailure(Throwable ex) {
-                System.out.println("Unable to send enrollment event due to : " + ex.getMessage());
-                result.setErrorResult(ex.getMessage());
+                LOGGER.error("Unable to send enrollment event due to : " + ex.getMessage(), ex);
+                
+                result.setErrorResult(ex);
             }
         });
         return result;

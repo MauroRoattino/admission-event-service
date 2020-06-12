@@ -1,14 +1,16 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment;
 
+import java.time.LocalDate;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.time.LocalDate;
 
 @Data
 @Builder
@@ -25,11 +27,11 @@ public class SubPeriod {
     @ApiModelProperty(value = "the subperiod's name", example = "Primer semestre 2019")
     private String name;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @ApiModelProperty(value = "the subperiod's start date", example = "2019-01-03")
     private LocalDate from;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @ApiModelProperty(value = "the subperiod's end date", example = "2019-06-31")
     private LocalDate to;
 

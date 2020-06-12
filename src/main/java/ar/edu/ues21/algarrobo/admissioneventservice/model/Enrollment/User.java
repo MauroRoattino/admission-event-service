@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -22,9 +24,11 @@ public class User {
     @ApiModelProperty(example = "S")
     private String active;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @ApiModelProperty(example = "2019-03-20T03:00:00Z")
     private LocalDateTime fromDate;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @ApiModelProperty(example = "2019-03-20T03:00:00Z")
     private LocalDateTime passwordExpiration;
 }

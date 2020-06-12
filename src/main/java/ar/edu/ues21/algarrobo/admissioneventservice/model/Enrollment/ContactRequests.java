@@ -1,13 +1,15 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment;
 
+import java.time.LocalDate;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.time.LocalDate;
 
 @ApiModel("ContactRequest")
 @Data

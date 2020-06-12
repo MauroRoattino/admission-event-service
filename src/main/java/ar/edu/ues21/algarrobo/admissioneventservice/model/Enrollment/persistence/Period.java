@@ -22,10 +22,11 @@ public class Period {
     @ApiModelProperty(value = "the period's name", example = "Primer semestre 2019")
     private String code;
     
+    @JsonFormat(shape = JsonFormat.Shape.STRING)    
     @ApiModelProperty(value = "the period's start date", example = "2019-01-03")
     private LocalDate from;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @ApiModelProperty(value = "the period's end date", example = "2019-06-31")
     private LocalDate to;
     

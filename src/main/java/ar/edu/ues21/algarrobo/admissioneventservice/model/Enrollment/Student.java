@@ -1,20 +1,21 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Set;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Set;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @ApiModel("Students")
 @Data
 @Builder
@@ -46,6 +47,7 @@ public class Student {
     @ApiModelProperty(value = "student's economic situation", example = "1")
     private Long economicSituation;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @ApiModelProperty(value = "student's status date", example = "2016-07-09T17:05:00")
     private LocalDateTime statusDate;
 
@@ -73,6 +75,7 @@ public class Student {
     @ApiModelProperty(value = "student's contact")
     private Contact contact;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @ApiModelProperty(value = "student's load date", example = "2003-03-20T03:00:00Z")
     private LocalDateTime loadDate;
 

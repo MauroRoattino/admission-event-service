@@ -51,9 +51,8 @@ public class SwaggerConfig {
     }
 
     private AuthorizationScope[] authorizationScopes() {
-        final AuthorizationScope[] authorizationScopes = new AuthorizationScope[2];
-        authorizationScopes[0] = new AuthorizationScope("admission-publish:read", "admission-publish:read");
-        authorizationScopes[1] = new AuthorizationScope("admission-publish:write", "admission-publish:write");
+        final AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+        authorizationScopes[0] = new AuthorizationScope("admission-publish:write", "Write scope");
         return authorizationScopes;
     }
 

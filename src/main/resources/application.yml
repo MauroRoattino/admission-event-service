@@ -9,13 +9,13 @@ server:
     use-forward-headers: true
 
 admission-event-service:
-  oauthserver: ${OAUTH_HOST:http://ecampus2-trimix.uesiglo21.edu.ar:8080}
+  oauthserver: ${OAUTH_HOST:https://sgupre.uesiglo21.edu.ar}
 
 security:
   oauth2:
     client:
-      clientid: ${SERVICES_OAUTH_CLIENT_ID:desa}
-      clientsecret: ${SERVICES_OAUTH_CLIENT_SECRET:desa}
+      clientid: ${SERVICES_OAUTH_CLIENT_ID:6480749741}
+      clientsecret: ${SERVICES_OAUTH_CLIENT_SECRET:a86ef557bb15ffa9e6706be7dc626680}
     resource:
       tokenInfoUri: ${admission-event-service.oauthserver}/menu/api/oauth2/token_info
 

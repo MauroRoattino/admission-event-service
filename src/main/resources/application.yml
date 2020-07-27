@@ -22,7 +22,7 @@ security:
 kafka:
   bootstrap-servers: ${BOOTSTRAP_SERVER:localhost:9092}
   config:
-    path: ${KAFKA_CONFIG_PATH:/run/secrets/kafka-producer-prototype.properties}
+    path: ${KAFKA_CONFIG_PATH:admission-event.properties}
   topic:
     admission:
       pre_enrollment: admission.preenrollment

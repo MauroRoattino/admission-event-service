@@ -44,13 +44,13 @@ public class SenderConfig {
             map.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         }
 
-        map.put(ProducerConfig.ACKS_CONFIG, "all");
-        map.put(ProducerConfig.CLIENT_ID_CONFIG, "producer-prototype");
-        map.put(JsonSerializer.ADD_TYPE_INFO_HEADERS, false);
+        map.putIfAbsent(ProducerConfig.ACKS_CONFIG, "all");
+        map.putIfAbsent(ProducerConfig.CLIENT_ID_CONFIG, "admission-event");
+        map.putIfAbsent(JsonSerializer.ADD_TYPE_INFO_HEADERS, false);
 
-        map.put(ProducerConfig.BATCH_SIZE_CONFIG, 12000 * 200);
-        map.put(ProducerConfig.LINGER_MS_CONFIG, 5);
-        map.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, "snappy");
+        map.putIfAbsent(ProducerConfig.BATCH_SIZE_CONFIG, 12000 * 200);
+        map.putIfAbsent(ProducerConfig.LINGER_MS_CONFIG, 5);
+        map.putIfAbsent(ProducerConfig.COMPRESSION_TYPE_CONFIG, "snappy");
 
         return map;
     }

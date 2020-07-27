@@ -4,7 +4,7 @@ admission-event-service:
 kafka:
   bootstrap-servers: ${spring.embedded.kafka.brokers}
   config:
-    path: ${KAFKA_CONFIG_PATH:/run/secrets/admission-event-test.properties}
+    path: ${ADMISSION_EVENT_KAFKA_CONFIG_PATH:/run/secrets/admission-event-test.properties}
   topic:
     admission:
       pre_enrollment: admission.test.preenrollment

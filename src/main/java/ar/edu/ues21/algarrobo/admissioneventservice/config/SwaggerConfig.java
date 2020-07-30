@@ -59,8 +59,6 @@ public class SwaggerConfig {
     @Bean
     public SecurityConfiguration security() {
         return SecurityConfigurationBuilder.builder()
-                .clientId(null)
-                .clientSecret(null)
                 .realm("admission-event-service-realm")
                 .appName("admission-event-service")
                 .scopeSeparator(",")

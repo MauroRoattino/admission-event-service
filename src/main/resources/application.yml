@@ -13,16 +13,13 @@ admission-event-service:
 
 security:
   oauth2:
-    client:
-      clientid: ${SERVICES_OAUTH_CLIENT_ID:6480749741}
-      clientsecret: ${SERVICES_OAUTH_CLIENT_SECRET:a86ef557bb15ffa9e6706be7dc626680}
     resource:
       tokenInfoUri: ${admission-event-service.oauthserver}/menu/api/oauth2/token_info
 
 kafka:
   bootstrap-servers: ${BOOTSTRAP_SERVER:localhost:9092}
   config:
-    path: ${ADMISSION_EVENT_KAFKA_CONFIG_PATH:/run/secrets/admission-event.properties}
+    path: ${ADMISSION_EVENT_KAFKA_CONFIG_PATH:/run/secrets/mensajeria-confluent-kafka.properties}
   topic:
     admission:
       pre_enrollment: admission.preenrollment

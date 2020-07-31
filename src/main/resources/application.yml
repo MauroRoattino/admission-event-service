@@ -19,7 +19,7 @@ security:
 kafka:
   bootstrap-servers: ${BOOTSTRAP_SERVER:localhost:9092}
   config:
-    path: ${ADMISSION_EVENT_KAFKA_CONFIG_PATH:/run/secrets/mensajeria-confluent-kafka.properties}
+    path: ${ADMISSION_EVENT_KAFKA_CONFIG_PATH:/run/secrets/mensajeria-admision-event-service-confluent-kafka}
   topic:
     admission:
       pre_enrollment: admission.preenrollment

@@ -118,7 +118,6 @@ deploy master:
     - $(aws ecr get-login --no-include-email --region ${AWS_REGION})
     - docker pull 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${AWS_DEPLOY_TOOL}:latest
     - docker run --rm -e DOCKER_MANAGER_IP=${AWS_INT_BACK_SWARM_MANAGER_HOST} -e AWS_REGION=${AWS_REGION} 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${AWS_DEPLOY_TOOL}:latest docker "service update --image 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID} --secret mensajeria-admision-event-service-confluent-kafka.properties --with-registry-auth ${SERVICE_NAME}"
-  when: manual
 
 deploy stable:
   image: hub.ues21.edu.ar/algarrobo/cigroup/docker:aws
@@ -140,4 +139,3 @@ deploy stable:
     - $(aws ecr get-login --no-include-email --region ${AWS_REGION})
     - docker pull 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${AWS_DEPLOY_TOOL}:stable
     - docker run --rm -e DOCKER_MANAGER_IP=${AWS_QA_BACK_SWARM_MANAGER_HOST} -e AWS_REGION=${AWS_REGION} 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${AWS_DEPLOY_TOOL}:stable docker "service update --image 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID} --secret mensajeria-admision-event-service-confluent-kafka.properties --with-registry-auth ${SERVICE_NAME}"
-  when: manual

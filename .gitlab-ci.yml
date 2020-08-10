@@ -1,7 +1,7 @@
 variables:
   UES21_REGISTRY_MIRROR: https://dockerhub.uesiglo21.edu.ar:5000
   COMPOSE_HTTP_TIMEOUT: 300
-  STACK_NAME: algarrobo
+  STACK_NAME: mensajeria
   REGISTRY_NAME: admission-event-service
   ADMISSION_EVENT_SERVICE_VERSION: ${RELEASE}.${CI_PIPELINE_ID}
 
@@ -60,6 +60,8 @@ dockerize aws:
     - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
     - docker push 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:latest
     - docker push 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
+  tags:
+    - aws-runner-alpine
 
 dockerize stable:
   image: hub.ues21.edu.ar/algarrobo/cigroup/docker:aws
@@ -83,7 +85,9 @@ dockerize stable:
     - docker push 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:stable
     - docker push 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
     - docker push 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:${CI_COMMIT_TAG}
-
+  tags:
+    - aws-runner-alpine
+  
 deploy:
   image: bitlogicos/gitlab-ssh
   stage: deploy
@@ -117,8 +121,10 @@ deploy master:
   script:
     - $(aws ecr get-login --no-include-email --region ${AWS_REGION})
     - docker pull 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${AWS_DEPLOY_TOOL}:latest
-    - docker run --rm -e DOCKER_MANAGER_IP=${AWS_INT_BACK_SWARM_MANAGER_HOST} -e AWS_REGION=${AWS_REGION} 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${AWS_DEPLOY_TOOL}:latest docker "service update --image 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID} --with-registry-auth ${SERVICE_NAME}"
-
+    - docker run --rm -e DOCKER_MANAGER_IP=${AWS_INT_BACK_SWARM_MANAGER_HOST} -e AWS_REGION=${AWS_REGION} 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${AWS_DEPLOY_TOOL}:latest docker "service update --image 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID} --with-registry-auth ${SERVICE_NAME}" -e int -c ${STACK_NAME}
+  tags:
+    - aws-runner-alpine
+  
 deploy stable:
   image: hub.ues21.edu.ar/algarrobo/cigroup/docker:aws
   only:
@@ -138,4 +144,7 @@ deploy stable:
   script:
     - $(aws ecr get-login --no-include-email --region ${AWS_REGION})
     - docker pull 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${AWS_DEPLOY_TOOL}:stable
-    - docker run --rm -e DOCKER_MANAGER_IP=${AWS_QA_BACK_SWARM_MANAGER_HOST} -e AWS_REGION=${AWS_REGION} 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${AWS_DEPLOY_TOOL}:stable docker "service update --image 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID} --with-registry-auth ${SERVICE_NAME}"
+    - docker run --rm -e DOCKER_MANAGER_IP=${AWS_QA_BACK_SWARM_MANAGER_HOST} -e AWS_REGION=${AWS_REGION} 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${AWS_DEPLOY_TOOL}:stable docker "service update --image 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID} --with-registry-auth ${SERVICE_NAME}" -e qa -c ${STACK_NAME}
+  tags:
+    - aws-runner-alpine
+  

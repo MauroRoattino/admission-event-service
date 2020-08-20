@@ -1,6 +1,11 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.config;
 
 import ar.edu.ues21.algarrobo.admissioneventservice.model.EnrollmentEvent;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.StudentRecordEvent;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.UserContactEvent;
+
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,6 +48,9 @@ public class SenderConfig {
             map = new HashMap<>();
             map.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         }
+        map.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        map.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+
 
         map.putIfAbsent(ProducerConfig.ACKS_CONFIG, "all");
         map.putIfAbsent(ProducerConfig.CLIENT_ID_CONFIG, "admission-event");
@@ -85,5 +93,26 @@ public class SenderConfig {
                 e -> e.getValue()));
 
         return mapOfProperties;
+    }
+    
+    @Bean
+    public Producer<String, EnrollmentEvent> enrollmentEventProducer() {
+        Map<String, Object> props = producerConfigs();
+        props.put(ProducerConfig.CLIENT_ID_CONFIG, "enrollment-producer");
+        return new KafkaProducer<>(props);
+    }
+    
+    @Bean
+    public Producer<String, UserContactEvent> userContactEventProducer() {
+        Map<String, Object> props = producerConfigs();
+        props.put(ProducerConfig.CLIENT_ID_CONFIG, "user-contact-producer");
+        return new KafkaProducer<>(props);
+    }
+    
+    @Bean
+    public Producer<String, StudentRecordEvent> studentRecordEventProducer() {
+        Map<String, Object> props = producerConfigs();
+        props.put(ProducerConfig.CLIENT_ID_CONFIG, "student-record-producer");
+        return new KafkaProducer<>(props);
     }
 }

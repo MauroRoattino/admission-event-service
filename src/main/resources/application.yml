@@ -23,3 +23,7 @@ kafka:
   topic:
     admission:
       pre_enrollment: admission.preenrollment
+    academic_life:
+      student-record: academic-life.student-record
+    user:
+      contact: user.contact

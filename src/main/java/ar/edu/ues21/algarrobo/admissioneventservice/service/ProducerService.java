@@ -1,7 +1,22 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.service;
 
 import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.Enrollment;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.User.UserContact;
+import ar.edu.ues21.algarrobo.admissioneventservice.engine.ProducerEngine;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicOfferEvent;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.CauEvent;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.ClusterResponseMetadata;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.EnrollmentEvent;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.StudentRecordEvent;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.TicketEvent;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.UserContactEvent;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.AcademicLifeStudentRecord;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicOffer.AcademicOffer;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.Administration.AdministrationTicket;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.Cau.Cau;
+
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,40 +36,39 @@ public class ProducerService {
     @Value("${kafka.topic.admission.pre_enrollment}")
     private String preEnrollmentTopic;
 
-    private final KafkaTemplate<String, EnrollmentEvent> enrollmentEventKafkaTemplate;
+    private final ProducerEngine producerEngine;
 
     @Autowired
-    public ProducerService(KafkaTemplate<String, EnrollmentEvent> enrollmentEventKafkaTemplate) {
-        this.enrollmentEventKafkaTemplate = enrollmentEventKafkaTemplate;
+    public ProducerService(ProducerEngine producerEngine) {
+        this.producerEngine = producerEngine;
     }
 
-    public DeferredResult<ResponseEntity<EnrollmentEvent>> sendEnrollmentEvent(
-            Enrollment enrollmentResponse, String eventType) {
-
-        EnrollmentEvent enrollmentEvent = new EnrollmentEvent(eventType, enrollmentResponse);
-
-        ListenableFuture<SendResult<String, EnrollmentEvent>> future = enrollmentEventKafkaTemplate.send(preEnrollmentTopic, enrollmentEvent);
-
-        final DeferredResult<ResponseEntity<EnrollmentEvent>> result = new DeferredResult<>();
-
-        future.addCallback(new ListenableFutureCallback<>() {
-            @Override
-            public void onSuccess(SendResult<String, EnrollmentEvent> response) {
-                LOGGER.info("Sent [" + enrollmentEvent.getEventType() +
-                        "] in topic=[" + response.getRecordMetadata().topic() +
-                        "] to partition=[" + response.getRecordMetadata().partition() +
-                        "] with offset=[" + response.getRecordMetadata().offset() +
-                        "] and timestamp=[" + response.getRecordMetadata().timestamp() + "]");
-                        
-                result.setResult(ResponseEntity.ok(enrollmentEvent));
-            }
-            @Override
-            public void onFailure(Throwable ex) {
-                LOGGER.error("Unable to send enrollment event due to : " + ex.getMessage(), ex);
-                
-                result.setErrorResult(ex);
-            }
-        });
-        return result;
+    public DeferredResult<ResponseEntity<ClusterResponseMetadata>> sendEnrollmentEvent(
+            Enrollment enrollmentResponse, String eventType, String source) {
+        EnrollmentEvent enrollmentEvent = new EnrollmentEvent(enrollmentResponse, eventType, source);
+        return producerEngine.sendEnrollmentEvent(enrollmentEvent);
     }
+
+    public void sendEnrollmentEvents(List<Enrollment> enrollments, String eventType, String source) {
+        for (Enrollment enrollment : enrollments) {
+            sendEnrollmentEvent(enrollment, eventType, source);
+        }
+    }
+
+   
+
+    public DeferredResult<ResponseEntity<ClusterResponseMetadata>> sendUserContactEvent(
+            UserContact userContact, String evenType, String source) {
+        UserContactEvent userContactEvent = new UserContactEvent(userContact, evenType, source);
+        return producerEngine.sendUserContactEvent(userContactEvent);
+    }
+
+    public DeferredResult<ResponseEntity<ClusterResponseMetadata>> sendStudentRecordEvent(
+            AcademicLifeStudentRecord studentRecord, String eventType, String source) {
+        StudentRecordEvent studentRecordEvent = new StudentRecordEvent(studentRecord, eventType, source);
+        return producerEngine.sendStudentRecordEvent(studentRecordEvent);
+    }
+
+  
+
 }

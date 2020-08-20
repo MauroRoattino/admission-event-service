@@ -114,7 +114,7 @@ public class AdmissionEventServiceApplicationTests {
     @Test
     public void it_should_send_enrollment_event() throws InterruptedException, IOException {
         Enrollment enrollment = enrollmentEvent.getData();
-        kafkaMessageProducerService.sendEnrollmentEvent(enrollment, enrollmentEvent.getEventType());
+        kafkaMessageProducerService.sendEnrollmentEvent(enrollment, enrollmentEvent.getEventType(), "pre-enrollment-event-test");
 
         ConsumerRecord<String, String> received = consumerRecords.poll(10, TimeUnit.SECONDS);
 

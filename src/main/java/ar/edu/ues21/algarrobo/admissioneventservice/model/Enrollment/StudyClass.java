@@ -1,5 +1,6 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -39,7 +40,7 @@ public class StudyClass {
     }
 
     public boolean isEDN(Long studyClassId) {
-        var ednIds = Lists.newArrayList(10L, 13L, 15L, 17L, 18L, 19L, 45L);
+        ArrayList<Long> ednIds = Lists.newArrayList(10L, 13L, 15L, 17L, 18L, 19L, 45L);
         return ednIds.contains(studyClassId);
     }
 }

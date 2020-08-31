@@ -46,6 +46,9 @@ public class ContactAddress {
 
     @ApiModelProperty(value = "location", example = "Cordoba")
     private String location;
+    
+    @ApiModelProperty(value = "locationRef", example = "Cordoba,Cordoba,Argentina")
+    private Location locationRef;
 
     @ApiModelProperty(value = "locationId", example = "232")
     private Long locationId;

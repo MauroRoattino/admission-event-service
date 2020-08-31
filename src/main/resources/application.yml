@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8083
   servlet:
     context-path: /admission-event-service/api
   compression:
@@ -10,16 +10,26 @@ server:
 
 admission-event-service:
   oauthserver: ${OAUTH_HOST:http://ecampus2-trimix.uesiglo21.edu.ar:8080}
+  
+admission-api-service:
+  base-url: ${ADMISSION_API_URL:http://apidev.ues21.edu.ar/admission-api/api/} 
+
+oauth.retrofit.oauthUrl: ${OAUTH_URL:http://ecampus2-trimix.uesiglo21.edu.ar:8080/menu/api/oauth2/}
+oauth.retrofit.clientid: ${SERVICES_OAUTH_CLIENT_ID:desa}
+oauth.retrofit.clientsecret: ${SERVICES_OAUTH_CLIENT_SECRET:desa}
 
 security:
   oauth2:
+    client:
+      clientId: ${OAUTH_CLIENT_ID:desa}
+      clientSecret: ${OAUTH_CLIENT_SECRET:desa}
     resource:
       tokenInfoUri: ${admission-event-service.oauthserver}/menu/api/oauth2/token_info
 
 kafka:
   bootstrap-servers: ${BOOTSTRAP_SERVER:localhost:9092}
   config:
-    path: ${ADMISSION_EVENT_KAFKA_CONFIG_PATH:/run/secrets/mensajeria-admision-event-service-confluent-kafka.properties}
+    path: ${ADMISSION_EVENT_KAFKA_CONFIG_PATH:/run/secrets/mensajeria-admision-event-service-confluent-kafka.qa.properties}
   topic:
     admission:
       pre_enrollment: admission.preenrollment

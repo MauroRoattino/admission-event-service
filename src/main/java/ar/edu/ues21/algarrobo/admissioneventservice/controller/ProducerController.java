@@ -53,6 +53,10 @@ public class ProducerController {
             @RequestHeader(value = "eventType", defaultValue = "pre-enrollment-event") String eventType,
             @RequestHeader(value = "source", defaultValue = "-") String source) {
         LOGGER.info("Sending message");
+        for ( var ticket: enrollmentEvent.getTickets()) {
+        	ticket.setValorBruto(0.0);
+        	ticket.setPriceId(0L);
+        }
         try {
     		Set<ContactAddress> addresses = enrollmentEvent.getStudentRecord().getStudent().getContact().getAddresses();
     		ContactAddress address = addresses.stream().findFirst().get(); 

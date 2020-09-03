@@ -1,6 +1,9 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.Student;
 
+import ar.edu.ues21.algarrobo.admissioneventservice.model.User.UserAddress;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.util.List;
 
 public class AcademicLifeStudent {
 
@@ -14,6 +17,8 @@ public class AcademicLifeStudent {
     private String lastName;
 
     private Gender gender;
+
+    private List<UserAddress> addresses;
 
     @ApiModelProperty(name = "birthDate", example = "1987-10-30")
     private String birthDate;
@@ -41,20 +46,6 @@ public class AcademicLifeStudent {
 
     @ApiModelProperty(name = "personType", example = "Estudiante")
     private String personType;
-
-    @ApiModelProperty(name = "locationId", example = "1")
-    private Long locationId;
-
-    @ApiModelProperty(name = "provinceId", example = "1")
-    private Long provinceId;
-
-    @ApiModelProperty(name = "countryId", example = "4")
-    private Long countryId;
-    @ApiModelProperty(name = "primaryPhone", example = "1209382")
-    private String primaryPhone;
-
-    @ApiModelProperty(name = "secondaryPhone", example = "102830912")
-    private String secondaryPhone;
 
     public Long getId() {
         return id;
@@ -86,6 +77,14 @@ public class AcademicLifeStudent {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public List<UserAddress> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<UserAddress> addresses) {
+        this.addresses = addresses;
     }
 
     public String getBirthDate() {
@@ -160,43 +159,4 @@ public class AcademicLifeStudent {
         this.personType = personType;
     }
 
-    public Long getLocationId() {
-        return locationId;
-    }
-
-    public void setLocationId(Long locationId) {
-        this.locationId = locationId;
-    }
-
-    public Long getProvinceId() {
-        return provinceId;
-    }
-
-    public void setProvinceId(Long provinceId) {
-        this.provinceId = provinceId;
-    }
-
-    public Long getCountryId() {
-        return countryId;
-    }
-
-    public void setCountryId(Long countryId) {
-        this.countryId = countryId;
-    }
-
-    public String getPrimaryPhone() {
-        return primaryPhone;
-    }
-
-    public void setPrimaryPhone(String primaryPhone) {
-        this.primaryPhone = primaryPhone;
-    }
-
-    public String getSecondaryPhone() {
-        return secondaryPhone;
-    }
-
-    public void setSecondaryPhone(String secondaryPhone) {
-        this.secondaryPhone = secondaryPhone;
-    }
 }

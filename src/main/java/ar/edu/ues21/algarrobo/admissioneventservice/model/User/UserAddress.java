@@ -1,25 +1,24 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.model.User;
 
+import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.Location;
+
 public class UserAddress {
     private String apartment;
     private String details;
     private String fax;
     private String floor;
     private Long id;
-    private String location;
-    private Long locationId;
+    private Location location;
     private String neighborhood;
     private Long neighborhoodId;
     private String number;
     private String postalCode;
-    private String primaryPhone;
-    private String secondaryPhone;
+    private String telephoneNumber1;
+    private String telephoneNumber2;
     private String street;
     private Long streetId;
     private String tower;
     private Integer type;
-    private String provinceId;
-    private String countryId;
 
     public String getApartment() {
         return apartment;
@@ -61,20 +60,12 @@ public class UserAddress {
         this.id = id;
     }
 
-    public String getLocation() {
+    public Location getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(Location location) {
         this.location = location;
-    }
-
-    public Long getLocationId() {
-        return locationId;
-    }
-
-    public void setLocationId(Long locationId) {
-        this.locationId = locationId;
     }
 
     public String getNeighborhood() {
@@ -109,20 +100,20 @@ public class UserAddress {
         this.postalCode = postalCode;
     }
 
-    public String getPrimaryPhone() {
-        return primaryPhone;
+    public String getTelephoneNumber1() {
+        return telephoneNumber1;
     }
 
-    public void setPrimaryPhone(String primaryPhone) {
-        this.primaryPhone = primaryPhone;
+    public void setTelephoneNumber1(String telephoneNumber1) {
+        this.telephoneNumber1 = telephoneNumber1;
     }
 
-    public String getSecondaryPhone() {
-        return secondaryPhone;
+    public String getTelephoneNumber2() {
+        return telephoneNumber2;
     }
 
-    public void setSecondaryPhone(String secondaryPhone) {
-        this.secondaryPhone = secondaryPhone;
+    public void setTelephoneNumber2(String telephoneNumber2) {
+        this.telephoneNumber2 = telephoneNumber2;
     }
 
     public String getStreet() {
@@ -155,21 +146,5 @@ public class UserAddress {
 
     public void setType(Integer type) {
         this.type = type;
-    }
-
-    public String getProvinceId() {
-        return provinceId;
-    }
-
-    public void setProvinceId(String provinceId) {
-        this.provinceId = provinceId;
-    }
-
-    public String getCountryId() {
-        return countryId;
-    }
-
-    public void setCountryId(String countryId) {
-        this.countryId = countryId;
     }
 }

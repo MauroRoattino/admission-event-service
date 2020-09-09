@@ -38,4 +38,11 @@ public class Enrollment {
     private String failureMessage;
 
 	private PreviousStudies previousStudies;
+	
+	 @ApiModelProperty(value = "the opportunity detail id")
+	 private String opportunityDetailId;
+	
+	 @ApiModelProperty(value = "the student's site")
+	 private Site site;
+	
 }

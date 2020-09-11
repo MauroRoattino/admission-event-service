@@ -54,11 +54,11 @@ public class SenderConfig {
 
         map.putIfAbsent(ProducerConfig.ACKS_CONFIG, "all");
         map.putIfAbsent(ProducerConfig.CLIENT_ID_CONFIG, "admission-event");
-        map.putIfAbsent(JsonSerializer.ADD_TYPE_INFO_HEADERS, false);
+        //map.putIfAbsent(JsonSerializer.ADD_TYPE_INFO_HEADERS, false);
 
         map.putIfAbsent(ProducerConfig.BATCH_SIZE_CONFIG, 12000 * 200);
         map.putIfAbsent(ProducerConfig.LINGER_MS_CONFIG, 5);
-        map.putIfAbsent(ProducerConfig.COMPRESSION_TYPE_CONFIG, "snappy");
+        map.putIfAbsent(ProducerConfig.COMPRESSION_TYPE_CONFIG, "gzip");
 
         return map;
     }

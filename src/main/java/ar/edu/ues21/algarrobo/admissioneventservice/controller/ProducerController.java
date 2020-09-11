@@ -3,6 +3,7 @@ package ar.edu.ues21.algarrobo.admissioneventservice.controller;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.ContactAddress;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.Enrollment;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.Location;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.Student;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.User.UserContact;
 import ar.edu.ues21.algarrobo.admissioneventservice.client.admissionapi.AdmissionClient;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.ClusterResponseMetadata;
@@ -53,21 +54,30 @@ public class ProducerController {
             @RequestHeader(value = "eventType", defaultValue = "pre-enrollment-event") String eventType,
             @RequestHeader(value = "source", defaultValue = "-") String source) {
         LOGGER.info("Sending message");
-        for ( var ticket: enrollmentEvent.getTickets()) {
-        	ticket.setValorBruto(0.0);
-        	ticket.setPriceId(0L);
+        for (var ticket : enrollmentEvent.getTickets()) {
+            ticket.setValorBruto(0.0);
+            ticket.setPriceId(0L);
         }
-        try {
-    		Set<ContactAddress> addresses = enrollmentEvent.getStudentRecord().getStudent().getContact().getAddresses();
-    		ContactAddress address = addresses.stream().findFirst().get(); 
-    		var rep = amissionClient.getLocation(address.getLocationId()).execute();
-			Location locationRef = rep.body();
-    		address.setLocationRef(locationRef);
-    		}
-    		catch (Exception e) {
-    			LOGGER.error("Contact Address Location INVALID : "+ enrollmentEvent.getStudentRecord().getId() );
-    		}
-        
+        Student student = enrollmentEvent.getStudentRecord().getStudent();
+        student.getContact().setBirthdate(null);
+        student.setBirthDate(null);
+
+        enrollmentEvent.getStudentRecord().getStudent().getContact().getAddresses().stream().parallel()
+                .forEach(address -> {
+                    try {
+
+                        var rep = amissionClient.getLocation(address.getLocationId()).execute();
+                        if (rep.isSuccessful()) {
+                            Location locationRef = rep.body();
+                            address.setLocationRef(locationRef);
+                        }
+                    } catch (Exception e) {
+                        LOGGER.error(
+                                "Contact Address Location INVALID : " + enrollmentEvent.getStudentRecord().getId());
+                    }
+
+                });
+
         return producerService.sendEnrollmentEvent(enrollmentEvent, eventType, source);
     }
     

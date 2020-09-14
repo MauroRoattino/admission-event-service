@@ -239,19 +239,21 @@ public class AcademicLifeStudentRecord {
 		this.personType = personType;
 	}
 
-	public Date getValidityFrom() {
-		return validityFrom;
+	public Date getValidFrom() {
+		return validFrom;
 	}
 
-	public void setValidityFrom(Date validityFrom) {
-		this.validityFrom = validityFrom;
+	public void setValidFrom(Date validFrom) {
+		this.validFrom = validFrom;
 	}
 
-	public Date getValidityTo() {
-		return validityTo;
+	public Date getValidTo() {
+		return validTo;
 	}
 
-	public void setValidityTo(Date validityTo) {
-		this.validityTo = validityTo;
+	public void setValidTo(Date validTo) {
+		this.validTo = validTo;
 	}
+
+	
 }

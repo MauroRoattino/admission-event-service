@@ -66,10 +66,10 @@ public class AcademicLifeStudentRecord {
     private Integer efip_dif;
     
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Date validityFrom;
+    private Date validFrom;
     
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Date validityTo;
+    private Date validTo;
 
     public String getId() {
         return id;

@@ -17,4 +17,15 @@ public class Site {
     private Long sedId;
     private Long siteId;
     private Long siteRefId;
+
+    public String getType() {
+        if (id != null) {
+            if (id.startsWith("C")) {
+                return "CAU";
+            } else {
+                return "SEDE";
+            }
+        }
+        return null;
+    }
 }

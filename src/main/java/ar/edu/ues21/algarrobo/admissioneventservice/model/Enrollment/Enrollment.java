@@ -43,6 +43,9 @@ public class Enrollment {
 	 private String opportunityDetailId;
 	
 	 @ApiModelProperty(value = "the student's site")
-	 private Site site;
+     private Site site;
+     
+     @ApiModelProperty(value = "indicate the source of enrrollment source is a batch process from a private datasource")
+     private boolean massive;
 	
 }

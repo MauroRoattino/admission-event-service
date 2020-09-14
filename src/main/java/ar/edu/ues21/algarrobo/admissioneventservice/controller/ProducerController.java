@@ -1,8 +1,12 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.controller;
 
+import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.Contact;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.ContactAddress;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.ContactOrigin;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.ContactOriginId;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.Enrollment;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.Location;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.Student;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.User.UserContact;
 import ar.edu.ues21.algarrobo.admissioneventservice.client.admissionapi.AdmissionClient;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.ClusterResponseMetadata;
@@ -12,8 +16,12 @@ import ar.edu.ues21.algarrobo.admissioneventservice.service.ProducerService;
 import io.swagger.annotations.*;
 import retrofit2.Response;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
+import com.google.common.collect.Lists;
 
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.slf4j.Logger;
@@ -32,6 +40,9 @@ public class ProducerController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProducerController.class);
 
     private final ProducerService producerService;
+
+    private static final List<ContactOrigin> ORIGIN_MASSIVE =  List.of( ContactOrigin.builder().id(ContactOriginId.builder().origin(39l).build()).build());
+    private static final List<ContactOrigin> ORIGIN_ECOMERCE = List.of(ContactOrigin.builder().id(ContactOriginId.builder().origin(38l).build()).build());
 
     @Autowired
     public ProducerController(ProducerService producerService) {
@@ -53,21 +64,41 @@ public class ProducerController {
             @RequestHeader(value = "eventType", defaultValue = "pre-enrollment-event") String eventType,
             @RequestHeader(value = "source", defaultValue = "-") String source) {
         LOGGER.info("Sending message");
-        for ( var ticket: enrollmentEvent.getTickets()) {
-        	ticket.setValorBruto(0.0);
-        	ticket.setPriceId(0L);
+
+ 
+              
+
+        for (var ticket : enrollmentEvent.getTickets()) {
+            ticket.setValorBruto(0.0);
+            ticket.setPriceId(0L);
         }
-        try {
-    		Set<ContactAddress> addresses = enrollmentEvent.getStudentRecord().getStudent().getContact().getAddresses();
-    		ContactAddress address = addresses.stream().findFirst().get(); 
-    		var rep = amissionClient.getLocation(address.getLocationId()).execute();
-			Location locationRef = rep.body();
-    		address.setLocationRef(locationRef);
-    		}
-    		catch (Exception e) {
-    			LOGGER.error("Contact Address Location INVALID : "+ enrollmentEvent.getStudentRecord().getId() );
-    		}
-        
+        Student student = enrollmentEvent.getStudentRecord().getStudent();
+
+  
+        Contact contact = student.getContact();
+
+        if (enrollmentEvent.isMassive()) {
+            contact.setOrigin(ORIGIN_MASSIVE);
+        } else {
+            contact.setOrigin(ORIGIN_ECOMERCE);
+        }
+
+        contact.getAddresses().stream()
+                .filter(a -> a.getLocationRef() == null && a.getLocationId() != null).parallel().forEach(address -> {
+                    try {
+
+                        var rep = amissionClient.getLocation(address.getLocationId()).execute();
+                        if (rep.isSuccessful()) {
+                            Location locationRef = rep.body();
+                            address.setLocationRef(locationRef);
+                        }
+                    } catch (Exception e) {
+                        LOGGER.error(
+                                "Contact Address Location INVALID : " + enrollmentEvent.getStudentRecord().getId());
+                    }
+
+                });
+
         return producerService.sendEnrollmentEvent(enrollmentEvent, eventType, source);
     }
     

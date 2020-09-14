@@ -10,6 +10,7 @@ import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.SubjectSt
 import io.swagger.annotations.ApiModelProperty;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 public class AcademicLifeStudentRecord {
@@ -28,10 +29,14 @@ public class AcademicLifeStudentRecord {
     private AcademicStatus academicStatus;
 
     private AcademicStatus accountantStatus;
+    
+    private AttendanceMode attendanceMode;
 
     private Site site;
 
     private AcademicLifeCau cau;
+    
+    private String personType;
 
     private Sede sede;
 
@@ -59,6 +64,12 @@ public class AcademicLifeStudentRecord {
 
     @ApiModelProperty(name = "efip_dif", example = "0")
     private Integer efip_dif;
+    
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private Date validityFrom;
+    
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private Date validityTo;
 
     public String getId() {
         return id;
@@ -211,4 +222,36 @@ public class AcademicLifeStudentRecord {
     public void setEfip_dif(Integer efip_dif) {
         this.efip_dif = efip_dif;
     }
+
+	public AttendanceMode getAttendanceMode() {
+		return attendanceMode;
+	}
+
+	public void setAttendanceMode(AttendanceMode attendanceMode) {
+		this.attendanceMode = attendanceMode;
+	}
+
+	public String getPersonType() {
+		return personType;
+	}
+
+	public void setPersonType(String personType) {
+		this.personType = personType;
+	}
+
+	public Date getValidityFrom() {
+		return validityFrom;
+	}
+
+	public void setValidityFrom(Date validityFrom) {
+		this.validityFrom = validityFrom;
+	}
+
+	public Date getValidityTo() {
+		return validityTo;
+	}
+
+	public void setValidityTo(Date validityTo) {
+		this.validityTo = validityTo;
+	}
 }

@@ -1,24 +1,24 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.model;
 
-import ar.edu.ues21.algarrobo.admissioneventservice.model.User.UserContact;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.User.UserData;
 import io.swagger.annotations.ApiModelProperty;
 
 public class UserContactEvent extends EventBase {
 
     @ApiModelProperty(name = "event data")
-    private UserContact data;
+    private UserData data;
 
-    public UserContactEvent(UserContact data, String eventType, String source) {
+    public UserContactEvent(UserData data, String eventType, String source) {
         this.data = data;
         this.setSource(source);
         this.setEventType(eventType);
     }
 
-    public UserContact getData() {
+    public UserData getData() {
         return data;
     }
 
-    public void setData(UserContact data) {
+    public void setData(UserData data) {
         this.data = data;
     }
 }

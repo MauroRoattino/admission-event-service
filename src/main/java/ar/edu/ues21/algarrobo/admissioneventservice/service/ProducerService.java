@@ -2,12 +2,12 @@ package ar.edu.ues21.algarrobo.admissioneventservice.service;
 
 import ar.edu.ues21.algarrobo.admissioneventservice.client.admissionapi.AdmissionClient;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.*;
-import ar.edu.ues21.algarrobo.admissioneventservice.model.User.UserContact;
 import ar.edu.ues21.algarrobo.admissioneventservice.engine.ProducerEngine;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.ClusterResponseMetadata;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.Enrollment;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.EnrollmentEvent;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.StudentRecordEvent;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.User.UserData;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.UserContactEvent;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.AcademicLifeStudentRecord;
 
@@ -21,8 +21,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.async.DeferredResult;
 
-import java.util.List;
-
 @Service
 public class ProducerService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProducerService.class);
@@ -30,7 +28,7 @@ public class ProducerService {
     @Value("${kafka.topic.admission.pre_enrollment}")
     private String preEnrollmentTopic;
 
-    private static final List<ContactOrigin> ORIGIN_MASSIVE =  List.of( ContactOrigin.builder().id(ContactOriginId.builder().origin(39l).build()).build());
+    private static final List<ContactOrigin> ORIGIN_MASSIVE =  List.of(ContactOrigin.builder().id(ContactOriginId.builder().origin(39l).build()).build());
     private static final List<ContactOrigin> ORIGIN_ECOMMERCE = List.of(ContactOrigin.builder().id(ContactOriginId.builder().origin(38l).build()).build());
 
     private final ProducerEngine producerEngine;
@@ -62,8 +60,8 @@ public class ProducerService {
         return producerEngine.sendUserContactEvent(userContactEvent);
     }
 
-    public void sendManyUserContactEvents(List<UserContact> userContactList, String eventType, String source) {
-        for (UserContact userContact : userContactList) {
+    public void sendManyUserContactEvents(List<UserData> userContactList, String eventType, String source) {
+        for (UserData userContact : userContactList) {
             this.sendUserContactEvent(userContact, eventType, source);
         }
     }
@@ -93,7 +91,7 @@ public class ProducerService {
         if (enrollmentEvent.isMassive()) {
             contact.setOrigin(ORIGIN_MASSIVE);
         } else {
-            contact.setOrigin(ORIGIN_ECOMERCE);
+            contact.setOrigin(ORIGIN_ECOMMERCE);
         }
 
         contact.getAddresses().stream()

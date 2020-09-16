@@ -1,11 +1,8 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.controller;
 
 import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.Enrollment;
-import ar.edu.ues21.algarrobo.admissioneventservice.model.User.UserContact;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.ClusterResponseMetadata;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.AcademicLifeStudentRecord;
-import ar.edu.ues21.algarrobo.admissioneventservice.model.ClusterResponseMetadata;
-import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.*;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.User.UserData;
 import ar.edu.ues21.algarrobo.admissioneventservice.service.ProducerService;
 import io.swagger.annotations.*;
@@ -21,7 +18,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
 
-import java.util.List;
 
 @Api(tags = "Producer")
 @RestController
@@ -112,7 +108,7 @@ public class ProducerController {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Messages sent")})
     @PostMapping(value = "/sendManyUserContactEvents")
     public ResponseEntity sendManyUserContactEvents(
-            @RequestBody List<UserContact> userContacts,
+            @RequestBody List<UserData> userContacts,
             @RequestHeader(value = "eventType", defaultValue = "contact-event") String eventType,
             @RequestHeader(value = "source", defaultValue = "-") String source) {
 

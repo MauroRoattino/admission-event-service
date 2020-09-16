@@ -4,6 +4,9 @@ import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.Enrollment;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.User.UserContact;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.ClusterResponseMetadata;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.AcademicLifeStudentRecord;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.ClusterResponseMetadata;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.*;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.User.UserData;
 import ar.edu.ues21.algarrobo.admissioneventservice.service.ProducerService;
 import io.swagger.annotations.*;
 
@@ -17,6 +20,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
+
+import java.util.List;
 
 @Api(tags = "Producer")
 @RestController
@@ -95,7 +100,7 @@ public class ProducerController {
     })
     @PostMapping(value = "/sendUserContactEvent/")
     public DeferredResult<ResponseEntity<ClusterResponseMetadata>> sendUserContactEvent(
-            @RequestBody UserContact contact,
+            @RequestBody UserData contact,
             @RequestHeader(value = "eventType", defaultValue = "contact-event") String eventType,
             @RequestHeader(value = "source", defaultValue = "-") String source) {
         LOGGER.info("Sending message");

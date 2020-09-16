@@ -5,6 +5,7 @@ import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.*;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.User.UserContact;
 import ar.edu.ues21.algarrobo.admissioneventservice.engine.ProducerEngine;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.ClusterResponseMetadata;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.Enrollment;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.EnrollmentEvent;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.StudentRecordEvent;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.UserContactEvent;
@@ -19,6 +20,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.async.DeferredResult;
+
+import java.util.List;
 
 @Service
 public class ProducerService {
@@ -54,8 +57,8 @@ public class ProducerService {
     }
 
     public DeferredResult<ResponseEntity<ClusterResponseMetadata>> sendUserContactEvent(
-            UserContact userContact, String evenType, String source) {
-        UserContactEvent userContactEvent = new UserContactEvent(userContact, evenType, source);
+            UserData userData, String evenType, String source) {
+        UserContactEvent userContactEvent = new UserContactEvent(userData, evenType, source);
         return producerEngine.sendUserContactEvent(userContactEvent);
     }
 
@@ -77,7 +80,6 @@ public class ProducerService {
         }
     }
 
-
     private void processEnrollmentEvent(Enrollment enrollmentEvent) {
         for (var ticket : enrollmentEvent.getTickets()) {
             ticket.setValorBruto(0.0);
@@ -85,19 +87,20 @@ public class ProducerService {
         }
         Student student = enrollmentEvent.getStudentRecord().getStudent();
 
+
         Contact contact = student.getContact();
 
         if (enrollmentEvent.isMassive()) {
             contact.setOrigin(ORIGIN_MASSIVE);
         } else {
-            contact.setOrigin(ORIGIN_ECOMMERCE);
+            contact.setOrigin(ORIGIN_ECOMERCE);
         }
 
         contact.getAddresses().stream()
                 .filter(a -> a.getLocationRef() == null && a.getLocationId() != null).parallel().forEach(address -> {
             try {
 
-                var rep = admissionClient.getLocation(address.getLocationId()).execute();
+                var rep = amissionClient.getLocation(address.getLocationId()).execute();
                 if (rep.isSuccessful()) {
                     Location locationRef = rep.body();
                     address.setLocationRef(locationRef);
@@ -108,5 +111,5 @@ public class ProducerService {
             }
 
         });
-    }
+    }    
 }

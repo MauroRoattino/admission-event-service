@@ -98,7 +98,7 @@ public class ProducerService {
                 .filter(a -> a.getLocationRef() == null && a.getLocationId() != null).parallel().forEach(address -> {
             try {
 
-                var rep = amissionClient.getLocation(address.getLocationId()).execute();
+                var rep = admissionClient.getLocation(address.getLocationId()).execute();
                 if (rep.isSuccessful()) {
                     Location locationRef = rep.body();
                     address.setLocationRef(locationRef);

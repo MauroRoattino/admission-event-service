@@ -30,8 +30,8 @@ public class ProducerController {
 
     private final ProducerService producerService;
 
-    private static final List<ContactOrigin> ORIGIN_MASSIVE = List.of(ContactOrigin.builder().id(ContactOriginId.builder().origin(39l).build()).build());
-    private static final List<ContactOrigin> ORIGIN_ECOMERCE = List.of(ContactOrigin.builder().id(ContactOriginId.builder().origin(38l).build()).build());
+    private static final String ORIGIN_MASSIVE ="39";
+    private static final String ORIGIN_ECOMERCE = "38";
 
     @Autowired
     public ProducerController(ProducerService producerService) {
@@ -65,9 +65,9 @@ public class ProducerController {
         Contact contact = student.getContact();
 
         if (enrollmentEvent.isMassive()) {
-            contact.setOrigin(ORIGIN_MASSIVE);
-        } else {
-            contact.setOrigin(ORIGIN_ECOMERCE);
+            contact.setCrmSource(ORIGIN_MASSIVE);
+        } else if (contact.getCrmSource() == null || contact.getCrmSource().length() == 0) {
+            contact.setCrmSource(ORIGIN_ECOMERCE);
         }
 
         contact.getAddresses().stream()

@@ -1,16 +1,13 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.engine;
 
 import ar.edu.ues21.algarrobo.admissioneventservice.model.*;
-import org.apache.catalina.Cluster;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.async.DeferredResult;
 
 @Component
 public class ProducerEngine {

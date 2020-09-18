@@ -34,7 +34,7 @@ public class PreviousStudies {
 	private Long estado;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-	@ApiModelProperty(example = "2018-06-31")
+	@ApiModelProperty(example = "2018-06-30")
 	private LocalDate graduationDate;
 
 	private Long institutionId;

@@ -76,7 +76,7 @@ public class Student {
     private Contact contact;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    @ApiModelProperty(value = "student's load date", example = "2003-03-20T03:00:00Z")
+    @ApiModelProperty(value = "student's load date", example = "2003-03-20T03:00:00")
     private LocalDateTime loadDate;
 
     @ApiModelProperty(value = "student's username", example = "1")

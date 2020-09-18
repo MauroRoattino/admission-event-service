@@ -1,502 +1,765 @@
 {
-    "eventType": "pre-enrollment-event",
-    "data": {
-       "period": {
-          "id": 6331,
-          "name": "1/20",
-          "from": "2020-01-01",
-          "to": "2020-12-31",
-          "salesFrom": "2019-09-01",
-          "salesTo": "2020-06-01",
-          "subperiods": [
-             {
-                "id": 7053,
-                "name": "01/20",
-                "from": "2020-01-01",
-                "to": "2020-06-30",
-                "description": "Periodo 1/20 VERANO",
-                "subperiod": "A",
-                "enrollment": "S",
-                "type": 1
-             },
-             {
-                "id": 6432,
-                "name": "1/20",
-                "from": "2020-01-01",
-                "to": "2020-06-30",
-                "description": "Periodo 1/20 A",
-                "subperiod": "A",
-                "enrollment": "S",
-                "type": 1
-             },
-             {
-                "id": 6969,
-                "name": "1/20",
-                "from": "2020-01-01",
-                "to": "2020-02-01",
-                "description": "Cursado Diplomaturas Extragrado 1/20",
-                "subperiod": "A",
-                "enrollment": "N",
-                "type": 10
-             },
-             {
-                "id": 6433,
-                "name": "1/20",
-                "from": "2020-02-01",
-                "to": "2020-12-31",
-                "description": "Periodo 1/20 B",
-                "subperiod": "B",
-                "enrollment": "N",
-                "type": 1
-             }
-          ]
-       },
-       "user": {
-          "id": null,
-          "usrPortal": null,
-          "active": null,
-          "fromDate": "2007-12-03T10:15:30",
-          "passwordExpiration": "2020-06-03T20:17:11"
-       },
-       "studentRecord": {
-          "id": "SIMU0001",
-          "startDate": "2020-06-03T20:17:10",
-          "statusDate": "2020-06-03T20:17:10",
-          "academicStatus": 1,
-          "accountantStatus": 1,
-          "academicStatusDate": "2020-06-03T20:17:10",
-          "accountantStatusDate": "2020-06-03T20:17:10",
-          "student": {
-             "id": 338562,
-             "name": "Stacy",
-             "lastName": "Walsh",
-             "gender": {
-                "id": 1,
-                "name": "MASCULINO",
-                "code": "M"
-             },
-             "birthDate": "2012-12-12",
-             "maritalStatus": {
-                "id": 0,
-                "name": "S/D",
-                "code": null
-             },
-             "economicSituation": 0,
-             "statusDate": "2020-02-14T11:01:17",
-             "documentType": {
-                "id": 0,
-                "name": "S/D"
-             },
-             "documentNumber": 127294,
-             "primaryEmail": "stacywalsh@1272901.co",
-             "secondaryEmail": "stacywalsh@1272901.co",
-             "birthPlace": {
-                "id": 6422,
-                "name": "ASDASD",
-                "province": {
-                   "id": 1,
-                   "name": "CORDOBA",
-                   "country": {
-                      "id": 4,
-                      "name": "ARGENTINA",
-                      "nationality": "ARGENTINA"
-                   }
-                }
-             },
-             "status": 0,
-             "usrPortal": "SWALSH41",
-             "contact": {
-                "id": 1033863,
-                "name": "Stacy",
-                "lastName": "Walsh",
-                "gender": {
-                   "id": 1,
-                   "name": "MASCULINO",
-                   "code": "M"
-                },
-                "birthdate": "2012-12-12",
-                "maritalStatus": {
-                   "id": 3,
-                   "name": "SEPARADO",
-                   "code": "E"
-                },
-                "statusDate": "2019-10-02",
-                "documentType": {
-                   "id": 0,
-                   "name": "S/D"
-                },
-                "documentNumber": 127294,
-                "primaryEmail": "StacyWalsh@1272901.co",
-                "secondaryEmail": "StacyWalsh@1272901.co",
-                "birthPlace": {
-                   "id": 6422,
-                   "name": "ASDASD",
-                   "province": {
-                      "id": 1,
-                      "name": "CORDOBA",
-                      "country": {
-                         "id": 4,
-                         "name": "ARGENTINA",
-                         "nationality": "ARGENTINA"
-                      }
-                   }
-                },
-                "usrPortal": "DAVINLOPEZ",
-                "studyClass": null,
-                "relatives": null,
-                "requestedInformation": "S/D",
-                "age": null,
-                "creationDate": "2019-10-02",
-                "informadoStatus": "1",
-                "creationSource": null,
-                "contactAvailability": null,
-                "status": 2,
-                "attendanceModeID": 2,
-                "attendanceMode": null,
-                "siteId": 112,
-                "firstContactName": null,
-                "categoriaInforme": 6,
-                "country": {
-                   "id": 141,
-                   "name": "ALBANIA",
-                   "nationality": null
-                },
-                "nationality": {
-                   "id": 4,
-                   "name": "ARGENTINA",
-                   "nationality": "ARGENTINA"
-                },
-                "addresses": [
-                   {
-                      "id": 1341168,
-                      "type": 2,
-                      "street": "Nestor kk",
-                      "streetId": 12106,
-                      "number": "678",
-                      "floor": null,
-                      "apartment": null,
-                      "tower": null,
-                      "neighborhood": "Cristilandia",
-                      "neighborhoodId": 3208,
-                      "location": "CALAFATE",
-                      "locationId": 667,
-                      "postalCode": null,
-                      "primaryPhone": "23132",
-                      "secondaryPhone": "23132",
-                      "fax": null,
-                      "details": null
-                   }
-                ],
-                "origin": [
-                   {
-                      "id": {
-                         "contact": null,
-                         "origin": 11
-                      },
-                      "status": null
-                   }
-                ],
-                "contactRequests": null,
-                "institutionId": {
-                   "id": 931,
-                   "description": "JUANA MANSO DE NORONA - IPEM 69\r",
-                   "location": null,
-                   "equivValid": 2,
-                   "sector": null,
-                   "state": null,
-                   "domId": null,
-                   "kind": null,
-                   "email": null,
-                   "cue": null
-                },
-                "titleId": {
-                   "id": 1562,
-                   "description": "ABOGADA",
-                   "institutionTitleLevel": {
-                      "id": 2,
-                      "description": "Terciario-no Universitario"
-                   }
-                },
-                "graduationDate": "2000-11-03",
-                "average": 6
-             },
-             "loadDate": "2020-02-14T11:01:17",
-             "sentKit": 2,
-             "receivedKit": 2,
-             "generatedCard": 2,
-             "studentType": 2,
-             "benefitKind": 0,
-             "enrollmentUser": "DAVINLOPEZ",
-             "nationality": {
+  "failureMessage": "Failed to generate tickets for: ABG01798",
+  "massive": true,
+  "opportunityDetailId": "string",
+  "period": {
+    "from": "2019-01-03",
+    "id": 0,
+    "name": "Primer semestre 2019",
+    "salesFrom": "2019-01-03",
+    "salesTo": "2019-06-30",
+    "subperiods": [
+      {
+        "description": "Periodo 1/19 A -- MARZO - MAYO",
+        "enrollment": "S",
+        "from": "2019-01-03",
+        "id": 0,
+        "name": "Primer semestre 2019",
+        "subperiod": "A",
+        "to": "2019-06-30",
+        "type": 2
+      }
+    ],
+    "to": "2019-06-30"
+  },
+  "previousStudies": {
+    "average": 0,
+    "cambioColegio": 0,
+    "cantMatAdeud": 0,
+    "estado": 0,
+    "graduationDate": "2018-06-30",
+    "id": 0,
+    "institutionId": 0,
+    "materiasRecuperadas1": 0,
+    "materiasRecuperadas2": 0,
+    "materiasRecuperadas3": 0,
+    "materiasRecuperadas4": 0,
+    "materiasRecuperadas5": 0,
+    "materiasRecuperadas6": 0,
+    "motivoCambio": 0,
+    "observaciones": "-",
+    "otraLocalidadColegio": "-",
+    "otroColegio": "-",
+    "otroTitulo": "-",
+    "paisId": 0,
+    "repeticionAnio1": 0,
+    "repeticionAnio2": 0,
+    "repeticionAnio3": 0,
+    "repeticionAnio4": 0,
+    "repeticionAnio5": 0,
+    "repeticionAnio6": 0,
+    "studentId": {
+      "addresses": [
+        {
+          "apartment": "a",
+          "details": "-",
+          "fax": "-",
+          "floor": 1,
+          "id": 1341178,
+          "location": "Cordoba",
+          "locationId": 232,
+          "locationRef": {
+            "id": 42,
+            "name": "MALAGUEÑO",
+            "province": {
+              "country": {
                 "id": 4,
                 "name": "ARGENTINA",
                 "nationality": "ARGENTINA"
-             },
-             "country": {
-                "id": 141,
-                "name": "ALBANIA",
-                "nationality": null
-             },
-             "addresses": [
-                {
-                   "id": 1341168,
-                   "type": 2,
-                   "street": "Nestor kk",
-                   "streetId": 12106,
-                   "number": "678",
-                   "floor": null,
-                   "apartment": null,
-                   "tower": null,
-                   "neighborhood": "Cristilandia",
-                   "neighborhoodId": 3208,
-                   "location": "CALAFATE",
-                   "locationId": 667,
-                   "postalCode": null,
-                   "primaryPhone": "23132",
-                   "secondaryPhone": "23132",
-                   "fax": null,
-                   "details": null
-                },
-                {
-                   "id": 1341014,
-                   "type": 2,
-                   "street": "Nestor kk",
-                   "streetId": 12106,
-                   "number": "678",
-                   "floor": null,
-                   "apartment": null,
-                   "tower": null,
-                   "neighborhood": "Cristilandia",
-                   "neighborhoodId": 3208,
-                   "location": "CALAFATE",
-                   "locationId": 667,
-                   "postalCode": null,
-                   "primaryPhone": null,
-                   "secondaryPhone": null,
-                   "fax": null,
-                   "details": null
-                }
-             ]
+              },
+              "id": 1,
+              "name": "CORDOBA"
+            }
           },
-          "status": 1,
-          "sedId": 6,
-          "careerStudyPlan": {
-             "id": {
-                "career": {
-                   "id": 2,
-                   "name": "Abogacía",
-                   "code": "VABG"
-                },
-                "studyPlan": {
-                   "id": 2020,
-                   "name": "PLAN 2020"
-                },
-                "studyClass": {
-                   "id": 20,
-                   "name": "GRADO PRESENCIAL .",
-                   "code": "20",
-                   "state": "ACTIVE",
-                   "attendanceModes": [
-                      {
-                         "id": 9,
-                         "code": "9",
-                         "name": "PRESENCIAL .",
-                         "group": null
-                      },
-                      {
-                         "id": 10,
-                         "code": "10",
-                         "name": "PRESENCIAL . RIO IV",
-                         "group": null
-                      }
-                   ]
-                }
-             },
-             "enabled": 1,
-             "home": 1
+          "neighborhood": "Sachi",
+          "neighborhoodId": 21234,
+          "number": 2678,
+          "postalCode": 5002,
+          "primaryPhone": 115484631,
+          "secondaryPhone": 654847,
+          "street": "Raymundo Montenegro",
+          "streetId": 21246,
+          "tower": "b",
+          "type": 2
+        }
+      ],
+      "benefitKind": 0,
+      "birthDate": "1971-09-18",
+      "birthPlace": {
+        "id": 42,
+        "name": "MALAGUEÑO",
+        "province": {
+          "country": {
+            "id": 4,
+            "name": "ARGENTINA",
+            "nationality": "ARGENTINA"
           },
-          "admissionCourse": 6433,
-          "origenInscripto": 4,
-          "enrollmentPaid": 0,
-          "inscriptionId": 1,
-          "siteId": 3,
-          "initialPeriod": {
-             "id": 6433,
-             "code": "1/20",
-             "from": "2020-02-01",
-             "to": "2020-12-31",
-             "subPeriod": "B",
-             "tipo": 1
-          },
-          "usrPortal": "CROBLEDO19",
-          "courseModeZoneSede": {
-             "id": 19,
-             "sedeId": 6,
-             "zoneId": 612,
-             "courseMode": {
+          "id": 1,
+          "name": "CORDOBA"
+        }
+      },
+      "contact": {
+        "addresses": [
+          {
+            "apartment": "a",
+            "details": "-",
+            "fax": "-",
+            "floor": 1,
+            "id": 1341178,
+            "location": "Cordoba",
+            "locationId": 232,
+            "locationRef": {
+              "id": 42,
+              "name": "MALAGUEÑO",
+              "province": {
+                "country": {
+                  "id": 4,
+                  "name": "ARGENTINA",
+                  "nationality": "ARGENTINA"
+                },
                 "id": 1,
-                "code": "1",
-                "name": "MAÑANA"
-             },
-             "zone": 2,
-             "status": 1
-          },
-          "siteRefId": null,
-          "idLms": null,
-          "attendanceMode": {
-             "id": 9,
-             "code": "9",
-             "name": "PRESENCIAL .",
-             "group": null
-          },
-          "future": 0,
-          "refState": null
-       },
-       "tickets": [
-          {
-             "estadoPago": null,
-             "estadoPagoDiplomatura": null,
-             "enviado": null,
-             "estadoContable": null,
-             "codigoDiplomatura": null,
-             "autorizado": null,
-             "scholarships": [],
-             "region": null,
-             "unidOpe": null,
-             "idMon": null,
-             "idSistemaOrigen": null,
-             "points": null,
-             "cau": null,
-             "usrPortal": null,
-             "priceId": null,
-             "price": 0,
-             "basePrice": 0,
-             "discountAmmount": 0,
-             "coutaInt": 3,
-             "id": null,
-             "detail": "ARANCELES EDN 3 SEMESTRES 2/20 ",
-             "costCenter": null,
-             "expires": "2020-07-03T03:00:00+0000",
-             "installment": "3",
-             "installments": "4",
-             "date": null,
-             "sector": null,
-             "subjects": 0,
-             "scholarship": 0,
-             "discount": 0,
-             "type": null,
-             "listPrice": 0,
-             "code": null,
-             "studentRecord": null,
-             "period": "2/20",
-             "group": null,
-             "career": null,
-             "ticketType": "II",
-             "promotion": null,
-             "calipsoPromotion": null,
-             "studentType": null,
-             "schedule": 6493,
-             "tariffType": 0,
-             "attendanceMode": null,
-             "discounts": []
-          },
-          {
-             "estadoPago": null,
-             "estadoPagoDiplomatura": null,
-             "enviado": null,
-             "estadoContable": null,
-             "codigoDiplomatura": null,
-             "autorizado": null,
-             "scholarships": [],
-             "region": null,
-             "unidOpe": null,
-             "idMon": null,
-             "idSistemaOrigen": null,
-             "points": null,
-             "cau": null,
-             "usrPortal": null,
-             "priceId": null,
-             "price": 0,
-             "basePrice": 0,
-             "discountAmmount": 0,
-             "coutaInt": 4,
-             "id": null,
-             "detail": "ARANCELES EDN 3 SEMESTRES 1/21 ",
-             "costCenter": null,
-             "expires": null,
-             "installment": "4",
-             "installments": "4",
-             "date": null,
-             "sector": null,
-             "subjects": 0,
-             "scholarship": 0,
-             "discount": 0,
-             "type": null,
-             "listPrice": 0,
-             "code": null,
-             "studentRecord": null,
-             "period": "1/21",
-             "group": null,
-             "career": null,
-             "ticketType": "II",
-             "promotion": null,
-             "calipsoPromotion": null,
-             "studentType": null,
-             "schedule": 6372,
-             "tariffType": 0,
-             "attendanceMode": null,
-             "discounts": []
-          },
-          {
-             "estadoPago": null,
-             "estadoPagoDiplomatura": null,
-             "enviado": null,
-             "estadoContable": null,
-             "codigoDiplomatura": null,
-             "autorizado": null,
-             "scholarships": [],
-             "region": null,
-             "unidOpe": null,
-             "idMon": null,
-             "idSistemaOrigen": null,
-             "points": null,
-             "cau": null,
-             "usrPortal": null,
-             "priceId": null,
-             "price": 0,
-             "basePrice": 0,
-             "discountAmmount": 0,
-             "coutaInt": 5,
-             "id": null,
-             "detail": "ARANCELES EDN 3 SEMESTRES 1/20 ",
-             "costCenter": null,
-             "expires": null,
-             "installment": "5",
-             "installments": "4",
-             "date": null,
-             "sector": null,
-             "subjects": 0,
-             "scholarship": 0,
-             "discount": 0,
-             "type": null,
-             "listPrice": 0,
-             "code": null,
-             "studentRecord": null,
-             "period": "1/20",
-             "group": null,
-             "career": null,
-             "ticketType": "II",
-             "promotion": null,
-             "calipsoPromotion": null,
-             "studentType": null,
-             "schedule": 6331,
-             "tariffType": 0,
-             "attendanceMode": null,
-             "discounts": []
+                "name": "CORDOBA"
+              }
+            },
+            "neighborhood": "Sachi",
+            "neighborhoodId": 21234,
+            "number": 2678,
+            "postalCode": 5002,
+            "primaryPhone": 115484631,
+            "secondaryPhone": 654847,
+            "street": "Raymundo Montenegro",
+            "streetId": 21246,
+            "tower": "b",
+            "type": 2
           }
-       ],
-       "processFailure": null,
-       "failureMessage": null,
-       "previousStudies": null
+        ],
+        "age": 40,
+        "attendanceMode": {
+          "code": 5,
+          "description": "PRESENCIAL",
+          "group": "D",
+          "id": 5,
+          "name": "PRESENCIAL HOME"
+        },
+        "attendanceModeID": 1,
+        "average": 7.5,
+        "birthPlace": {
+          "id": 42,
+          "name": "MALAGUEÑO",
+          "province": {
+            "country": {
+              "id": 4,
+              "name": "ARGENTINA",
+              "nationality": "ARGENTINA"
+            },
+            "id": 1,
+            "name": "CORDOBA"
+          }
+        },
+        "birthdate": "1977-05-16",
+        "categoriaInforme": 1,
+        "contactAvailability": {
+          "id": 1,
+          "name": "DNI"
+        },
+        "contactRequests": [
+          {
+            "attendanceMode": 1,
+            "career": {
+              "code": "VABG",
+              "id": 2,
+              "name": "Abogacía"
+            },
+            "country": {
+              "id": 4,
+              "name": "ARGENTINA",
+              "nationality": "ARGENTINA"
+            },
+            "courseMode": {
+              "code": 1,
+              "id": 1,
+              "name": "Mañana"
+            },
+            "id": {
+              "item": 2
+            },
+            "preEnrollmentCrm": 1,
+            "requestDate": "2019-06-30",
+            "status": 0,
+            "statusDate": "19-FEB-03",
+            "usrPortal": "CRSANCHEZ"
+          }
+        ],
+        "country": {
+          "id": 4,
+          "name": "ARGENTINA",
+          "nationality": "ARGENTINA"
+        },
+        "creationDate": "2008-01-30",
+        "creationSource": {
+          "id": 6,
+          "name": "WEB"
+        },
+        "documentNumber": 34107754,
+        "documentType": {
+          "id": 1,
+          "name": "DNI"
+        },
+        "firstContactName": "AMENGHI",
+        "gender": {
+          "code": "M",
+          "description": "FEMENINO",
+          "id": 1,
+          "name": "MASCULINO"
+        },
+        "graduationDate": "2010-10-20",
+        "id": 1032026,
+        "informadoStatus": 1,
+        "institutionId": {
+          "cue": 1,
+          "description": "UNIVERSIDAD NACIONAL DE TUCUMÁN",
+          "domId": 1,
+          "email": "-",
+          "equivValid": 2,
+          "id": 414,
+          "kind": 1,
+          "location": {
+            "id": 42,
+            "name": "MALAGUEÑO",
+            "province": {
+              "country": {
+                "id": 4,
+                "name": "ARGENTINA",
+                "nationality": "ARGENTINA"
+              },
+              "id": 1,
+              "name": "CORDOBA"
+            }
+          },
+          "sector": 2,
+          "state": 2
+        },
+        "lastName": "EIMFVQFAIJ",
+        "maritalStatus": {
+          "code": "S",
+          "id": 1,
+          "name": "SOLTERO"
+        },
+        "name": "CRISTIAN JULIO",
+        "nationality": {
+          "id": 4,
+          "name": "ARGENTINA",
+          "nationality": "ARGENTINA"
+        },
+        "origin": [
+          {
+            "id": {
+              "origin": 12
+            },
+            "status": 3
+          }
+        ],
+        "primaryEmail": "QVLIGWUFLP@gmail.com",
+        "relatives": 2,
+        "requestedInformation": "GENERAL",
+        "secondaryEmail": "LRLXJMIVST@gmail.com",
+        "siteId": 1,
+        "status": 1,
+        "statusDate": "2011-08-05",
+        "studyClass": 4,
+        "titleId": {
+          "description": "TECNICO AGRONOMO GENERAL",
+          "id": 33,
+          "institutionTitleLevel": {
+            "description": "SECUNDARIO",
+            "id": 33
+          }
+        },
+        "usrPortal": "CRSANCHEZ"
+      },
+      "country": {
+        "id": 4,
+        "name": "ARGENTINA",
+        "nationality": "ARGENTINA"
+      },
+      "documentNumber": 34107754,
+      "documentType": {
+        "id": 1,
+        "name": "DNI"
+      },
+      "economicSituation": 1,
+      "enrollmentUser": "GABUIN",
+      "gender": {
+        "code": "M",
+        "description": "FEMENINO",
+        "id": 1,
+        "name": "MASCULINO"
+      },
+      "generatedCard": 1,
+      "id": 11841,
+      "lastName": "EIMFVQFAIJ",
+      "loadDate": "2020-09-08T14:42:43",
+      "maritalStatus": {
+        "code": "S",
+        "id": 1,
+        "name": "SOLTERO"
+      },
+      "name": "CRISTIAN JULIO",
+      "nationality": {
+        "id": 4,
+        "name": "ARGENTINA",
+        "nationality": "ARGENTINA"
+      },
+      "primaryEmail": "QVLIGWUFLP@gmail.com",
+      "receivedKit": 2,
+      "secondaryEmail": "LRLXJMIVST@gmail.com",
+      "sentKit": 1,
+      "status": 1,
+      "statusDate": "2016-07-09T17:05:00",
+      "studentRecords": [
+        null
+      ],
+      "studentType": 2,
+      "usrPortal": "CRSANCHEZ"
+    },
+    "titleId": 0
+  },
+  "processFailure": "Tickets",
+  "site": {
+    "code": "string",
+    "id": "string",
+    "location": "string",
+    "name": "string",
+    "sedId": 0,
+    "siteId": 0,
+    "siteRefId": 0,
+    "type": "string"
+  },
+  "studentRecord": {
+    "academicStatus": 1,
+    "academicStatusDate": "2008-01-30T18:11:29",
+    "accountantStatus": 1,
+    "accountantStatusDate": "2008-01-30T18:11:29",
+    "admissionCourse": 99999,
+    "attendanceMode": {
+      "code": 5,
+      "description": "PRESENCIAL",
+      "group": "D",
+      "id": 5,
+      "name": "PRESENCIAL HOME"
+    },
+    "careerStudyPlan": {
+      "enabled": 2,
+      "home": 2,
+      "id": {
+        "career": {
+          "code": "VABG",
+          "id": 2,
+          "name": "Abogacía"
+        },
+        "studyClass": {
+          "attendanceModes": [
+            {
+              "code": 5,
+              "description": "PRESENCIAL",
+              "group": "D",
+              "id": 5,
+              "name": "PRESENCIAL HOME"
+            }
+          ],
+          "code": 4,
+          "id": 4,
+          "name": "GRADO PRESENCIAL HOME",
+          "state": "ACTIVE"
+        },
+        "studyPlan": {
+          "id": 2007,
+          "name": "PLAN 2007"
+        }
+      }
+    },
+    "courseModeZoneSede": {
+      "courseMode": {
+        "code": 1,
+        "id": 1,
+        "name": "Mañana"
+      },
+      "id": 3,
+      "sedeId": 4,
+      "status": 1,
+      "zone": 2,
+      "zoneId": 131
+    },
+    "enrollmentPaid": 1,
+    "future": 0,
+    "id": "ABG01798",
+    "idLms": "C",
+    "initialPeriod": {
+      "code": "Primer semestre 2019",
+      "from": "2019-01-03",
+      "id": 0,
+      "subPeriod": "1/19 A",
+      "tipo": 1,
+      "to": "2019-06-30"
+    },
+    "inscriptionId": 1,
+    "origenInscripto": 4,
+    "refState": {
+      "refAvailable": false,
+      "refMsg": "Habilitado"
+    },
+    "sedId": 4,
+    "siteId": 3,
+    "siteRefId": 3,
+    "startDate": "2011-08-01T13:17:14",
+    "status": 2,
+    "statusDate": "2013-11-26T12:10:06",
+    "student": {
+      "addresses": [
+        {
+          "apartment": "a",
+          "details": "-",
+          "fax": "-",
+          "floor": 1,
+          "id": 1341178,
+          "location": "Cordoba",
+          "locationId": 232,
+          "locationRef": {
+            "id": 42,
+            "name": "MALAGUEÑO",
+            "province": {
+              "country": {
+                "id": 4,
+                "name": "ARGENTINA",
+                "nationality": "ARGENTINA"
+              },
+              "id": 1,
+              "name": "CORDOBA"
+            }
+          },
+          "neighborhood": "Sachi",
+          "neighborhoodId": 21234,
+          "number": 2678,
+          "postalCode": 5002,
+          "primaryPhone": 115484631,
+          "secondaryPhone": 654847,
+          "street": "Raymundo Montenegro",
+          "streetId": 21246,
+          "tower": "b",
+          "type": 2
+        }
+      ],
+      "benefitKind": 0,
+      "birthDate": "1971-09-18",
+      "birthPlace": {
+        "id": 42,
+        "name": "MALAGUEÑO",
+        "province": {
+          "country": {
+            "id": 4,
+            "name": "ARGENTINA",
+            "nationality": "ARGENTINA"
+          },
+          "id": 1,
+          "name": "CORDOBA"
+        }
+      },
+      "contact": {
+        "addresses": [
+          {
+            "apartment": "a",
+            "details": "-",
+            "fax": "-",
+            "floor": 1,
+            "id": 1341178,
+            "location": "Cordoba",
+            "locationId": 232,
+            "locationRef": {
+              "id": 42,
+              "name": "MALAGUEÑO",
+              "province": {
+                "country": {
+                  "id": 4,
+                  "name": "ARGENTINA",
+                  "nationality": "ARGENTINA"
+                },
+                "id": 1,
+                "name": "CORDOBA"
+              }
+            },
+            "neighborhood": "Sachi",
+            "neighborhoodId": 21234,
+            "number": 2678,
+            "postalCode": 5002,
+            "primaryPhone": 115484631,
+            "secondaryPhone": 654847,
+            "street": "Raymundo Montenegro",
+            "streetId": 21246,
+            "tower": "b",
+            "type": 2
+          }
+        ],
+        "age": 40,
+        "attendanceMode": {
+          "code": 5,
+          "description": "PRESENCIAL",
+          "group": "D",
+          "id": 5,
+          "name": "PRESENCIAL HOME"
+        },
+        "attendanceModeID": 1,
+        "average": 7.5,
+        "birthPlace": {
+          "id": 42,
+          "name": "MALAGUEÑO",
+          "province": {
+            "country": {
+              "id": 4,
+              "name": "ARGENTINA",
+              "nationality": "ARGENTINA"
+            },
+            "id": 1,
+            "name": "CORDOBA"
+          }
+        },
+        "birthdate": "1977-05-16",
+        "categoriaInforme": 1,
+        "contactAvailability": {
+          "id": 1,
+          "name": "DNI"
+        },
+        "contactRequests": [
+          {
+            "attendanceMode": 1,
+            "career": {
+              "code": "VABG",
+              "id": 2,
+              "name": "Abogacía"
+            },
+            "country": {
+              "id": 4,
+              "name": "ARGENTINA",
+              "nationality": "ARGENTINA"
+            },
+            "courseMode": {
+              "code": 1,
+              "id": 1,
+              "name": "Mañana"
+            },
+            "id": {
+              "item": 2
+            },
+            "preEnrollmentCrm": 1,
+            "requestDate": "2019-06-30",
+            "status": 0,
+            "statusDate": "19-FEB-03",
+            "usrPortal": "CRSANCHEZ"
+          }
+        ],
+        "country": {
+          "id": 4,
+          "name": "ARGENTINA",
+          "nationality": "ARGENTINA"
+        },
+        "creationDate": "2008-01-30",
+        "creationSource": {
+          "id": 6,
+          "name": "WEB"
+        },
+        "documentNumber": 34107754,
+        "documentType": {
+          "id": 1,
+          "name": "DNI"
+        },
+        "firstContactName": "AMENGHI",
+        "gender": {
+          "code": "M",
+          "description": "FEMENINO",
+          "id": 1,
+          "name": "MASCULINO"
+        },
+        "graduationDate": "2010-10-20",
+        "id": 1032026,
+        "informadoStatus": 1,
+        "institutionId": {
+          "cue": 1,
+          "description": "UNIVERSIDAD NACIONAL DE TUCUMÁN",
+          "domId": 1,
+          "email": "-",
+          "equivValid": 2,
+          "id": 414,
+          "kind": 1,
+          "location": {
+            "id": 42,
+            "name": "MALAGUEÑO",
+            "province": {
+              "country": {
+                "id": 4,
+                "name": "ARGENTINA",
+                "nationality": "ARGENTINA"
+              },
+              "id": 1,
+              "name": "CORDOBA"
+            }
+          },
+          "sector": 2,
+          "state": 2
+        },
+        "lastName": "EIMFVQFAIJ",
+        "maritalStatus": {
+          "code": "S",
+          "id": 1,
+          "name": "SOLTERO"
+        },
+        "name": "CRISTIAN JULIO",
+        "nationality": {
+          "id": 4,
+          "name": "ARGENTINA",
+          "nationality": "ARGENTINA"
+        },
+        "origin": [
+          {
+            "id": {
+              "origin": 12
+            },
+            "status": 3
+          }
+        ],
+        "primaryEmail": "QVLIGWUFLP@gmail.com",
+        "relatives": 2,
+        "requestedInformation": "GENERAL",
+        "secondaryEmail": "LRLXJMIVST@gmail.com",
+        "siteId": 1,
+        "status": 1,
+        "statusDate": "2011-08-05",
+        "studyClass": 4,
+        "titleId": {
+          "description": "TECNICO AGRONOMO GENERAL",
+          "id": 33,
+          "institutionTitleLevel": {
+            "description": "SECUNDARIO",
+            "id": 33
+          }
+        },
+        "usrPortal": "CRSANCHEZ"
+      },
+      "country": {
+        "id": 4,
+        "name": "ARGENTINA",
+        "nationality": "ARGENTINA"
+      },
+      "documentNumber": 34107754,
+      "documentType": {
+        "id": 1,
+        "name": "DNI"
+      },
+      "economicSituation": 1,
+      "enrollmentUser": "GABUIN",
+      "gender": {
+        "code": "M",
+        "description": "FEMENINO",
+        "id": 1,
+        "name": "MASCULINO"
+      },
+      "generatedCard": 1,
+      "id": 11841,
+      "lastName": "EIMFVQFAIJ",
+      "loadDate": "2020-09-08T14:42:43",
+      "maritalStatus": {
+        "code": "S",
+        "id": 1,
+        "name": "SOLTERO"
+      },
+      "name": "CRISTIAN JULIO",
+      "nationality": {
+        "id": 4,
+        "name": "ARGENTINA",
+        "nationality": "ARGENTINA"
+      },
+      "primaryEmail": "QVLIGWUFLP@gmail.com",
+      "receivedKit": 2,
+      "secondaryEmail": "LRLXJMIVST@gmail.com",
+      "sentKit": 1,
+      "status": 1,
+      "statusDate": "2016-07-09T17:05:00",
+      "studentRecords": [
+        null
+      ],
+      "studentType": 2,
+      "usrPortal": "CRSANCHEZ"
+    },
+    "usrPortal": "OLIOTTA"
+  },
+  "tickets": [
+    {
+      "attendanceMode": 1,
+      "autorizado": 2,
+      "basePrice": 0,
+      "calipsoPromotion": 0,
+      "career": "01",
+      "cau": 3,
+      "code": 5,
+      "codigoDiplomatura": "C",
+      "costCenter": "ARG-WI.01.12.01.05.07.02.22.10.EH",
+      "coutaInt": 0,
+      "date": "2020-05-21T15:25:28.684859",
+      "detail": "Arancel A",
+      "discount": 0,
+      "discountAmmount": 0,
+      "discounts": [
+        {
+          "ammount": 20,
+          "fixed": false,
+          "name": "Refered",
+          "percentage": 30
+        }
+      ],
+      "enviado": "S",
+      "estadoContable": "H",
+      "estadoPago": "PAGADO",
+      "estadoPagoDiplomatura": "PAGADO",
+      "expires": "2020-10-17T00:00:00Z",
+      "group": "D",
+      "id": 435645,
+      "idMon": 0,
+      "idSistemaOrigen": 0,
+      "installment": 3,
+      "installments": 3,
+      "listPrice": 5000,
+      "period": "1/20",
+      "points": 100,
+      "price": 0,
+      "priceId": 12377168,
+      "promotion": "S/D",
+      "region": "SR",
+      "schedule": 6432,
+      "scholarship": 0,
+      "scholarships": [
+        {
+          "description": "scholarship",
+          "fixedAmmount": 0,
+          "percentage": 0,
+          "periodCode": "2/19",
+          "ticketType": "MM",
+          "type": "B"
+        }
+      ],
+      "sector": "AM",
+      "studentRecord": "ABG01798",
+      "studentType": "I",
+      "subjects": 0,
+      "tariffType": 1,
+      "ticketType": "II",
+      "type": "II",
+      "unidOpe": 2,
+      "usrPortal": "OLIOTTA"
     }
- }
+  ],
+  "user": {
+    "active": "S",
+    "fromDate": "2019-03-20T03:00:00",
+    "id": 92448,
+    "passwordExpiration": "2019-03-20T03:00:00",
+    "usrPortal": "OLIOTTA"
+  }
+}

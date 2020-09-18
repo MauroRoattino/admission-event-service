@@ -27,7 +27,7 @@ public class Period {
     private LocalDate from;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    @ApiModelProperty(value = "the period's end date", example = "2019-06-31")
+    @ApiModelProperty(value = "the period's end date", example = "2019-06-30")
     private LocalDate to;
     
     @ApiModelProperty(value = "the period's name", example = "1/19 A")

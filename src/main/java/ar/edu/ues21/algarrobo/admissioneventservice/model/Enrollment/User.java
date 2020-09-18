@@ -25,10 +25,10 @@ public class User {
     private String active;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    @ApiModelProperty(example = "2019-03-20T03:00:00Z")
+    @ApiModelProperty(example = "2019-03-20T03:00:00")
     private LocalDateTime fromDate;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    @ApiModelProperty(example = "2019-03-20T03:00:00Z")
+    @ApiModelProperty(example = "2019-03-20T03:00:00")
     private LocalDateTime passwordExpiration;
 }

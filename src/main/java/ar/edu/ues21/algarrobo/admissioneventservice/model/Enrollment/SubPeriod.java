@@ -32,7 +32,7 @@ public class SubPeriod {
     private LocalDate from;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    @ApiModelProperty(value = "the subperiod's end date", example = "2019-06-31")
+    @ApiModelProperty(value = "the subperiod's end date", example = "2019-06-30")
     private LocalDate to;
 
     @ApiModelProperty(value = "the subperiod's description", example = "Periodo 1/19 A -- MARZO - MAYO")

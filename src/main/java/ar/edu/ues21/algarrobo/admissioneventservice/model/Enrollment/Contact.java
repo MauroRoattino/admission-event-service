@@ -128,5 +128,8 @@ public class Contact {
     
     @ApiModelProperty(value = "The site id", example = "7.5")
     private Double average;
+
+    @ApiModelProperty(value = "Source code from crm", example = "38")
+    private String crmSource;
 }
 

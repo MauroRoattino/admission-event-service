@@ -1,7 +1,6 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.controller;
 
 import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.Enrollment;
-import ar.edu.ues21.algarrobo.admissioneventservice.model.ClusterResponseMetadata;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.AcademicLifeStudentRecord;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.User.UserData;
 import ar.edu.ues21.algarrobo.admissioneventservice.service.ProducerService;
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.async.DeferredResult;
 
 
 @Api(tags = "Producer")
@@ -39,12 +37,13 @@ public class ProducerController {
             @ApiResponse(code = 200, message = "Message sent")
     })
     @PostMapping(value = "/sendPreEnrollmentEvent/")
-    public DeferredResult<ResponseEntity<ClusterResponseMetadata>> sendAdmissionEvent(
+    public ResponseEntity sendAdmissionEvent(
             @RequestBody Enrollment enrollmentEvent,
             @RequestHeader(value = "eventType", defaultValue = "pre-enrollment-event") String eventType,
             @RequestHeader(value = "source", defaultValue = "-") String source) {
         LOGGER.info("Sending message");
-        return producerService.sendEnrollmentEvent(enrollmentEvent, eventType, source);
+        producerService.sendEnrollmentEvent(enrollmentEvent, eventType, source);
+        return ResponseEntity.ok("Pre enrollment event sent");
     }
 
     @PreAuthorize("#oauth2.hasScope('admission-publish:write')")
@@ -67,12 +66,13 @@ public class ProducerController {
             @ApiResponse(code = 200, message = "Message sent")
     })
     @PostMapping(value = "/sendStudentRecordEvent/")
-    public DeferredResult<ResponseEntity<ClusterResponseMetadata>> sendStudentRecordEvent(
+    public ResponseEntity sendStudentRecordEvent(
             @RequestBody AcademicLifeStudentRecord studentRecord,
             @RequestHeader(value = "eventType", defaultValue = "student-record-event") String eventType,
             @RequestHeader(value = "source", defaultValue = "-") String source) {
         LOGGER.info("Sending student-record event");
-        return producerService.sendStudentRecordEvent(studentRecord, eventType, source);
+        producerService.sendStudentRecordEvent(studentRecord, eventType, source);
+        return ResponseEntity.ok("Student record event sent");
     }
 
     @PreAuthorize("#oauth2.hasScope('student-record-publish:write')")
@@ -95,12 +95,13 @@ public class ProducerController {
             @ApiResponse(code = 200, message = "Message sent")
     })
     @PostMapping(value = "/sendUserContactEvent/")
-    public DeferredResult<ResponseEntity<ClusterResponseMetadata>> sendUserContactEvent(
+    public ResponseEntity sendUserContactEvent(
             @RequestBody UserData contact,
             @RequestHeader(value = "eventType", defaultValue = "contact-event") String eventType,
             @RequestHeader(value = "source", defaultValue = "-") String source) {
         LOGGER.info("Sending message");
-        return producerService.sendUserContactEvent(contact, eventType, source);
+        producerService.sendUserContactEvent(contact, eventType, source);
+        return ResponseEntity.ok("Contact event sent");
     }
 
     @PreAuthorize("#oauth2.hasScope('contact-publish:write')")

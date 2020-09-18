@@ -28,8 +28,8 @@ public class ProducerService {
     @Value("${kafka.topic.admission.pre_enrollment}")
     private String preEnrollmentTopic;
 
-    private static final List<ContactOrigin> ORIGIN_MASSIVE =  List.of(ContactOrigin.builder().id(ContactOriginId.builder().origin(39l).build()).build());
-    private static final List<ContactOrigin> ORIGIN_ECOMMERCE = List.of(ContactOrigin.builder().id(ContactOriginId.builder().origin(38l).build()).build());
+    private static final String ORIGIN_MASSIVE ="39";
+    private static final String ORIGIN_ECOMERCE = "38";
 
     private final ProducerEngine producerEngine;
     private final AdmissionClient admissionClient;
@@ -41,11 +41,11 @@ public class ProducerService {
     }
 
 
-    public DeferredResult<ResponseEntity<ClusterResponseMetadata>> sendEnrollmentEvent(
+    public void sendEnrollmentEvent(
             Enrollment enrollmentResponse, String eventType, String source) {
         this.processEnrollmentEvent(enrollmentResponse);
         EnrollmentEvent enrollmentEvent = new EnrollmentEvent(enrollmentResponse, eventType, source);
-        return producerEngine.sendEnrollmentEvent(enrollmentEvent);
+        producerEngine.sendEnrollmentEvent(enrollmentEvent);
     }
 
     public void sendManyAdmissionEvents(List<Enrollment> enrollments, String eventType, String source) {
@@ -54,10 +54,9 @@ public class ProducerService {
         }
     }
 
-    public DeferredResult<ResponseEntity<ClusterResponseMetadata>> sendUserContactEvent(
-            UserData userData, String evenType, String source) {
+    public void sendUserContactEvent(UserData userData, String evenType, String source) {
         UserContactEvent userContactEvent = new UserContactEvent(userData, evenType, source);
-        return producerEngine.sendUserContactEvent(userContactEvent);
+        producerEngine.sendUserContactEvent(userContactEvent);
     }
 
     public void sendManyUserContactEvents(List<UserData> userContactList, String eventType, String source) {
@@ -66,10 +65,9 @@ public class ProducerService {
         }
     }
 
-    public DeferredResult<ResponseEntity<ClusterResponseMetadata>> sendStudentRecordEvent(
-            AcademicLifeStudentRecord studentRecord, String eventType, String source) {
+    public void sendStudentRecordEvent(AcademicLifeStudentRecord studentRecord, String eventType, String source) {
         StudentRecordEvent studentRecordEvent = new StudentRecordEvent(studentRecord, eventType, source);
-        return producerEngine.sendStudentRecordEvent(studentRecordEvent);
+        producerEngine.sendStudentRecordEvent(studentRecordEvent);
     }
 
     public void sendManyStudentRecordEvents(List<AcademicLifeStudentRecord> studentRecordList, String eventType, String source) {
@@ -85,20 +83,19 @@ public class ProducerService {
         }
         Student student = enrollmentEvent.getStudentRecord().getStudent();
 
-
         Contact contact = student.getContact();
 
         if (enrollmentEvent.isMassive()) {
-            contact.setOrigin(ORIGIN_MASSIVE);
-        } else {
-            contact.setOrigin(ORIGIN_ECOMMERCE);
+            contact.setCrmSource(ORIGIN_MASSIVE);
+        } else if (contact.getCrmSource() == null || contact.getCrmSource().length() == 0) {
+            contact.setCrmSource(ORIGIN_ECOMERCE);
         }
 
         contact.getAddresses().stream()
                 .filter(a -> a.getLocationRef() == null && a.getLocationId() != null).parallel().forEach(address -> {
             try {
 
-                var rep = admissionClient.getLocation(address.getLocationId()).execute();
+                var rep = amissionClient.getLocation(address.getLocationId()).execute();
                 if (rep.isSuccessful()) {
                     Location locationRef = rep.body();
                     address.setLocationRef(locationRef);

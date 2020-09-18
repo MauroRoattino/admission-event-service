@@ -41,42 +41,29 @@ public class ProducerEngine {
         this.studentRecordEventProducer = studentRecordEventProducer;
     }
 
-    private DeferredResult<ResponseEntity<ClusterResponseMetadata>> sendMessage(Producer producer,
-                                                                                String topic, EventBase eventBase) {
-        final DeferredResult<ResponseEntity<ClusterResponseMetadata>> result = new DeferredResult<>();
+    private void sendMessage(Producer producer, String topic, EventBase eventBase) {
 
         producer.send(new ProducerRecord<>(topic, eventBase), (metadata, exception) -> {
             if (exception != null) {
                 exception.printStackTrace();
-                result.setErrorResult(exception);
             } else {
                 LOGGER.info("Produced record to topic {} partition [{}] @ offset {}.",
                         metadata.topic(), metadata.partition(), metadata.offset());
-                result.setResult(ResponseEntity.ok(new ClusterResponseMetadata(metadata)));
             }
         });
-
-        return result;
     }
 
-    public DeferredResult<ResponseEntity<ClusterResponseMetadata>> sendEnrollmentEvent(
-            EnrollmentEvent enrollmentEvent) {
-        return this.sendMessage(enrollmentEventProducer, ADMISSION_PREENROLLMENT_TOPIC, enrollmentEvent);
+    public void sendEnrollmentEvent(EnrollmentEvent enrollmentEvent) {
+        this.sendMessage(enrollmentEventProducer, ADMISSION_PREENROLLMENT_TOPIC, enrollmentEvent);
     }
 
-   
-
-  
-
-    public DeferredResult<ResponseEntity<ClusterResponseMetadata>> sendUserContactEvent(
+    public void sendUserContactEvent(
             UserContactEvent userContactEvent) {
-        return this.sendMessage(userContactEventProducer, USER_CONTACT_TOPIC, userContactEvent);
+        this.sendMessage(userContactEventProducer, USER_CONTACT_TOPIC, userContactEvent);
     }
 
-    public DeferredResult<ResponseEntity<ClusterResponseMetadata>> sendStudentRecordEvent(
+    public void sendStudentRecordEvent(
             StudentRecordEvent studentRecordEvent) {
-        return this.sendMessage(studentRecordEventProducer, STUDENT_RECORD_TOPIC, studentRecordEvent);
+        this.sendMessage(studentRecordEventProducer, STUDENT_RECORD_TOPIC, studentRecordEvent);
     }
-
-    
 }

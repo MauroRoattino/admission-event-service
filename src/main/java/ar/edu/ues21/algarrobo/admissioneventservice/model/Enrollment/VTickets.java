@@ -45,7 +45,7 @@ public class VTickets{
     @JsonIgnore
     private String centroCostoId;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZ")
     @ApiModelProperty(example = "2020-06-20T00:00:00")
     @JsonProperty("expires")
     private Date vence;

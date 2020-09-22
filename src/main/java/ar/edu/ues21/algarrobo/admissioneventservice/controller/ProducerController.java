@@ -54,7 +54,7 @@ public class ProducerController {
             @RequestHeader(value = "source", defaultValue = "-") String source) {
         LOGGER.info("Sending message");
 
-
+        if (enrollmentEvent.getTickets() != null)
         for (var ticket : enrollmentEvent.getTickets()) {
             ticket.setValorBruto(0.0);
             ticket.setPriceId(0L);

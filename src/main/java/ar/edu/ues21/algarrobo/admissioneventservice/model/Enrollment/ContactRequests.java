@@ -45,6 +45,6 @@ public class ContactRequests {
     private Long preEnrollmentCrm;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    @ApiModelProperty(value = "The request's date", example="2019-06-31")
+    @ApiModelProperty(value = "The request's date", example="2019-06-30")
     private LocalDate requestDate;
 }

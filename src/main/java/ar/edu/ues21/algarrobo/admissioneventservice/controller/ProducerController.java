@@ -34,16 +34,13 @@ public class ProducerController {
 
     private final ProducerService producerService;
     
-    private static final String ORIGIN_MASSIVE ="39";
-    private static final String ORIGIN_ECOMERCE = "38";
 
     @Autowired
     public ProducerController(ProducerService producerService) {
         this.producerService = producerService;
     }
     
-    @Autowired
-    private AdmissionClient amissionClient;
+
 
 
     @PreAuthorize("#oauth2.hasScope('admission-publish:write')")
@@ -59,39 +56,7 @@ public class ProducerController {
         LOGGER.info("Sending message");
      
 
-        if (enrollmentEvent.getTickets() != null)
-        for (var ticket : enrollmentEvent.getTickets()) {
-            ticket.setValorBruto(0.0);
-            ticket.setPriceId(0L);
-        }
-        Student student = enrollmentEvent.getStudentRecord().getStudent();
-
-
-        Contact contact = student.getContact();
-
-        if (enrollmentEvent.isMassive()) {
-            contact.setCrmSource(ORIGIN_MASSIVE);
-        } else if (contact.getCrmSource() == null || contact.getCrmSource().length() == 0) {
-            contact.setCrmSource(ORIGIN_ECOMERCE);
-        }
-
-        contact.getAddresses().stream()
-                .filter(a -> a.getLocationRef() == null && a.getLocationId() != null).parallel().forEach(address -> {
-            try {
-
-                var rep = amissionClient.getLocation(address.getLocationId()).execute();
-                if (rep.isSuccessful()) {
-                    Location locationRef = rep.body();
-                    address.setLocationRef(locationRef);
-                }
-            } catch (Exception e) {
-                LOGGER.error(
-                        "Contact Address Location INVALID : " + enrollmentEvent.getStudentRecord().getId());
-            }
-
-        });
-
-        producerService.sendEnrollmentEvent(enrollmentEvent, eventType, source);
+                producerService.sendEnrollmentEvent(enrollmentEvent, eventType, source);
         return ResponseEntity.ok("Pre enrollment event sent");
     }
     

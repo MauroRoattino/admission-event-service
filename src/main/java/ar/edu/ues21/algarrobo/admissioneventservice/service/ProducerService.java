@@ -3,7 +3,6 @@ package ar.edu.ues21.algarrobo.admissioneventservice.service;
 import ar.edu.ues21.algarrobo.admissioneventservice.client.admissionapi.AdmissionClient;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.*;
 import ar.edu.ues21.algarrobo.admissioneventservice.engine.ProducerEngine;
-import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.Enrollment;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.EnrollmentEvent;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.StudentRecordEvent;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.User.UserData;
@@ -27,6 +26,8 @@ public class ProducerService {
 
     private static final String ORIGIN_MASSIVE ="39";
     private static final String ORIGIN_ECOMERCE = "38";
+    
+    
 
     private final ProducerEngine producerEngine;
     private final AdmissionClient admissionClient;
@@ -74,34 +75,36 @@ public class ProducerService {
     }
 
     private void processEnrollmentEvent(Enrollment enrollmentEvent) {
-        for (var ticket : enrollmentEvent.getTickets()) {
-            ticket.setValorBruto(0.0);
-            ticket.setPriceId(0L);
-        }
-        Student student = enrollmentEvent.getStudentRecord().getStudent();
+    	if (enrollmentEvent.getTickets() != null)
+            for (var ticket : enrollmentEvent.getTickets()) {
+                ticket.setValorBruto(0.0);
+                ticket.setPriceId(0L);
+            }
+            Student student = enrollmentEvent.getStudentRecord().getStudent();
 
-        Contact contact = student.getContact();
 
-        if (enrollmentEvent.isMassive()) {
-            contact.setCrmSource(ORIGIN_MASSIVE);
-        } else if (contact.getCrmSource() == null || contact.getCrmSource().length() == 0) {
-            contact.setCrmSource(ORIGIN_ECOMERCE);
-        }
+            Contact contact = student.getContact();
 
-        contact.getAddresses().stream()
-                .filter(a -> a.getLocationRef() == null && a.getLocationId() != null).parallel().forEach(address -> {
-            try {
-
-                var rep = admissionClient.getLocation(address.getLocationId()).execute();
-                if (rep.isSuccessful()) {
-                    Location locationRef = rep.body();
-                    address.setLocationRef(locationRef);
-                }
-            } catch (Exception e) {
-                LOGGER.error(
-                        "Contact Address Location INVALID : " + enrollmentEvent.getStudentRecord().getId());
+            if (enrollmentEvent.isMassive()) {
+                contact.setCrmSource(ORIGIN_MASSIVE);
+            } else if (contact.getCrmSource() == null || contact.getCrmSource().length() == 0) {
+                contact.setCrmSource(ORIGIN_ECOMERCE);
             }
 
-        });
+            contact.getAddresses().stream()
+                    .filter(a -> a.getLocationRef() == null && a.getLocationId() != null).parallel().forEach(address -> {
+                try {
+
+                    var rep = admissionClient.getLocation(address.getLocationId()).execute();
+                    if (rep.isSuccessful()) {
+                        Location locationRef = rep.body();
+                        address.setLocationRef(locationRef);
+                    }
+                } catch (Exception e) {
+                    LOGGER.error(
+                            "Contact Address Location INVALID : " + enrollmentEvent.getStudentRecord().getId());
+                }
+
+            });
     }    
 }

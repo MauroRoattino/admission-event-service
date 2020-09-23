@@ -54,7 +54,6 @@ public class SenderConfig {
         map.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
 
         map.putIfAbsent(ProducerConfig.ACKS_CONFIG, ACKS_CONFIG);
-        
         map.putIfAbsent(ProducerConfig.BATCH_SIZE_CONFIG, BATCH_SIZE_CONFIG);
         map.putIfAbsent(ProducerConfig.LINGER_MS_CONFIG, LINGER_MS_CONFIG);
         map.putIfAbsent(ProducerConfig.COMPRESSION_TYPE_CONFIG, COMPRESSION_TYPE_CONFIG);

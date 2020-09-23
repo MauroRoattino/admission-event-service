@@ -13,6 +13,10 @@ public class AcademicOfferEvent extends EventBase {
         this.setSource(source);
     }
 
+    public String getEventId() {
+        return data.getCau().getId();
+    }
+
     public AcademicOffer getData() {
         return data;
     }

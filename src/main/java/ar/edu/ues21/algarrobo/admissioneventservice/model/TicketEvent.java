@@ -14,6 +14,10 @@ public class TicketEvent extends EventBase{
         this.setSource(source);
     }
 
+    public String getEventId() {
+        return "id";
+    }
+
     public AdministrationTicket getData() {
         return data;
     }

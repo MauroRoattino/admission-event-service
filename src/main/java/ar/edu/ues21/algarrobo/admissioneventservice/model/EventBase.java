@@ -2,7 +2,7 @@ package ar.edu.ues21.algarrobo.admissioneventservice.model;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public abstract class EventBase {
+public abstract class EventBase implements EventBaseInterface {
     @ApiModelProperty(name = "event type", example = "admission-event")
     private String eventType;
 

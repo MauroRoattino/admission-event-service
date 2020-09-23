@@ -1,6 +1,7 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.engine;
 
 import ar.edu.ues21.algarrobo.admissioneventservice.model.*;
+import ar.edu.ues21.algarrobo.admissioneventservice.service.NggBatchJobsService;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.Logger;
@@ -16,8 +17,6 @@ public class ProducerEngine {
     @Value("${kafka.topic.admission.pre_enrollment}")
     private String ADMISSION_PREENROLLMENT_TOPIC;
 
-
-
     @Value("${kafka.topic.academic_life.student-record}")
     private String STUDENT_RECORD_TOPIC;
 
@@ -28,21 +27,25 @@ public class ProducerEngine {
     private final Producer<String, EnrollmentEvent> enrollmentEventProducer;
     private final Producer<String, UserContactEvent> userContactEventProducer;
     private final Producer<String, StudentRecordEvent> studentRecordEventProducer;
+    private final NggBatchJobsService nggBatchJobsService;
 
     @Autowired
     public ProducerEngine(Producer<String, EnrollmentEvent> enrollmentEventProducer,
                           Producer<String, UserContactEvent> userContactEventProducer,
-                          Producer<String, StudentRecordEvent> studentRecordEventProducer) {
+                          Producer<String, StudentRecordEvent> studentRecordEventProducer,
+                          NggBatchJobsService nggBatchJobsService) {
         this.enrollmentEventProducer = enrollmentEventProducer;
         this.userContactEventProducer = userContactEventProducer;
         this.studentRecordEventProducer = studentRecordEventProducer;
+        this.nggBatchJobsService = nggBatchJobsService;
     }
 
     private void sendMessage(Producer producer, String topic, EventBase eventBase) {
 
         producer.send(new ProducerRecord<>(topic, eventBase), (metadata, exception) -> {
             if (exception != null) {
-                exception.printStackTrace();
+                ErrorEvent errorEvent = new ErrorEvent(eventBase.getEventId(), exception.getMessage());
+                nggBatchJobsService.sendErrorCallback(errorEvent);
             } else {
                 LOGGER.info("Produced record to topic {} partition [{}] @ offset {}.",
                         metadata.topic(), metadata.partition(), metadata.offset());

@@ -14,6 +14,10 @@ public class UserContactEvent extends EventBase {
         this.setEventType(eventType);
     }
 
+    public String getEventId() {
+        return data.getId().toString();
+    }
+
     public UserData getData() {
         return data;
     }

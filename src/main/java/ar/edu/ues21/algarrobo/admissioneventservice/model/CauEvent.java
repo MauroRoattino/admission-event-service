@@ -13,6 +13,10 @@ public class CauEvent extends EventBase {
         this.setSource(source);
     }
 
+    public String getEventId() {
+        return data.getId();
+    }
+
     public Cau getData() {
         return data;
     }

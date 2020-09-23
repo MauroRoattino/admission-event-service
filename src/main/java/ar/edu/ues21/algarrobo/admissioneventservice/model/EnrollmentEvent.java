@@ -14,6 +14,10 @@ public class EnrollmentEvent extends EventBase {
         this.setSource(source);
     }
 
+    public String getEventId() {
+        return data.getStudentRecord().getId();
+    }
+
     public Enrollment getData() {
         return data;
     }

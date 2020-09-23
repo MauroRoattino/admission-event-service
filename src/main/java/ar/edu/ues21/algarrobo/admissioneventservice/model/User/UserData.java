@@ -32,7 +32,7 @@ public class UserData {
     private String firstContactName;
     private Gender gender;
     private String graduationDate;
-    private Long id;
+    private String id;
     private Integer informadoStatus;
     private InstitutionId institutionId;
     private String lastName;
@@ -191,11 +191,11 @@ public class UserData {
         this.graduationDate = graduationDate;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

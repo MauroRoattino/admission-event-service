@@ -8,7 +8,7 @@ import java.util.List;
 public class AcademicLifeStudent {
 
     @ApiModelProperty(name = "id", example = "135239")
-    private Long id;
+    private String id;
 
     @ApiModelProperty(name = "name", example = "PENELOPE")
     private String name;
@@ -47,11 +47,11 @@ public class AcademicLifeStudent {
     @ApiModelProperty(name = "personType", example = "Estudiante")
     private String personType;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

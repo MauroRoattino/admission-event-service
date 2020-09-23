@@ -14,6 +14,10 @@ public class StudentRecordEvent extends EventBase {
         this.setSource(source);
     }
 
+    public String getEventId() {
+        return data.getStudent().getId();
+    }
+
     public AcademicLifeStudentRecord getData() {
         return data;
     }

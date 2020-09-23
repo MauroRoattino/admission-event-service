@@ -9,6 +9,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 @Service
@@ -31,12 +32,12 @@ public class NggBatchJobsService {
 
         HttpEntity<ErrorEvent> entity = new HttpEntity<>(errorEvent, headers);
         String nggBatchJobError = "/v1/jobs/migration/error";
-        String response = restTemplate.patchForObject(baseUrl + nggBatchJobError, entity, String.class);
 
-        if (response == null) {
-            LOGGER.error("Error sending call back for event with id: {}", errorEvent.getId());
-        } else {
+        try {
+            restTemplate.put(baseUrl + nggBatchJobError, entity, String.class);
             LOGGER.info("Error callback sent successfully");
+        } catch (RestClientException e) {
+            LOGGER.error("Sending error call back for event with id: {}\n, Error: {}\n", errorEvent.getId(), e.getMessage());
         }
     }
 }

@@ -20,7 +20,6 @@ public class ProducerEngine {
     @Value("${kafka.topic.academic_life.student-record}")
     private String STUDENT_RECORD_TOPIC;
 
-
     @Value("${kafka.topic.user.contact}")
     private String USER_CONTACT_TOPIC;
 
@@ -46,9 +45,6 @@ public class ProducerEngine {
             if (exception != null) {
                 ErrorEvent errorEvent = new ErrorEvent(eventBase.getEventId(), exception.getMessage());
                 nggBatchJobsService.sendErrorCallback(errorEvent);
-            } else {
-                LOGGER.info("Produced record to topic {} partition [{}] @ offset {}.",
-                        metadata.topic(), metadata.partition(), metadata.offset());
             }
         });
     }

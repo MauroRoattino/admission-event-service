@@ -29,6 +29,8 @@ import java.util.stream.Stream;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import static ar.edu.ues21.algarrobo.admissioneventservice.constant.Constants.*;
+
 @Configuration
 public class SenderConfig {
 
@@ -51,14 +53,15 @@ public class SenderConfig {
         map.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         map.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
 
-
-        map.putIfAbsent(ProducerConfig.ACKS_CONFIG, "all");
-        map.putIfAbsent(ProducerConfig.CLIENT_ID_CONFIG, "admission-event");
-        //map.putIfAbsent(JsonSerializer.ADD_TYPE_INFO_HEADERS, false);
-
-        map.putIfAbsent(ProducerConfig.BATCH_SIZE_CONFIG, 12000 * 200);
-        map.putIfAbsent(ProducerConfig.LINGER_MS_CONFIG, 5);
-        map.putIfAbsent(ProducerConfig.COMPRESSION_TYPE_CONFIG, "gzip");
+        map.putIfAbsent(ProducerConfig.ACKS_CONFIG, ACKS_CONFIG);
+        
+        map.putIfAbsent(ProducerConfig.BATCH_SIZE_CONFIG, BATCH_SIZE_CONFIG);
+        map.putIfAbsent(ProducerConfig.LINGER_MS_CONFIG, LINGER_MS_CONFIG);
+        map.putIfAbsent(ProducerConfig.COMPRESSION_TYPE_CONFIG, COMPRESSION_TYPE_CONFIG);
+        map.putIfAbsent(ProducerConfig.BUFFER_MEMORY_CONFIG, BUFFER_MEMORY_CONFIG);
+        map.putIfAbsent(ProducerConfig.RETRIES_CONFIG, RETRIES_CONFIG);
+        map.putIfAbsent(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, REQUEST_TIMEOUT_MS_CONFIG);
+        map.putIfAbsent(ProducerConfig.RETRY_BACKOFF_MS_CONFIG, RETRY_BACKOFF_MS_CONFIG);
 
         return map;
     }

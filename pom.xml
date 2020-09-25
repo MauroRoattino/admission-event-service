@@ -104,6 +104,11 @@
             <artifactId>retrofit-oauth-autoconfigure</artifactId>
             <version>1.0.18400</version>
         </dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.11</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

@@ -1,5 +1,6 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -9,6 +10,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler;
 import org.springframework.security.oauth2.provider.expression.OAuth2MethodSecurityExpressionHandler;
+import org.springframework.web.client.RestTemplate;
 
 @Configuration
 @EnableResourceServer
@@ -31,5 +33,10 @@ public class SecurityConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers("/v1/**").authenticated()
                 .antMatchers("/**").permitAll()
                 .and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
+    }
+
+    @Bean
+    protected RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 }

@@ -10,6 +10,7 @@ server:
 
 admission-event-service:
   oauthserver: ${OAUTH_HOST:http://ecampus2-trimix.uesiglo21.edu.ar:8080}
+  version: ${ADMISSION_EVENT_SERVICE_VERSION:1.0}
   
 admission-api-service:
   base-url: ${ADMISSION_API_URL:http://apidev.ues21.edu.ar/admission-api/api/} 

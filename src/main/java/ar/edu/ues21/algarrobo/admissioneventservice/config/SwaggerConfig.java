@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.*;
@@ -23,14 +24,28 @@ public class SwaggerConfig {
     @Value("${admission-event-service.oauthserver}")
     private String baseAuthUrl;
 
+    @Value("${admission-event-service.version}")
+    private String appVersion;
+
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2).useDefaultResponseMessages(false)
                 .securityContexts(Lists.newArrayList(securityContext()))
                 .securitySchemes(Lists.newArrayList(securitySchema())).select()
                 .apis(RequestHandlerSelectors.basePackage("ar.edu.ues21.algarrobo.admissioneventservice")).paths(PathSelectors.any())
+                .build()
+                .apiInfo(apiEndPointsInfo());
+    }
+
+    private ApiInfo apiEndPointsInfo() {
+        return new ApiInfoBuilder().title("Admission Event Service API")
+                .description("Admission event service")
+                .license("Apache 2.0")
+                .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
+                .version(appVersion)
                 .build();
     }
+
 
     private OAuth securitySchema() {
         final List<AuthorizationScope> authorizationScopes = Lists.newArrayList(authorizationScopes());

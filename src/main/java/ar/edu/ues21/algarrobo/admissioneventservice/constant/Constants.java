@@ -5,7 +5,7 @@ public class Constants {
 
     public static final String ACKS_CONFIG = "all";
 
-    //public static final Integer  BATCH_SIZE_CONFIG = 1024 * 1024; // 1 MB
+    public static final Integer  BATCH_SIZE_CONFIG = 1024 * 1024; // 1 MB
 
     public static final Integer LINGER_MS_CONFIG = 10;
     public static final Integer BUFFER_MEMORY_CONFIG = 128 * 1024 * 1024; // 128 MB

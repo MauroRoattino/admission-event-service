@@ -1,3 +1,12 @@
+stages:
+  - unitarias
+  - analisis
+  - compilacion
+  - dockerize
+  - integracion
+  - publicacion
+  - despliegue
+
 variables:
   UES21_REGISTRY_MIRROR: https://dockerhub.uesiglo21.edu.ar:5000
   COMPOSE_HTTP_TIMEOUT: 300
@@ -5,14 +14,38 @@ variables:
   REGISTRY_NAME: admission-event-service
   ADMISSION_EVENT_SERVICE_VERSION: ${RELEASE}.${CI_PIPELINE_ID}
 
-stages:
-  - build
-  - dockerize
-  - deploy
+#---------------------------------------------------------------------------
 
-build:
+unitarias:
+  stage: unitarias
+  image: hub.ues21.edu.ar/algarrobo/student-records/docker-mvn-builder:3-jdk-11-slim_b
+  script:
+    - mvn test dependency:copy-dependencies jacoco:report
+  artifacts:
+    paths:
+      - /builds/algarrobo/tickets-api/target/site/jacoco/
+      - /builds/algarrobo/tickets-api/target/jacoco.exec
+    expire_in: 1 day
+
+#---------------------------------------------------------------------------
+
+analisis:
+  stage: analisis
+  image: hub.ues21.edu.ar/algarrobo/cigroup/docker-sonar-scanner:4.2.0
+  script:
+    - sonar-scanner
+      -Dsonar.sources=.
+      -Dsonar.projectName=algarrobo-${CI_PROJECT_PATH}
+      -Dsonar.java.binaries=${PWD}
+      -Dsonar.projectKey=algarroboProject${CI_PROJECT_ID}
+      -Dsonar.projectVersion=${ADMISSION_EVENT_SERVICE_VERSION}
+      -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+
+#---------------------------------------------------------------------------
+
+compilacion:
   image: hub.ues21.edu.ar/algarrobo/student-records/docker-mvn-builder:3-jdk-11-slim_b 
-  stage: build
+  stage: compilacion
   script:
     - mvn -DnewVersion=${ADMISSION_EVENT_SERVICE_VERSION} versions:set
     - mvn clean install -DskipTests
@@ -22,75 +55,104 @@ build:
       - /builds/algarrobo/admission-event-service/target/admission-event-service-${ADMISSION_EVENT_SERVICE_VERSION}.jar
     expire_in: 1 day
 
-dockerize branch:
-  image: hub.ues21.edu.ar/algarrobo/cigroup/docker:latest
-  services:
-    - name: hub.ues21.edu.ar/algarrobo/cigroup/docker:dind
-      alias: docker
-  except:
-    - tags
-  variables:
-    DOCKER_HOST: tcp://docker:2375
-  stage: dockerize
-  script:
-    - ls target/
-    - docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} ${CI_REGISTRY}
-    - docker build --build-arg ADMISSION_EVENT_SERVICE_VERSION=${ADMISSION_EVENT_SERVICE_VERSION} -t ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION} .
-    - docker tag ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION} ${CI_REGISTRY_IMAGE}:latest
-    - docker push ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION}
-    - docker push ${CI_REGISTRY_IMAGE}:latest
+#---------------------------------------------------------------------------
 
-dockerize aws:
+dockerize:
+  stage: dockerize
   image: hub.ues21.edu.ar/algarrobo/cigroup/docker:aws
   services:
     - name: hub.ues21.edu.ar/algarrobo/cigroup/docker:dind
       alias: docker
-  except:
-    - tags
   variables:
     DOCKER_HOST: tcp://docker:2375
     AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
     AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
     AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
-  stage: dockerize
   script:
-    - $(aws ecr get-login --no-include-email --region ${AWS_REGION})
-    - docker build --build-arg ADMISSION_EVENT_SERVICE_VERSION=${ADMISSION_EVENT_SERVICE_VERSION} -t ${REGISTRY_NAME} -f Dockerfile . 
+    - docker build --build-arg --build-arg ADMISSION_EVENT_SERVICE_VERSION=${ADMISSION_EVENT_SERVICE_VERSION}  -t ${REGISTRY_NAME} -f Dockerfile .
+    - mkdir docker-image
+    - docker save ${REGISTRY_NAME} > docker-image/${REGISTRY_NAME}.tar
+  artifacts:
+    paths:
+      - docker-image
+  tags:
+    - aws-runner-alpine
+
+#---------------------------------------------------------------------------
+
+integracion:
+  stage: integracion
+  image:
+    name: hub.ues21.edu.ar/algarrobo/cigroup/docker:aws-compose
+    entrypoint: [ "" ]
+  except:
+    - tags
+  services:
+    - name: hub.ues21.edu.ar/algarrobo/cigroup/docker:dind
+      alias: docker
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    AWS_ACCESS_KEY_ID: ${ALGARROBO_ACCESS_KEY}
+    AWS_SECRET_ACCESS_KEY: ${ALGARROBO_SECRET_ACCESS_KEY}
+    AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
+  script:
+    ##Login AWS-ECR
+#    - $(aws ecr get-login --no-include-email --region ${AWS_REGION})
+    ## Obtener imagen infraestructura
+#    - docker pull 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/bootstrap-infraestructura:latest
+    ## Obtener secrets usando el ultimo script de test de integracion
+#    - mkdir secrets
+#    - docker run --rm -v ${PWD}/secrets:/secrets
+#      -e AWS_REGION=${AWS_REGION}
+#      -e AWS_ACCESS_KEY_ID=${ALGARROBO_ACCESS_KEY}
+#      -e AWS_SECRET_ACCESS_KEY=${ALGARROBO_SECRET_ACCESS_KEY}
+#      930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/bootstrap-infraestructura:latest get-secrets -c planificacion
+#    - docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} ${CI_REGISTRY}
+#    - docker build -t ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID}-func-test -f func.Dockerfile .
+#    - docker-compose -f func-test-compose.yml pull
+#    - docker-compose -f func-test-compose.yml up -d
+#    - sleep 20
+#    - docker run -i --net class-scheduler-backend_alga ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID}-func-test
+#    - rm -f -r secrets
+    - echo "Integration test missing"
+  tags:
+    - aws-runner-alpine
+
+#---------------------------------------------------------------------------
+
+publicacion:
+  image: hub.ues21.edu.ar/algarrobo/cigroup/docker:aws
+  only:
+    - master
+  except:
+    - tags
+  services:
+    - name: hub.ues21.edu.ar/algarrobo/cigroup/docker:dind
+      alias: docker
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+    AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+    AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
+    SERVICE_NAME: ${STACK_NAME}_${REGISTRY_NAME}
+  stage: publicacion
+  script:
+    # Traer imagen docker y taggear
+    - docker load -i docker-image/${REGISTRY_NAME}.tar
     - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:latest
     - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
+    # Publicacion
+    - $(aws ecr get-login --no-include-email --region ${AWS_REGION})
     - docker push 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:latest
     - docker push 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
   tags:
     - aws-runner-alpine
 
-dockerize stable:
-  image: hub.ues21.edu.ar/algarrobo/cigroup/docker:aws
-  only:
-    - tags
-  services:
-    - name: hub.ues21.edu.ar/algarrobo/cigroup/docker:dind
-      alias: docker
-  variables:
-    DOCKER_HOST: tcp://docker:2375
-    AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
-    AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
-    AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
-  stage: dockerize
-  script:
-    - $(aws ecr get-login --no-include-email --region ${AWS_REGION})
-    - docker build --build-arg ADMISSION_EVENT_SERVICE_VERSION=${ADMISSION_EVENT_SERVICE_VERSION} -t ${REGISTRY_NAME} -f Dockerfile . 
-    - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:stable
-    - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
-    - docker tag ${REGISTRY_NAME} 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:${CI_COMMIT_TAG}
-    - docker push 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:stable
-    - docker push 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
-    - docker push 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:${CI_COMMIT_TAG}
-  tags:
-    - aws-runner-alpine
-  
-deploy:
+ #--------------------------------------------------------------------------- 
+
+despliegue siglo:
   image: bitlogicos/gitlab-ssh
-  stage: deploy
+  stage: despliegue
   variables:
     SSH_HOST: "10.168.3.123"
     SSH_USERNAME: "deploy"
@@ -102,7 +164,7 @@ deploy:
     - gitlab-ssh "docker service create -e ADMISSION_EVENT_SERVICE_VERSION=${ADMISSION_EVENT_SERVICE_VERSION} --name admission-event-service --secret mensajeria-admision-event-service-confluent-kafka.properties --label traefik.port=8080 --label 'traefik.frontend.rule=Host:apidev.ues21.edu.ar;PathPrefix:/admission-event-service/api' --label 'traefik.docker.network=lb_traefik' --network lb_traefik ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION}"
   when: manual
 
-deploy master:
+despliegue:
   image: hub.ues21.edu.ar/algarrobo/cigroup/docker:aws
   only:
     - master
@@ -117,34 +179,11 @@ deploy master:
     AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
     AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
     SERVICE_NAME: ${STACK_NAME}_${REGISTRY_NAME}
-  stage: deploy
+  stage: despliegue
   script:
     - $(aws ecr get-login --no-include-email --region ${AWS_REGION})
     - docker pull 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${AWS_DEPLOY_TOOL}:latest
     - docker run --rm -e DOCKER_MANAGER_IP=${AWS_INT_BACK_SWARM_MANAGER_HOST} -e AWS_REGION=${AWS_REGION} 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${AWS_DEPLOY_TOOL}:latest docker "service update --image 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID} --with-registry-auth ${SERVICE_NAME}" -e int -c ${STACK_NAME}
-  tags:
-    - aws-runner-alpine
-  
-deploy stable:
-  image: hub.ues21.edu.ar/algarrobo/cigroup/docker:aws
-  only:
-    - tags
-  except:
-    - master
-  services:
-    - name: hub.ues21.edu.ar/algarrobo/cigroup/docker:dind
-      alias: docker
-  variables:
-    DOCKER_HOST: tcp://docker:2375
-    AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
-    AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
-    AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
-    SERVICE_NAME: ${STACK_NAME}_${REGISTRY_NAME}
-  stage: deploy
-  script:
-    - $(aws ecr get-login --no-include-email --region ${AWS_REGION})
-    - docker pull 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${AWS_DEPLOY_TOOL}:stable
-    - docker run --rm -e DOCKER_MANAGER_IP=${AWS_QA_BACK_SWARM_MANAGER_HOST} -e AWS_REGION=${AWS_REGION} 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${AWS_DEPLOY_TOOL}:stable docker "service update --image 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID} --with-registry-auth ${SERVICE_NAME}" -e qa -c ${STACK_NAME}
   tags:
     - aws-runner-alpine
   

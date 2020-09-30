@@ -26,6 +26,7 @@ unitarias:
       - /builds/algarrobo/tickets-api/target/site/jacoco/
       - /builds/algarrobo/tickets-api/target/jacoco.exec
     expire_in: 1 day
+  allow_failure: true
 
 #---------------------------------------------------------------------------
 

@@ -116,8 +116,10 @@ integracion:
 #    - docker run -i --net class-scheduler-backend_alga ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID}-func-test
 #    - rm -f -r secrets
     - echo "Integration test missing"
+    - exit 1
   tags:
     - aws-runner-alpine
+  allow_failure: true
 
 #---------------------------------------------------------------------------
 

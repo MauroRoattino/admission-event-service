@@ -70,7 +70,7 @@ dockerize:
     AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
     AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
   script:
-    - docker build --build-arg --build-arg ADMISSION_EVENT_SERVICE_VERSION=${ADMISSION_EVENT_SERVICE_VERSION}  -t ${REGISTRY_NAME} -f Dockerfile .
+    - docker build --build-arg ADMISSION_EVENT_SERVICE_VERSION=${ADMISSION_EVENT_SERVICE_VERSION}  -t ${REGISTRY_NAME} -f Dockerfile .
     - mkdir docker-image
     - docker save ${REGISTRY_NAME} > docker-image/${REGISTRY_NAME}.tar
   artifacts:

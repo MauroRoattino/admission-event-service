@@ -19,6 +19,8 @@ variables:
 unitarias:
   stage: unitarias
   image: hub.ues21.edu.ar/algarrobo/student-records/docker-mvn-builder:3-jdk-11-slim_b
+  except:
+    - tags
   script:
     - mvn test dependency:copy-dependencies jacoco:report
   artifacts:
@@ -33,6 +35,8 @@ unitarias:
 analisis:
   stage: analisis
   image: hub.ues21.edu.ar/algarrobo/cigroup/docker-sonar-scanner:4.2.0
+  except:
+    - tags
   script:
     - sonar-scanner
       -Dsonar.sources=.
@@ -45,8 +49,10 @@ analisis:
 #---------------------------------------------------------------------------
 
 compilacion:
-  image: hub.ues21.edu.ar/algarrobo/student-records/docker-mvn-builder:3-jdk-11-slim_b 
   stage: compilacion
+  image: hub.ues21.edu.ar/algarrobo/student-records/docker-mvn-builder:3-jdk-11-slim_b
+  except:
+    - tags
   script:
     - mvn -DnewVersion=${ADMISSION_EVENT_SERVICE_VERSION} versions:set
     - mvn clean install -DskipTests
@@ -61,6 +67,8 @@ compilacion:
 dockerize:
   stage: dockerize
   image: hub.ues21.edu.ar/algarrobo/cigroup/docker:aws
+  except:
+    - tags
   services:
     - name: hub.ues21.edu.ar/algarrobo/cigroup/docker:dind
       alias: docker
@@ -124,6 +132,7 @@ integracion:
 #---------------------------------------------------------------------------
 
 publicacion:
+  stage: publicacion
   image: hub.ues21.edu.ar/algarrobo/cigroup/docker:aws
   only:
     - master
@@ -138,7 +147,6 @@ publicacion:
     AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
     AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
     SERVICE_NAME: ${STACK_NAME}_${REGISTRY_NAME}
-  stage: publicacion
   script:
     # Traer imagen docker y taggear
     - docker load -i docker-image/${REGISTRY_NAME}.tar
@@ -154,8 +162,10 @@ publicacion:
  #--------------------------------------------------------------------------- 
 
 despliegue siglo:
-  image: bitlogicos/gitlab-ssh
   stage: despliegue
+  image: bitlogicos/gitlab-ssh
+  except:
+    - tags
   variables:
     SSH_HOST: "10.168.3.123"
     SSH_USERNAME: "deploy"
@@ -168,6 +178,7 @@ despliegue siglo:
   when: manual
 
 despliegue:
+  stage: despliegue
   image: hub.ues21.edu.ar/algarrobo/cigroup/docker:aws
   only:
     - master
@@ -182,7 +193,6 @@ despliegue:
     AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
     AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
     SERVICE_NAME: ${STACK_NAME}_${REGISTRY_NAME}
-  stage: despliegue
   script:
     - $(aws ecr get-login --no-include-email --region ${AWS_REGION})
     - docker pull 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${AWS_DEPLOY_TOOL}:latest

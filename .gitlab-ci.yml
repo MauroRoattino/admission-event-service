@@ -159,6 +159,30 @@ publicacion:
   tags:
     - aws-runner-alpine
 
+publicacion siglo:
+  stage: publicacion
+  image: hub.ues21.edu.ar/algarrobo/cigroup/docker:aws
+  only:
+    - master
+  except:
+    - tags
+  services:
+    - name: hub.ues21.edu.ar/algarrobo/cigroup/docker:dind
+      alias: docker
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    SERVICE_NAME: ${STACK_NAME}_${REGISTRY_NAME}
+  script:
+    # Cargar imagenes
+    - docker load -i docker-image/${REGISTRY_NAME}.tar
+    # Publicacion en siglo
+    - docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} ${CI_REGISTRY}
+    - docker tag ${REGISTRY_NAME}  ${CI_REGISTRY_IMAGE}:${USER_CMP_VERSION}:${RELEASE}.${CI_PIPELINE_ID}
+    - docker tag ${REGISTRY_NAME}  ${CI_REGISTRY_IMAGE}:${USER_CMP_VERSION}:latest
+    - docker push ${CI_REGISTRY_IMAGE}:${USER_CMP_VERSION}
+    - docker push ${CI_REGISTRY_IMAGE}:latest
+  when: manual
+
  #--------------------------------------------------------------------------- 
 
 despliegue siglo:

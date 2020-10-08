@@ -106,24 +106,19 @@ integracion:
     AWS_SECRET_ACCESS_KEY: ${ALGARROBO_SECRET_ACCESS_KEY}
     AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
   script:
-    ##Login AWS-ECR
-#    - $(aws ecr get-login --no-include-email --region ${AWS_REGION})
-    ## Obtener imagen infraestructura
-#    - docker pull 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/bootstrap-infraestructura:latest
-    ## Obtener secrets usando el ultimo script de test de integracion
-#    - mkdir secrets
-#    - docker run --rm -v ${PWD}/secrets:/secrets
-#      -e AWS_REGION=${AWS_REGION}
-#      -e AWS_ACCESS_KEY_ID=${ALGARROBO_ACCESS_KEY}
-#      -e AWS_SECRET_ACCESS_KEY=${ALGARROBO_SECRET_ACCESS_KEY}
-#      930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/bootstrap-infraestructura:latest get-secrets -c planificacion
-#    - docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} ${CI_REGISTRY}
-#    - docker build -t ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID}-func-test -f func.Dockerfile .
-#    - docker-compose -f func-test-compose.yml pull
-#    - docker-compose -f func-test-compose.yml up -d
-#    - sleep 20
-#    - docker run -i --net class-scheduler-backend_alga ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID}-func-test
-#    - rm -f -r secrets
+    #----  Login AWS-ECR ----
+    - $(aws ecr get-login --no-include-email --region ${AWS_REGION})
+    #----  Obtener imagen infraestructura ----
+    - docker pull 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/bootstrap-infraestructura:latest
+    #----  Obtener secrets  ----
+    - mkdir secrets
+    - docker run --rm -v ${PWD}/secrets:/secrets
+      -e AWS_REGION=${AWS_REGION}
+      -e AWS_ACCESS_KEY_ID=${ALGARROBO_ACCESS_KEY}
+      -e AWS_SECRET_ACCESS_KEY=${ALGARROBO_SECRET_ACCESS_KEY}
+      930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/bootstrap-infraestructura:latest get-secrets -c mensajeria
+    - rm -f -r secrets
+    #----  Correr test de integracion ----
     - echo "Integration test missing"
     - exit 1
   tags:

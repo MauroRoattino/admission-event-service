@@ -177,7 +177,6 @@ publicacion siglo:
     - docker tag ${REGISTRY_NAME}  ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION}:latest
     - docker push ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION}
     - docker push ${CI_REGISTRY_IMAGE}:latest
-  when: manual
 
  #--------------------------------------------------------------------------- 
 
@@ -195,7 +194,7 @@ despliegue siglo:
     - gitlab-ssh "docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} ${CI_REGISTRY}"
     - gitlab-ssh "docker pull ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION}"
     - gitlab-ssh "docker service create -e ADMISSION_EVENT_SERVICE_VERSION=${ADMISSION_EVENT_SERVICE_VERSION} --name admission-event-service --secret mensajeria-admision-event-service-confluent-kafka.properties --label traefik.port=8080 --label 'traefik.frontend.rule=Host:apidev.ues21.edu.ar;PathPrefix:/admission-event-service/api' --label 'traefik.docker.network=lb_traefik' --network lb_traefik ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION}"
-  when: manual
+
 
 despliegue:
   stage: despliegue

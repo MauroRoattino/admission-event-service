@@ -173,8 +173,8 @@ publicacion siglo:
     - docker load -i docker-image/${REGISTRY_NAME}.tar
     # Publicacion en siglo
     - docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} ${CI_REGISTRY}
-    - docker tag ${REGISTRY_NAME}  ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION}:${RELEASE}.${CI_PIPELINE_ID}
-    - docker tag ${REGISTRY_NAME}  ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION}:latest
+    - docker tag ${REGISTRY_NAME}  ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION}
+    - docker tag ${REGISTRY_NAME}  ${CI_REGISTRY_IMAGE}:latest
     - docker push ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION}
     - docker push ${CI_REGISTRY_IMAGE}:latest
 

@@ -60,7 +60,7 @@ compilacion:
     paths:
       - /builds/algarrobo/admission-event-service/pom.xml
       - /builds/algarrobo/admission-event-service/target/admission-event-service-${ADMISSION_EVENT_SERVICE_VERSION}.jar
-    expire_in: 1 day
+    expire_in: 1 hrs
 
 #---------------------------------------------------------------------------
 
@@ -82,6 +82,7 @@ dockerize:
     - mkdir docker-image
     - docker save ${REGISTRY_NAME} > docker-image/${REGISTRY_NAME}.tar
   artifacts:
+    expire_in: 1 hrs
     paths:
       - docker-image
   tags:

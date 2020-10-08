@@ -5,6 +5,7 @@ import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.Enrollment;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.Student;
 import ar.edu.ues21.algarrobo.admissioneventservice.client.admissionapi.AdmissionClient;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.AcademicLifeStudentRecord;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.EnrollmentEvent;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.User.UserData;
 import ar.edu.ues21.algarrobo.admissioneventservice.service.ProducerService;
 import io.swagger.annotations.*;
@@ -49,15 +50,14 @@ public class ProducerController {
             @ApiResponse(code = 200, message = "Message sent")
     })
     @PostMapping(value = "/sendPreEnrollmentEvent/")
-    public ResponseEntity sendAdmissionEvent(
+    public ResponseEntity<EnrollmentEvent> sendAdmissionEvent(
             @RequestBody Enrollment enrollmentEvent,
             @RequestHeader(value = "eventType", defaultValue = "pre-enrollment-event") String eventType,
             @RequestHeader(value = "source", defaultValue = "-") String source) {
-        LOGGER.info("Sending message");
-     
-
+                LOGGER.info("Sending message");
                 producerService.sendEnrollmentEvent(enrollmentEvent, eventType, source);
-        return ResponseEntity.ok("Pre enrollment event sent");
+                EnrollmentEvent response = new EnrollmentEvent(enrollmentEvent, eventType, source);
+                return ResponseEntity.ok(response);
     }
     
     

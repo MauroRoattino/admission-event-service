@@ -21,7 +21,7 @@ public class StudentRecordStatus {
     private String reason;
 
     @ApiModelProperty(name = "group", example = "null")
-    private String group;
+    private StatusGroup group;
 
     private List<Flag> flags;
 
@@ -57,11 +57,11 @@ public class StudentRecordStatus {
         this.reason = reason;
     }
 
-    public String getGroup() {
+    public StatusGroup getGroup() {
         return group;
     }
 
-    public void setGroup(String group) {
+    public void setGroup(StatusGroup group) {
         this.group = group;
     }
 

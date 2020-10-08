@@ -26,9 +26,9 @@ public class AcademicLifeStudentRecord {
 
     private StudentRecordStatus status;
 
-    private AcademicStatus academicStatus;
+    private StudentRecordStatus academicStatus;
 
-    private AcademicStatus accountantStatus;
+    private StudentRecordStatus accountantStatus;
     
     private AttendanceMode attendanceMode;
 
@@ -103,19 +103,19 @@ public class AcademicLifeStudentRecord {
         this.status = status;
     }
 
-    public AcademicStatus getAcademicStatus() {
+    public StudentRecordStatus getAcademicStatus() {
         return academicStatus;
     }
 
-    public void setAcademicStatus(AcademicStatus academicStatus) {
+    public void setAcademicStatus(StudentRecordStatus academicStatus) {
         this.academicStatus = academicStatus;
     }
 
-    public AcademicStatus getAccountantStatus() {
+    public StudentRecordStatus getAccountantStatus() {
         return accountantStatus;
     }
 
-    public void setAccountantStatus(AcademicStatus accountantStatus) {
+    public void setAccountantStatus(StudentRecordStatus accountantStatus) {
         this.accountantStatus = accountantStatus;
     }
 

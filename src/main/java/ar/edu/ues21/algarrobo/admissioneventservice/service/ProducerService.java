@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -102,6 +103,13 @@ public class ProducerService {
         List<UserAddress> addresses = student.getAddresses();
 
         setMissingFieldsInAddress(addresses);
+
+        if (studentRecord.getStatus().getId() == 16L) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedDateTime = studentRecord.getStatus().getDate().format(formatter);
+            studentRecord.setGraduateDate(formattedDateTime);
+
+        }
 
         producerEngine.sendStudentRecordEvent(studentRecordEvent);
     }

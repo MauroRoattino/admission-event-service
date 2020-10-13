@@ -71,7 +71,7 @@ public class ProducerService {
 
         List<UserAddress> addresses = userData.getAddresses();
 
-        setMissingTelephoneInAddress(addresses);
+        setMissingFieldsInAddress(addresses);
         producerEngine.sendUserContactEvent(userContactEvent);
     }
 
@@ -101,7 +101,7 @@ public class ProducerService {
 
         List<UserAddress> addresses = student.getAddresses();
 
-        setMissingTelephoneInAddress(addresses);
+        setMissingFieldsInAddress(addresses);
 
         producerEngine.sendStudentRecordEvent(studentRecordEvent);
     }
@@ -177,8 +177,27 @@ public class ProducerService {
                 });
     }
 
-    private void setMissingTelephoneInAddress(List<UserAddress> addresses) {
+    private void setMissingFieldsInAddress(List<UserAddress> addresses) {
         for (UserAddress address : addresses) {
+            if (address.getLocation() == null) {
+                Country country = new Country();
+                country.setId(51L);
+                country.setName("SIN DATOS");
+                country.setNationality("SIN DATOS");
+
+                Province province = new Province();
+                province.setCountry(country);
+                province.setId(4614L);
+                province.setName("SIN DATOS");
+
+                Location location = new Location();
+                location.setProvince(province);
+                location.setId(4798L);
+                location.setName("SIN DATOS");
+
+                address.setLocation(location);
+            }
+
             if (!Strings.isNullOrEmpty(address.getTelephoneNumber1()) && Strings.isNullOrEmpty(address.getTelephoneNumber2())) {
                 // primary is set, secondary empty
                 address.setTelephoneNumber2(address.getTelephoneNumber1());

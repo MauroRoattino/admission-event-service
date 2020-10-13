@@ -1,12 +1,12 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.CareerStudyPlan.AcademicLifeCareerStudyPlan;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.Metadata.StudentRecordMetadata;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.Metadata.StudentRecordMetadataCourseMode;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.Status.StudentRecordStatus;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.Student.AcademicLifeStudent;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.SubjectStatus.SubjectStatus;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.time.LocalDateTime;
@@ -29,13 +29,13 @@ public class AcademicLifeStudentRecord {
     private StudentRecordStatus academicStatus;
 
     private StudentRecordStatus accountantStatus;
-    
+
     private AttendanceMode attendanceMode;
 
     private Site site;
 
     private AcademicLifeCau cau;
-    
+
     private String personType;
 
     private Sede sede;
@@ -64,12 +64,14 @@ public class AcademicLifeStudentRecord {
 
     @ApiModelProperty(name = "efip_dif", example = "0")
     private Integer efip_dif;
-    
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date validFrom;
-    
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date validTo;
+
+    private StudentRecordMetadataCourseMode courseMode;
 
     public String getId() {
         return id;
@@ -223,37 +225,43 @@ public class AcademicLifeStudentRecord {
         this.efip_dif = efip_dif;
     }
 
-	public AttendanceMode getAttendanceMode() {
-		return attendanceMode;
-	}
+    public AttendanceMode getAttendanceMode() {
+        return attendanceMode;
+    }
 
-	public void setAttendanceMode(AttendanceMode attendanceMode) {
-		this.attendanceMode = attendanceMode;
-	}
+    public void setAttendanceMode(AttendanceMode attendanceMode) {
+        this.attendanceMode = attendanceMode;
+    }
 
-	public String getPersonType() {
-		return personType;
-	}
+    public String getPersonType() {
+        return personType;
+    }
 
-	public void setPersonType(String personType) {
-		this.personType = personType;
-	}
+    public void setPersonType(String personType) {
+        this.personType = personType;
+    }
 
-	public Date getValidFrom() {
-		return validFrom;
-	}
+    public Date getValidFrom() {
+        return validFrom;
+    }
 
-	public void setValidFrom(Date validFrom) {
-		this.validFrom = validFrom;
-	}
+    public void setValidFrom(Date validFrom) {
+        this.validFrom = validFrom;
+    }
 
-	public Date getValidTo() {
-		return validTo;
-	}
+    public Date getValidTo() {
+        return validTo;
+    }
 
-	public void setValidTo(Date validTo) {
-		this.validTo = validTo;
-	}
+    public void setValidTo(Date validTo) {
+        this.validTo = validTo;
+    }
 
-	
+    public StudentRecordMetadataCourseMode getCourseMode() {
+        return courseMode;
+    }
+
+    public void setCourseMode(StudentRecordMetadataCourseMode courseMode) {
+        this.courseMode = courseMode;
+    }
 }

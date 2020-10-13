@@ -34,8 +34,6 @@ public class StudentRecordMetadata {
     @ApiModelProperty(name = "future", example = "0")
     private String future;
 
-    private StudentRecordMetadataCourseMode courseMode;
-
     public Long getAdmissionCourse() {
         return admissionCourse;
     }
@@ -114,13 +112,5 @@ public class StudentRecordMetadata {
 
     public void setFuture(String future) {
         this.future = future;
-    }
-
-    public StudentRecordMetadataCourseMode getCourseMode() {
-        return courseMode;
-    }
-
-    public void setCourseMode(StudentRecordMetadataCourseMode courseMode) {
-        this.courseMode = courseMode;
     }
 }

@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ProducerService {
@@ -186,38 +187,40 @@ public class ProducerService {
     }
 
     private void setMissingFieldsInAddress(List<UserAddress> addresses) {
-        for (UserAddress address : addresses) {
-            if (address.getLocation() == null) {
-                Country country = new Country();
-                country.setId(51L);
-                country.setName("SIN DATOS");
-                country.setNationality("SIN DATOS");
+        if (Objects.nonNull(addresses)) {
+            for (UserAddress address : addresses) {
+                if (address.getLocation() == null) {
+                    Country country = new Country();
+                    country.setId(51L);
+                    country.setName("SIN DATOS");
+                    country.setNationality("SIN DATOS");
 
-                Province province = new Province();
-                province.setCountry(country);
-                province.setId(4614L);
-                province.setName("SIN DATOS");
+                    Province province = new Province();
+                    province.setCountry(country);
+                    province.setId(4614L);
+                    province.setName("SIN DATOS");
 
-                Location location = new Location();
-                location.setProvince(province);
-                location.setId(4798L);
-                location.setName("SIN DATOS");
+                    Location location = new Location();
+                    location.setProvince(province);
+                    location.setId(4798L);
+                    location.setName("SIN DATOS");
 
-                address.setLocation(location);
-            }
+                    address.setLocation(location);
+                }
 
-            if (!Strings.isNullOrEmpty(address.getTelephoneNumber1()) && Strings.isNullOrEmpty(address.getTelephoneNumber2())) {
-                // primary is set, secondary empty
-                address.setTelephoneNumber2(address.getTelephoneNumber1());
-            }
-            if (!Strings.isNullOrEmpty(address.getTelephoneNumber2()) && Strings.isNullOrEmpty(address.getTelephoneNumber1())) {
-                // secondary is set, primary empty
-                address.setTelephoneNumber1(address.getTelephoneNumber2());
-            }
+                if (!Strings.isNullOrEmpty(address.getTelephoneNumber1()) && Strings.isNullOrEmpty(address.getTelephoneNumber2())) {
+                    // primary is set, secondary empty
+                    address.setTelephoneNumber2(address.getTelephoneNumber1());
+                }
+                if (!Strings.isNullOrEmpty(address.getTelephoneNumber2()) && Strings.isNullOrEmpty(address.getTelephoneNumber1())) {
+                    // secondary is set, primary empty
+                    address.setTelephoneNumber1(address.getTelephoneNumber2());
+                }
 
-            if (Strings.isNullOrEmpty(address.getTelephoneNumber1()) && Strings.isNullOrEmpty(address.getTelephoneNumber2())) {
-                address.setTelephoneNumber1("N/A");
-                address.setTelephoneNumber2("N/A");
+                if (Strings.isNullOrEmpty(address.getTelephoneNumber1()) && Strings.isNullOrEmpty(address.getTelephoneNumber2())) {
+                    address.setTelephoneNumber1("N/A");
+                    address.setTelephoneNumber2("N/A");
+                }
             }
         }
     }

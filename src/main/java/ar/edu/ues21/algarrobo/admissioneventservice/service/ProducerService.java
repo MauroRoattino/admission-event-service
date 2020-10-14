@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -73,7 +74,7 @@ public class ProducerService {
 
         List<UserAddress> addresses = userData.getAddresses();
 
-        setMissingFieldsInAddress(addresses);
+        userData.setAddresses(setMissingFieldsInAddress(addresses));
         producerEngine.sendUserContactEvent(userContactEvent);
     }
 
@@ -103,7 +104,7 @@ public class ProducerService {
 
         List<UserAddress> addresses = student.getAddresses();
 
-        setMissingFieldsInAddress(addresses);
+        student.setAddresses(setMissingFieldsInAddress(addresses));
 
         if (studentRecord.getStatus().getId() == 16L) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -186,25 +187,26 @@ public class ProducerService {
                 });
     }
 
-    private void setMissingFieldsInAddress(List<UserAddress> addresses) {
+    private List<UserAddress> setMissingFieldsInAddress(List<UserAddress> addresses) {
+        Country country = new Country();
+        country.setId(51L);
+        country.setName("SIN DATOS");
+        country.setNationality("SIN DATOS");
+
+        Province province = new Province();
+        province.setCountry(country);
+        province.setId(4614L);
+        province.setName("SIN DATOS");
+
+        Location location = new Location();
+        location.setProvince(province);
+        location.setId(4798L);
+        location.setName("SIN DATOS");
+
+
         if (Objects.nonNull(addresses)) {
             for (UserAddress address : addresses) {
                 if (address.getLocation() == null) {
-                    Country country = new Country();
-                    country.setId(51L);
-                    country.setName("SIN DATOS");
-                    country.setNationality("SIN DATOS");
-
-                    Province province = new Province();
-                    province.setCountry(country);
-                    province.setId(4614L);
-                    province.setName("SIN DATOS");
-
-                    Location location = new Location();
-                    location.setProvince(province);
-                    location.setId(4798L);
-                    location.setName("SIN DATOS");
-
                     address.setLocation(location);
                 }
 
@@ -221,7 +223,31 @@ public class ProducerService {
                     address.setTelephoneNumber1("N/A");
                     address.setTelephoneNumber2("N/A");
                 }
+
             }
+            return addresses;
+
+        } else {
+            UserAddress address = new UserAddress();
+            address.setId(1L);
+            address.setLocation(location);
+            address.setApartment("SIN DATOS");
+            address.setDetails("SIN DATOS");
+            address.setFax("SIN DATOS");
+            address.setFloor("SIN DATOS");
+            address.setLocation(location);
+            address.setNeighborhood("SIN DATOS");
+            address.setNeighborhoodId(2746L);
+            address.setNumber("SIN DATOS");
+            address.setPostalCode("SIN DATOS");
+            address.setTelephoneNumber1("N/A");
+            address.setTelephoneNumber2("N/A");
+            address.setStreet("SIN DATOS");
+            address.setStreetId(12148L);
+            address.setTower("SIN DATOS");
+            address.setType(1);
+
+            return Collections.singletonList(address);
         }
     }
 }

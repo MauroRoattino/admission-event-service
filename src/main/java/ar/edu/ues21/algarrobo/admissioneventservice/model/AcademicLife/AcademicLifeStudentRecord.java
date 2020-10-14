@@ -57,7 +57,7 @@ public class AcademicLifeStudentRecord {
     private String examRightsQty;
 
     @ApiModelProperty(name = "irregularities", example = "[]")
-    private List<String> irregularities;
+    private List<Irregularity> irregularities;
 
     @ApiModelProperty(name = "disablings", example = "[]")
     private List<String> disablings;
@@ -201,11 +201,11 @@ public class AcademicLifeStudentRecord {
         this.examRightsQty = examRightsQty;
     }
 
-    public List<String> getIrregularities() {
+    public List<Irregularity> getIrregularities() {
         return irregularities;
     }
 
-    public void setIrregularities(List<String> irregularities) {
+    public void setIrregularities(List<Irregularity> irregularities) {
         this.irregularities = irregularities;
     }
 

@@ -1,15 +1,5 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.controller;
 
-import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.Contact;
-import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.Enrollment;
-import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.Student;
-import ar.edu.ues21.algarrobo.admissioneventservice.client.admissionapi.AdmissionClient;
-import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.AcademicLifeStudentRecord;
-import ar.edu.ues21.algarrobo.admissioneventservice.model.EnrollmentEvent;
-import ar.edu.ues21.algarrobo.admissioneventservice.model.User.UserData;
-import ar.edu.ues21.algarrobo.admissioneventservice.service.ProducerService;
-import io.swagger.annotations.*;
-
 import java.util.List;
 
 import org.apache.kafka.clients.producer.RecordMetadata;
@@ -23,7 +13,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.Location;
+
+import ar.edu.ues21.algarrobo.admissioneventservice.model.EnrollmentEvent;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.AcademicLifeStudentRecord;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.Enrollment;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.User.UserData;
+import ar.edu.ues21.algarrobo.admissioneventservice.service.ProducerService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 
 @Api(tags = "Producer")
@@ -65,7 +64,7 @@ public class ProducerController {
     @ApiOperation(value = "Asynchronously send a list of pre-enrollment events to Kafka cluster", response = RecordMetadata.class)
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Messages sent")})
     @PostMapping(value = "/sendManyAdmissionEvents")
-    public ResponseEntity sendManyAdmissionEvents(
+    public ResponseEntity<String> sendManyAdmissionEvents(
             @RequestBody List<Enrollment> enrollmentList,
             @RequestHeader(value = "eventType", defaultValue = "pre-enrollment-event") String eventType,
             @RequestHeader(value = "source", defaultValue = "-") String source) {
@@ -81,7 +80,7 @@ public class ProducerController {
             @ApiResponse(code = 200, message = "Message sent")
     })
     @PostMapping(value = "/sendStudentRecordEvent/")
-    public ResponseEntity sendStudentRecordEvent(
+    public ResponseEntity<String> sendStudentRecordEvent(
             @RequestBody AcademicLifeStudentRecord studentRecord,
             @RequestHeader(value = "eventType", defaultValue = "student-record-event") String eventType,
             @RequestHeader(value = "source", defaultValue = "-") String source) {
@@ -94,7 +93,7 @@ public class ProducerController {
     @ApiOperation(value = "Asynchronously send a list of student record events to Kafka cluster", response = RecordMetadata.class)
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Messages sent")})
     @PostMapping(value = "/sendManyStudentRecordEvents")
-    public ResponseEntity sendManyStudentRecordEvents(
+    public ResponseEntity<String> sendManyStudentRecordEvents(
             @RequestBody List<AcademicLifeStudentRecord> studentRecordList,
             @RequestHeader(value = "eventType", defaultValue = "student-record-event") String eventType,
             @RequestHeader(value = "source", defaultValue = "-") String source) {
@@ -110,7 +109,7 @@ public class ProducerController {
             @ApiResponse(code = 200, message = "Message sent")
     })
     @PostMapping(value = "/sendUserContactEvent/")
-    public ResponseEntity sendUserContactEvent(
+    public ResponseEntity<String> sendUserContactEvent(
             @RequestBody UserData contact,
             @RequestHeader(value = "eventType", defaultValue = "contact-event") String eventType,
             @RequestHeader(value = "source", defaultValue = "-") String source) {
@@ -123,7 +122,7 @@ public class ProducerController {
     @ApiOperation(value = "Asynchronously send a list of user contact events to Kafka cluster", response = RecordMetadata.class)
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Messages sent")})
     @PostMapping(value = "/sendManyUserContactEvents")
-    public ResponseEntity sendManyUserContactEvents(
+    public ResponseEntity<String> sendManyUserContactEvents(
             @RequestBody List<UserData> userContacts,
             @RequestHeader(value = "eventType", defaultValue = "contact-event") String eventType,
             @RequestHeader(value = "source", defaultValue = "-") String source) {

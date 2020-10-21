@@ -42,3 +42,8 @@ kafka:
 
 ngg-batch-jobs:
   baseurl: ${NGG_BATCH_JOBS_BASE_URL:http://apidev.ues21.edu.ar/ngg-batch-jobs/api}
+
+
+#logging:
+#  level:
+#    org.apache.kafka: DEBUG

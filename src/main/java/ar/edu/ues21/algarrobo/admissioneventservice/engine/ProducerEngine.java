@@ -39,10 +39,11 @@ public class ProducerEngine {
         this.nggBatchJobsService = nggBatchJobsService;
     }
 
-    private void sendMessage(Producer producer, String topic, EventBase eventBase) {
+    private <T extends EventBase> void  sendMessage(Producer<String,T> producer, String topic, T eventBase) {
 
-        producer.send(new ProducerRecord<>(topic, eventBase), (metadata, exception) -> {
+        producer.send(new ProducerRecord<String,T>(topic,eventBase.getEventId(),  eventBase), (metadata, exception) -> {
             if (exception != null) {
+                LOGGER.error("Failed to send message to kafka", exception);
                 ErrorEvent errorEvent = new ErrorEvent(eventBase.getEventId(), exception.getMessage());
                 nggBatchJobsService.sendErrorCallback(errorEvent);
             }

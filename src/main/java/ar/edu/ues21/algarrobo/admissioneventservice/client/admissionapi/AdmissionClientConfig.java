@@ -26,7 +26,6 @@ public class AdmissionClientConfig {
     @Autowired
     private ObjectMapper objectMapper;
 
-    // TODO: check if is necessary use auth factory
     @Autowired
     private AuthInterceptorFactory authInterceptorFactory;
 

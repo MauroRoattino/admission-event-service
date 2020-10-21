@@ -1,11 +1,8 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.SubjectStatus.SubjectStatusType;
 
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.List;
 
-import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.SubjectStatus.SubjectStatusType.SubjectId;
-import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.SubjectStatus.SubjectStatusType.SubjectStatusTypeFlag;
+import io.swagger.annotations.ApiModelProperty;
 
 public class SubjectStatusType {
     @ApiModelProperty(name = "id", example = "1")

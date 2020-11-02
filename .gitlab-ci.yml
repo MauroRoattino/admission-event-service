@@ -19,6 +19,7 @@ variables:
 unitarias:
   stage: unitarias
   image: hub.ues21.edu.ar/algarrobo/student-records/docker-mvn-builder:3-jdk-11-slim_b
+  resource_group: $CI_COMMIT_REF_NAME
   except:
     - tags
   script:

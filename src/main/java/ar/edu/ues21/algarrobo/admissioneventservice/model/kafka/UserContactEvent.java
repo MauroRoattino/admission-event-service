@@ -1,4 +1,4 @@
-package ar.edu.ues21.algarrobo.admissioneventservice.model;
+package ar.edu.ues21.algarrobo.admissioneventservice.model.kafka;
 
 import ar.edu.ues21.algarrobo.admissioneventservice.model.User.UserData;
 import io.swagger.annotations.ApiModelProperty;

@@ -39,7 +39,7 @@ import org.springframework.test.annotation.DirtiesContext;
 //import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import ar.edu.ues21.algarrobo.admissioneventservice.model.EnrollmentEvent;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.EnrollmentEvent;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.Enrollment;
 import ar.edu.ues21.algarrobo.admissioneventservice.service.ProducerService;
 
@@ -76,7 +76,7 @@ public class AdmissionEventServiceApplicationTests {
     @Before
     public void perTestSetUp() throws JsonParseException, JsonMappingException, IOException {
         setupJSONsAndMocks();
-        
+
         consumerRecords = new LinkedBlockingQueue<>();
 
         ContainerProperties containerProperties = new ContainerProperties(TOPIC_NAME);
@@ -95,7 +95,7 @@ public class AdmissionEventServiceApplicationTests {
 
         ContainerTestUtils.waitForAssignment(container, embeddedKafka.getEmbeddedKafka().getPartitionsPerTopic());
     }
-    
+
 
     private void setupJSONsAndMocks() throws JsonParseException, JsonMappingException, IOException {
         ClassLoader classLoader = getClass().getClassLoader();
@@ -105,12 +105,12 @@ public class AdmissionEventServiceApplicationTests {
         System.out.println(file.getAbsolutePath());
         enrollmentEvent = objectMapper.readValue(file, EnrollmentEvent.class);
     }
-    
+
     @After
     public void tearDown() {
         if (container != null) container.stop();
     }
- 
+
     @Test
     public void it_should_send_enrollment_event() throws InterruptedException, IOException {
         Enrollment enrollment = enrollmentEvent.getData();
@@ -118,7 +118,7 @@ public class AdmissionEventServiceApplicationTests {
 
         ConsumerRecord<String, String> received = consumerRecords.poll(10, TimeUnit.SECONDS);
 
-        String json = objectMapper.writeValueAsString( enrollmentEvent );
+        String json = objectMapper.writeValueAsString(enrollmentEvent);
 
         assertThat(received, hasValue(json));
 

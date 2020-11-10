@@ -1,8 +1,8 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.config;
 
-import ar.edu.ues21.algarrobo.admissioneventservice.model.EnrollmentEvent;
-import ar.edu.ues21.algarrobo.admissioneventservice.model.StudentRecordEvent;
-import ar.edu.ues21.algarrobo.admissioneventservice.model.UserContactEvent;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.EnrollmentEvent;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.StudentRecordEvent;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.UserContactEvent;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;

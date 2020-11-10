@@ -5,16 +5,17 @@ import ar.edu.ues21.algarrobo.admissioneventservice.engine.ProducerEngine;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.AcademicLifeStudentRecord;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.Student.AcademicLifeStudent;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.*;
-import ar.edu.ues21.algarrobo.admissioneventservice.model.EnrollmentEvent;
-import ar.edu.ues21.algarrobo.admissioneventservice.model.StudentRecordEvent;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.User.UserAddress;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.User.UserData;
-import ar.edu.ues21.algarrobo.admissioneventservice.model.UserContactEvent;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.EnrollmentEvent;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.StudentRecordEvent;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.UserContactEvent;
 import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.time.format.DateTimeFormatter;
@@ -43,18 +44,21 @@ public class ProducerService {
         this.admissionClient = admissionClient;
     }
 
+    @Async
     public void sendEnrollmentEvent(Enrollment enrollmentResponse, String eventType, String source) {
         this.processEnrollmentEvent(enrollmentResponse);
         EnrollmentEvent enrollmentEvent = new EnrollmentEvent(enrollmentResponse, eventType, source);
         producerEngine.sendEnrollmentEvent(enrollmentEvent);
     }
 
+    @Async
     public void sendManyAdmissionEvents(List<Enrollment> enrollments, String eventType, String source) {
         for (Enrollment enrollment : enrollments) {
             sendEnrollmentEvent(enrollment, eventType, source);
         }
     }
 
+    @Async
     public void sendUserContactEvent(UserData userData, String evenType, String source) {
         UserContactEvent userContactEvent = new UserContactEvent(userData, evenType, source);
 
@@ -78,12 +82,14 @@ public class ProducerService {
         producerEngine.sendUserContactEvent(userContactEvent);
     }
 
+    @Async
     public void sendManyUserContactEvents(List<UserData> userContactList, String eventType, String source) {
         for (UserData userContact : userContactList) {
             this.sendUserContactEvent(userContact, eventType, source);
         }
     }
 
+    @Async
     public void sendStudentRecordEvent(AcademicLifeStudentRecord studentRecord, String eventType, String source) {
         StudentRecordEvent studentRecordEvent = new StudentRecordEvent(studentRecord, eventType, source);
 
@@ -116,6 +122,7 @@ public class ProducerService {
         producerEngine.sendStudentRecordEvent(studentRecordEvent);
     }
 
+    @Async
     public void sendManyStudentRecordEvents(List<AcademicLifeStudentRecord> studentRecordList, String eventType,
                                             String source) {
         for (AcademicLifeStudentRecord studentRecord : studentRecordList) {

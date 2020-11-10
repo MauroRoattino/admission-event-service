@@ -13,7 +13,10 @@ admission-event-service:
   version: ${ADMISSION_EVENT_SERVICE_VERSION:1.0}
   
 admission-api-service:
-  base-url: ${ADMISSION_API_URL:http://apidev.ues21.edu.ar/admission-api/api/} 
+  base-url: ${ADMISSION_API_URL:http://apidev.ues21.edu.ar/admission-api/api/}
+
+ngg-batch-jobs:
+  base-url: ${NGG_BATCH_JOBS_BASE_URL:http://apidev.ues21.edu.ar/ngg-batch-jobs/api/}
 
 oauth.retrofit.oauthUrl: ${OAUTH_URL:http://ecampus2-trimix.uesiglo21.edu.ar:8080/menu/api/oauth2/}
 oauth.retrofit.clientid: ${SERVICES_OAUTH_CLIENT_ID:desa}
@@ -39,11 +42,6 @@ kafka:
     user:
       contact: user.contact
 
-
-ngg-batch-jobs:
-  baseurl: ${NGG_BATCH_JOBS_BASE_URL:http://apidev.ues21.edu.ar/ngg-batch-jobs/api}
-
-
-#logging:
-#  level:
-#    org.apache.kafka: DEBUG
+# ALL, ERROR, NOTHING
+callback:
+  send-level: ${CALLBACK_LEVEL:ERROR}

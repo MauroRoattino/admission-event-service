@@ -1,7 +1,10 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.engine;
 
-import ar.edu.ues21.algarrobo.admissioneventservice.model.*;
-import ar.edu.ues21.algarrobo.admissioneventservice.service.NggBatchJobsService;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.EnrollmentEvent;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.EventBase;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.StudentRecordEvent;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.UserContactEvent;
+import ar.edu.ues21.algarrobo.admissioneventservice.service.CallbackService;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.Logger;
@@ -26,27 +29,23 @@ public class ProducerEngine {
     private final Producer<String, EnrollmentEvent> enrollmentEventProducer;
     private final Producer<String, UserContactEvent> userContactEventProducer;
     private final Producer<String, StudentRecordEvent> studentRecordEventProducer;
-    private final NggBatchJobsService nggBatchJobsService;
+    private final CallbackService callbackService;
 
     @Autowired
     public ProducerEngine(Producer<String, EnrollmentEvent> enrollmentEventProducer,
                           Producer<String, UserContactEvent> userContactEventProducer,
                           Producer<String, StudentRecordEvent> studentRecordEventProducer,
-                          NggBatchJobsService nggBatchJobsService) {
+                          CallbackService callbackService) {
         this.enrollmentEventProducer = enrollmentEventProducer;
         this.userContactEventProducer = userContactEventProducer;
         this.studentRecordEventProducer = studentRecordEventProducer;
-        this.nggBatchJobsService = nggBatchJobsService;
+        this.callbackService = callbackService;
     }
 
-    private <T extends EventBase> void  sendMessage(Producer<String,T> producer, String topic, T eventBase) {
+    private <T extends EventBase> void sendMessage(Producer<String, T> producer, String topic, T eventBase) {
 
-        producer.send(new ProducerRecord<String,T>(topic,eventBase.getEventId(),  eventBase), (metadata, exception) -> {
-            if (exception != null) {
-                LOGGER.error("Failed to send message to kafka", exception);
-                ErrorEvent errorEvent = new ErrorEvent(eventBase.getEventId(), exception.getMessage());
-                nggBatchJobsService.sendErrorCallback(errorEvent);
-            }
+        producer.send(new ProducerRecord<>(topic, eventBase.getEventId(), eventBase), (metadata, exception) -> {
+            callbackService.sendCallbackMessage(eventBase, metadata, exception);
         });
     }
 

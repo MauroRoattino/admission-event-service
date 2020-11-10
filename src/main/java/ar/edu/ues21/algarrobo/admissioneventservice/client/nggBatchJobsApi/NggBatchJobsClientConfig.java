@@ -7,7 +7,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.EnableAsync;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
@@ -18,7 +17,6 @@ public class NggBatchJobsClientConfig {
 
     private static final String SERVICE_NAME = "NGG_BATCH_JOBS_SERVICE";
     private static final String WRITE_SCOPE = "callback-batch:write";
-
 
     @Value("${ngg-batch-jobs.base-url}")
     private String nggBatchJobsServiceUrl;

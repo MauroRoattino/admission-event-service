@@ -41,3 +41,7 @@ kafka:
       student-record: academic-life.student-record
     user:
       contact: user.contact
+
+# ALL, ERROR, NOTHING
+callback:
+  send-level: ${CALLBACK_LEVEL:ERROR}

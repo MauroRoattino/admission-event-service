@@ -4,15 +4,14 @@ import ar.edu.ues21.algarrobo.admissioneventservice.client.nggBatchJobsApi.NggBa
 import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.CallbackRequest;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.ClusterResponseMetadata;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.EventBase;
+import com.sun.istack.Nullable;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import retrofit2.Call;
+import retrofit2.Response;
 
 import java.util.Objects;
 
@@ -22,31 +21,52 @@ public class CallbackService {
 
     private final NggBatchJobsClient nggBatchJobsClient;
 
+    @Value("${callback.send-level}")
+    private String callbackSendLevel;
+
     @Autowired
     public CallbackService(NggBatchJobsClient nggBatchJobsClient) {
         this.nggBatchJobsClient = nggBatchJobsClient;
     }
 
-    public <T extends EventBase> void sendCallbackMessage(T eventBase, RecordMetadata metadata, Exception exception) {
+    public <T extends EventBase> void sendCallbackMessage(T eventBase, @Nullable RecordMetadata metadata, @Nullable Exception exception) {
         CallbackRequest callback = new CallbackRequest(eventBase.getEventId(),
                 eventBase.getEventType(),
                 Objects.nonNull(metadata) ? new ClusterResponseMetadata(metadata) : null,
                 Objects.nonNull(exception) ? exception.getMessage() : "");
 
-        if (eventBase.getSource().equals("ngg-batch-jobs")) {
-            sendCallbackToNggBatchJobs(callback);
+        switch (callbackSendLevel) {
+            case "ALL":
+                sendToSource(eventBase, callback);
+                break;
+            case "ERROR":
+                if (Objects.nonNull(exception)) sendToSource(eventBase, callback);
+                break;
+            default:
+                break;
+        }
+
+    }
+
+
+    private void sendToSource(EventBase eventBase, CallbackRequest callback) {
+        switch (eventBase.getSource()) {
+            case "ngg-batch-jobs":
+                sendCallbackToNggBatchJobs(callback);
+                break;
+            default:
+                break;
         }
     }
 
+
     private void sendCallbackToNggBatchJobs(CallbackRequest callbackRequest) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        HttpEntity<CallbackRequest> entity = new HttpEntity<>(callbackRequest, headers);
-
         try {
-            Call<Void> callAsync = nggBatchJobsClient.sendCallback(callbackRequest);
-            callAsync.execute();
+            Response<Void> response = nggBatchJobsClient.sendCallback(callbackRequest).execute();
+            if (!response.isSuccessful()) {
+                LOGGER.error("Error while sending callback to ngg-batch-jobs of event with id: {}\n, Error: {}\n",
+                        callbackRequest.getId(), response.errorBody().string());
+            }
         } catch (Exception e) {
             LOGGER.error("Error while sending callback to ngg-batch-jobs of event with id: {}\n, Error: {}\n", callbackRequest.getId(), e.getMessage());
         }

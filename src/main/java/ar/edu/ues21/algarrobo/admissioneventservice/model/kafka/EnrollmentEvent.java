@@ -8,6 +8,9 @@ public class EnrollmentEvent extends EventBase {
     @ApiModelProperty(name = "event data")
     private Enrollment data;
 
+    public EnrollmentEvent() {
+    }
+
     public EnrollmentEvent(Enrollment data, String eventType, String source) {
         this.data = data;
         this.setEventType(eventType);

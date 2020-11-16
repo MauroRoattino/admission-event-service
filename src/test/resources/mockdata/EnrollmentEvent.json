@@ -1,6 +1,6 @@
 {
   "eventType": "pre-enrollment-event",
-  "source": "-",
+  "source": "pre-enrollment-event-test",
   "data": {
     "failureMessage": "Failed to generate tickets for: ABG01798",
     "massive": true,
@@ -139,7 +139,6 @@
           "age": 40,
           "attendanceMode": {
             "code": 5,
-            "description": "PRESENCIAL",
             "group": "D",
             "id": 5,
             "name": "PRESENCIAL HOME"
@@ -211,7 +210,6 @@
           "firstContactName": "AMENGHI",
           "gender": {
             "code": "M",
-            "description": "FEMENINO",
             "id": 1,
             "name": "MASCULINO"
           },
@@ -294,7 +292,6 @@
         "enrollmentUser": "GABUIN",
         "gender": {
           "code": "M",
-          "description": "FEMENINO",
           "id": 1,
           "name": "MASCULINO"
         },
@@ -335,8 +332,7 @@
       "name": "string",
       "sedId": 0,
       "siteId": 0,
-      "siteRefId": 0,
-      "type": "string"
+      "siteRefId": 0
     },
     "studentRecord": {
       "academicStatus": 1,
@@ -346,7 +342,6 @@
       "admissionCourse": 99999,
       "attendanceMode": {
         "code": 5,
-        "description": "PRESENCIAL",
         "group": "D",
         "id": 5,
         "name": "PRESENCIAL HOME"
@@ -364,7 +359,6 @@
             "attendanceModes": [
               {
                 "code": 5,
-                "description": "PRESENCIAL",
                 "group": "D",
                 "id": 5,
                 "name": "PRESENCIAL HOME"
@@ -505,7 +499,6 @@
           "age": 40,
           "attendanceMode": {
             "code": 5,
-            "description": "PRESENCIAL",
             "group": "D",
             "id": 5,
             "name": "PRESENCIAL HOME"
@@ -577,7 +570,6 @@
           "firstContactName": "AMENGHI",
           "gender": {
             "code": "M",
-            "description": "FEMENINO",
             "id": 1,
             "name": "MASCULINO"
           },
@@ -660,7 +652,6 @@
         "enrollmentUser": "GABUIN",
         "gender": {
           "code": "M",
-          "description": "FEMENINO",
           "id": 1,
           "name": "MASCULINO"
         },

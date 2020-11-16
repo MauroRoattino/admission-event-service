@@ -37,6 +37,10 @@ kafka:
   topic:
     admission:
       pre_enrollment: admission.test.preenrollment
+    academic_life:
+      student-record: academic-life.test.student-record
+    user:
+      contact: user.test.contact
 
 callback:
   send-level: ${CALLBACK_LEVEL:ALL}

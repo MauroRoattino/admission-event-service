@@ -46,6 +46,12 @@ public class ProducerEngine {
 
         producer.send(new ProducerRecord<>(topic, eventBase.getEventId(), eventBase), (metadata, exception) -> {
             callbackService.sendCallbackMessage(eventBase, metadata, exception);
+            if (exception != null) {
+                exception.printStackTrace();
+            } else {
+                LOGGER.info("Produced record to topic {} partition [{}] @ offset {}.",
+                        metadata.topic(), metadata.partition(), metadata.offset());
+            }
         });
     }
 

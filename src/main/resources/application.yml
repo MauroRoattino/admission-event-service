@@ -44,4 +44,4 @@ kafka:
 
 # ALL, ERROR, NOTHING
 callback:
-  send-level: ${CALLBACK_LEVEL:ERROR}
+  send-level: ${CALLBACK_LEVEL:ALL}

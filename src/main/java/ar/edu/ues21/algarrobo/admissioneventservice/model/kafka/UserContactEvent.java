@@ -8,6 +8,9 @@ public class UserContactEvent extends EventBase {
     @ApiModelProperty(name = "event data")
     private UserData data;
 
+    public UserContactEvent() {
+    }
+
     public UserContactEvent(UserData data, String eventType, String source) {
         this.data = data;
         this.setSource(source);

@@ -42,6 +42,9 @@ kafka:
     user:
       contact: user.contact
 
+resend:
+  file-location: ${RESEND_FILE_LOCATION:./resend}
+
 # ALL, ERROR, NOTHING
 callback:
   send-level: ${CALLBACK_LEVEL:ALL}

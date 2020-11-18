@@ -47,13 +47,13 @@ public class ProducerEngine {
     }
 
     private <T extends EventBase> void sendMessage(Producer<String, T> producer, String topic, T eventBase) {
+        resendService.deleteEventFromMapIfExists(topic, eventBase.getEventId());
         producer.send(new ProducerRecord<>(topic, eventBase.getEventId(), eventBase), (metadata, exception) -> {
             callbackService.sendCallbackMessage(eventBase, metadata, exception);
             if (exception != null) {
                 resendService.addEventToMap(topic, eventBase.getEventId(), eventBase);
                 LOGGER.error("Encounter an error while sending event to kafka. Error: " + exception.getMessage());
             } else {
-                resendService.deleteEventFromMapIfExists(topic, eventBase.getEventId());
                 LOGGER.info("Produced record to topic {} partition [{}] @ offset {}.",
                         metadata.topic(), metadata.partition(), metadata.offset());
             }

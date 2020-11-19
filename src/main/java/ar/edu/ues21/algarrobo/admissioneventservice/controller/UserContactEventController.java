@@ -2,6 +2,7 @@ package ar.edu.ues21.algarrobo.admissioneventservice.controller;
 
 import ar.edu.ues21.algarrobo.admissioneventservice.model.User.UserData;
 import ar.edu.ues21.algarrobo.admissioneventservice.service.ProducerService;
+import ar.edu.ues21.algarrobo.admissioneventservice.service.ResendService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -23,12 +24,15 @@ public class UserContactEventController {
 
     private final ProducerService producerService;
 
+    private final ResendService resendService;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(UserContactEventController.class);
 
 
     @Autowired
-    public UserContactEventController(ProducerService producerService) {
+    public UserContactEventController(ProducerService producerService, ResendService resendService) {
         this.producerService = producerService;
+        this.resendService = resendService;
     }
 
     @PreAuthorize("#oauth2.hasScope('contact-publish:write')")
@@ -58,5 +62,28 @@ public class UserContactEventController {
         LOGGER.info("Sending {} user-contact events to Kafka", userContacts.size());
         producerService.sendManyUserContactEvents(userContacts, eventType, source);
         return ResponseEntity.ok("Messages sent");
+    }
+
+    @PreAuthorize("#oauth2.hasScope('contact-publish:read')")
+    @ApiOperation(value = "Get user contact events pending to be sended Kafka")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Messages sent")
+    })
+    @PostMapping(value = "/userContactEvent/resend")
+    public ResponseEntity<List<String>> getPendingUserContactEvent() {
+        LOGGER.info("Getting pending user contact events");
+        return ResponseEntity.ok(resendService.getUserContactPendingEvents());
+    }
+
+    @PreAuthorize("#oauth2.hasScope('contact-publish:write')")
+    @ApiOperation(value = "Send pending user contact events to Kafka")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Messages sent")
+    })
+    @PostMapping(value = "/userContactEvent/resend")
+    public ResponseEntity<String> sendPendingUserContactEvent() {
+        LOGGER.info("Sending pending user contact events");
+        resendService.resendPendingUserContactEvents();
+        return ResponseEntity.ok("Pending user contact event sent");
     }
 }

@@ -2,6 +2,7 @@ package ar.edu.ues21.algarrobo.admissioneventservice.controller;
 
 import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.AcademicLifeStudentRecord;
 import ar.edu.ues21.algarrobo.admissioneventservice.service.ProducerService;
+import ar.edu.ues21.algarrobo.admissioneventservice.service.ResendService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -22,13 +23,15 @@ import java.util.List;
 public class StudentRecordEventController {
 
     private final ProducerService producerService;
+    private final ResendService resendService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StudentRecordEventController.class);
 
 
     @Autowired
-    public StudentRecordEventController(ProducerService producerService) {
+    public StudentRecordEventController(ProducerService producerService, ResendService resendService) {
         this.producerService = producerService;
+        this.resendService = resendService;
     }
 
     @PreAuthorize("#oauth2.hasScope('student-record-publish:write')")
@@ -58,5 +61,28 @@ public class StudentRecordEventController {
         LOGGER.info("Sending {} studentRecord events to Kafka", studentRecordList.size());
         producerService.sendManyStudentRecordEvents(studentRecordList, eventType, source);
         return ResponseEntity.ok("Messages sent");
+    }
+
+    @PreAuthorize("#oauth2.hasScope('student-record-publish:read')")
+    @ApiOperation(value = "Get student-record events pending to be sended Kafka")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Messages sent")
+    })
+    @PostMapping(value = "/studentRecordEvent/resend")
+    public ResponseEntity<List<String>> getPendingStudentRecordEvent() {
+        LOGGER.info("Getting pending student-record events");
+        return ResponseEntity.ok(resendService.getStudentRecordPendingEvents());
+    }
+
+    @PreAuthorize("#oauth2.hasScope('student-record-publish:write')")
+    @ApiOperation(value = "Send pending student-record events to Kafka")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Messages sent")
+    })
+    @PostMapping(value = "/studentRecordEvent/resend")
+    public ResponseEntity<String> sendPendingStudentRecordEvent() {
+        LOGGER.info("Sending pending student-record events");
+        resendService.resendPendingStudentRecordEvents();
+        return ResponseEntity.ok("Pending student record event sent");
     }
 }

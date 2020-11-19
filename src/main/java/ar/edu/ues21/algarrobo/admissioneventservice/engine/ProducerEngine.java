@@ -47,11 +47,11 @@ public class ProducerEngine {
     }
 
     private <T extends EventBase> void sendMessage(Producer<String, T> producer, String topic, T eventBase) {
-        resendService.deleteEventFromMapIfExists(topic, eventBase.getEventId());
+        resendService.deleteEventFromResendIfPending(topic, eventBase.getEventId());
         producer.send(new ProducerRecord<>(topic, eventBase.getEventId(), eventBase), (metadata, exception) -> {
             callbackService.sendCallbackMessage(eventBase, metadata, exception);
             if (exception != null) {
-                resendService.addEventToMap(topic, eventBase.getEventId(), eventBase);
+                resendService.saveEventToResend(topic, eventBase);
                 LOGGER.error("Encounter an error while sending event to kafka. Error: " + exception.getMessage());
             } else {
                 LOGGER.info("Produced record to topic {} partition [{}] @ offset {}.",
@@ -62,17 +62,14 @@ public class ProducerEngine {
 
     public void sendEnrollmentEvent(EnrollmentEvent enrollmentEvent) {
         this.sendMessage(enrollmentEventProducer, ADMISSION_PREENROLLMENT_TOPIC, enrollmentEvent);
-        resendService.getEventsFromMapIfExists(ADMISSION_PREENROLLMENT_TOPIC, EnrollmentEvent.class);
     }
 
     public void sendUserContactEvent(UserContactEvent userContactEvent) {
         this.sendMessage(userContactEventProducer, USER_CONTACT_TOPIC, userContactEvent);
-        resendService.getEventsFromMapIfExists(USER_CONTACT_TOPIC, UserContactEvent.class);
     }
 
     public void sendStudentRecordEvent(
             StudentRecordEvent studentRecordEvent) {
         this.sendMessage(studentRecordEventProducer, STUDENT_RECORD_TOPIC, studentRecordEvent);
-        resendService.getEventsFromMapIfExists(STUDENT_RECORD_TOPIC, StudentRecordEvent.class);
     }
 }

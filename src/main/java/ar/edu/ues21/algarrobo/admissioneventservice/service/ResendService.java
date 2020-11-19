@@ -1,87 +1,92 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.service;
 
+import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.EnrollmentEvent;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.EventBase;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.mapdb.DB;
-import org.mapdb.DBMaker;
-import org.mapdb.Serializer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.StudentRecordEvent;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.UserContactEvent;
+import ar.edu.ues21.algarrobo.admissioneventservice.repository.ResendRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.ConcurrentMap;
 import java.util.stream.Collectors;
 
 @Service
 public class ResendService {
 
-    private final DB db;
+    private final ResendRepository resendRepository;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ResendService.class);
+    private final ProducerService producerService;
 
-    private ObjectMapper objectMapper;
+    @Value("${kafka.topic.admission.pre_enrollment}")
+    private String ADMISSION_PREENROLLMENT_TOPIC;
+
+    @Value("${kafka.topic.academic_life.student-record}")
+    private String STUDENT_RECORD_TOPIC;
+
+    @Value("${kafka.topic.user.contact}")
+    private String USER_CONTACT_TOPIC;
 
     @Autowired
-    public ResendService(@Value("${resend.file-location}") String resendFileLocation,
-                         ObjectMapper objectMapper) {
-        try {
-            Files.createDirectories(Paths.get(resendFileLocation));
-        } catch (IOException e) {
-            LOGGER.error("Error while creating resend map directory");
-        }
-        db = openConnection(resendFileLocation + "/eventsToResend.db");
-        this.objectMapper = objectMapper;
+    public ResendService(ResendRepository resendRepository, ProducerService producerService) {
+        this.resendRepository = resendRepository;
+        this.producerService = producerService;
     }
 
-    private DB openConnection(String resendFileLocation) {
-        return DBMaker.fileDB(resendFileLocation).fileMmapEnableIfSupported().closeOnJvmShutdown().make();
+    public void saveEventToResend(String topicName, EventBase event) {
+        resendRepository.addEventToMap(topicName, event.getEventId(), event);
     }
 
-    private ConcurrentMap<String, String> getMap(String mapName) {
-        return db.hashMap(mapName, Serializer.STRING, Serializer.STRING).createOrOpen();
+    public void deleteEventFromResendIfPending(String topicName, String eventId) {
+        resendRepository.deleteEventFromMapIfExists(topicName, eventId);
     }
 
-    public void addEventToMap(String topicName, String key, EventBase event) {
-        ConcurrentMap<String, String> map = getMap(topicName);
-        try {
-            map.put(key, objectMapper.writeValueAsString(event));
-        } catch (JsonProcessingException e) {
-            LOGGER.error("Error while serializing event");
-        }
-        db.commit();
-    }
-
-    public void deleteEventFromMapIfExists(String topicName, String key) {
-        ConcurrentMap<String, String> map = getMap(topicName);
-        map.remove(key);
-        db.commit();
-    }
-
-    public List<EventBase> getEventsFromMapIfExists(String topicName, Class<? extends EventBase> eventClass) {
-        ConcurrentMap<String, String> map = getMap(topicName);
-        db.commit();
-        List<EventBase> events;
-
-        events = map.values().stream()
-                .map(event -> {
-                    EventBase eventRead = null;
-                    try {
-                        eventRead = objectMapper.readValue(event, eventClass);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    return eventRead;
-                }).filter(Objects::nonNull)
+    public List<String> getStudentRecordPendingEvents() {
+        return resendRepository.getEventsFromMap(STUDENT_RECORD_TOPIC, StudentRecordEvent.class)
+                .stream()
+                .map(EventBase::getEventId)
                 .collect(Collectors.toList());
+    }
 
-        return events;
+    public void resendPendingStudentRecordEvents() {
+        List<EventBase> pendingEvents = resendRepository.getEventsFromMap(STUDENT_RECORD_TOPIC, StudentRecordEvent.class);
+        pendingEvents.forEach(eventBase ->
+                producerService.sendStudentRecordEvent(
+                        ((StudentRecordEvent) eventBase).getData(),
+                        eventBase.getEventType(),
+                        eventBase.getSource()));
+    }
+
+    public List<String> getUserContactPendingEvents() {
+        return resendRepository.getEventsFromMap(USER_CONTACT_TOPIC, UserContactEvent.class)
+                .stream()
+                .map(EventBase::getEventId)
+                .collect(Collectors.toList());
+    }
+
+    public void resendPendingUserContactEvents() {
+        List<EventBase> pendingEvents = resendRepository.getEventsFromMap(USER_CONTACT_TOPIC, UserContactEvent.class);
+        pendingEvents.forEach(eventBase ->
+                producerService.sendUserContactEvent(
+                        ((UserContactEvent) eventBase).getData(),
+                        eventBase.getEventType(),
+                        eventBase.getSource()));
+    }
+
+    public List<String> getAdmissionPendingEvents() {
+        return resendRepository.getEventsFromMap(ADMISSION_PREENROLLMENT_TOPIC, EnrollmentEvent.class)
+                .stream()
+                .map(EventBase::getEventId)
+                .collect(Collectors.toList());
+    }
+
+    public void resendPendingAdmissionEvents() {
+        List<EventBase> pendingEvents = resendRepository.getEventsFromMap(ADMISSION_PREENROLLMENT_TOPIC, EnrollmentEvent.class);
+        pendingEvents.forEach(eventBase ->
+                producerService.sendEnrollmentEvent(
+                        ((EnrollmentEvent) eventBase).getData(),
+                        eventBase.getEventType(),
+                        eventBase.getSource()));
     }
 }

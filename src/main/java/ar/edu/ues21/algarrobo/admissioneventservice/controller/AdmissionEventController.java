@@ -72,7 +72,7 @@ public class AdmissionEventController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Messages sent")
     })
-    @PostMapping(value = "/admissionEvent/resend")
+    @GetMapping(value = "/admissionEvent/resend")
     public ResponseEntity<List<String>> getPendingAdmissionEvent() {
         LOGGER.info("Getting pending admission events");
         return ResponseEntity.ok(resendService.getAdmissionPendingEvents());

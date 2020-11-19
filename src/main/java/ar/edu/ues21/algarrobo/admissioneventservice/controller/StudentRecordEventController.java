@@ -68,7 +68,7 @@ public class StudentRecordEventController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Messages sent")
     })
-    @PostMapping(value = "/studentRecordEvent/resend")
+    @GetMapping(value = "/studentRecordEvent/resend")
     public ResponseEntity<List<String>> getPendingStudentRecordEvent() {
         LOGGER.info("Getting pending student-record events");
         return ResponseEntity.ok(resendService.getStudentRecordPendingEvents());

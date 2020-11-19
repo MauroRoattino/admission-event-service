@@ -69,7 +69,7 @@ public class UserContactEventController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Messages sent")
     })
-    @PostMapping(value = "/userContactEvent/resend")
+    @GetMapping(value = "/userContactEvent/resend")
     public ResponseEntity<List<String>> getPendingUserContactEvent() {
         LOGGER.info("Getting pending user contact events");
         return ResponseEntity.ok(resendService.getUserContactPendingEvents());

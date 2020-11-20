@@ -1,470 +1,57 @@
 {
-  "failureMessage": "Failed to generate tickets for: ABG01798",
-  "massive": true,
-  "opportunityDetailId": "string",
-  "period": {
-    "from": "2019-01-03",
-    "id": 0,
-    "name": "Primer semestre 2019",
-    "salesFrom": "2019-01-03",
-    "salesTo": "2019-06-30",
-    "subperiods": [
-      {
-        "description": "Periodo 1/19 A -- MARZO - MAYO",
-        "enrollment": "S",
-        "from": "2019-01-03",
-        "id": 0,
-        "name": "Primer semestre 2019",
-        "subperiod": "A",
-        "to": "2019-06-30",
-        "type": 2
-      }
-    ],
-    "to": "2019-06-30"
-  },
-  "previousStudies": {
-    "average": 0,
-    "cambioColegio": 0,
-    "cantMatAdeud": 0,
-    "estado": 0,
-    "graduationDate": "2018-06-30",
-    "id": 0,
-    "institutionId": 0,
-    "materiasRecuperadas1": 0,
-    "materiasRecuperadas2": 0,
-    "materiasRecuperadas3": 0,
-    "materiasRecuperadas4": 0,
-    "materiasRecuperadas5": 0,
-    "materiasRecuperadas6": 0,
-    "motivoCambio": 0,
-    "observaciones": "-",
-    "otraLocalidadColegio": "-",
-    "otroColegio": "-",
-    "otroTitulo": "-",
-    "paisId": 0,
-    "repeticionAnio1": 0,
-    "repeticionAnio2": 0,
-    "repeticionAnio3": 0,
-    "repeticionAnio4": 0,
-    "repeticionAnio5": 0,
-    "repeticionAnio6": 0,
-    "studentId": {
-      "addresses": [
-        {
-          "apartment": "a",
-          "details": "-",
-          "fax": "-",
-          "floor": 1,
-          "id": 1341178,
-          "location": "Cordoba",
-          "locationId": 232,
-          "locationRef": {
-            "id": 42,
-            "name": "MALAGUEÑO",
-            "province": {
-              "country": {
-                "id": 4,
-                "name": "ARGENTINA",
-                "nationality": "ARGENTINA"
-              },
-              "id": 1,
-              "name": "CORDOBA"
-            }
-          },
-          "neighborhood": "Sachi",
-          "neighborhoodId": 21234,
-          "number": 2678,
-          "postalCode": 5002,
-          "primaryPhone": 115484631,
-          "secondaryPhone": 654847,
-          "street": "Raymundo Montenegro",
-          "streetId": 21246,
-          "tower": "b",
-          "type": 2
-        }
-      ],
-      "benefitKind": 0,
-      "birthDate": "1971-09-18",
-      "birthPlace": {
-        "id": 42,
-        "name": "MALAGUEÑO",
-        "province": {
-          "country": {
-            "id": 4,
-            "name": "ARGENTINA",
-            "nationality": "ARGENTINA"
-          },
-          "id": 1,
-          "name": "CORDOBA"
-        }
-      },
-      "contact": {
-        "addresses": [
-          {
-            "apartment": "a",
-            "details": "-",
-            "fax": "-",
-            "floor": 1,
-            "id": 1341178,
-            "location": "Cordoba",
-            "locationId": 232,
-            "locationRef": {
-              "id": 42,
-              "name": "MALAGUEÑO",
-              "province": {
-                "country": {
-                  "id": 4,
-                  "name": "ARGENTINA",
-                  "nationality": "ARGENTINA"
-                },
-                "id": 1,
-                "name": "CORDOBA"
-              }
-            },
-            "neighborhood": "Sachi",
-            "neighborhoodId": 21234,
-            "number": 2678,
-            "postalCode": 5002,
-            "primaryPhone": 115484631,
-            "secondaryPhone": 654847,
-            "street": "Raymundo Montenegro",
-            "streetId": 21246,
-            "tower": "b",
-            "type": 2
-          }
-        ],
-        "age": 40,
-        "attendanceMode": {
-          "code": 5,
-          "description": "PRESENCIAL",
-          "group": "D",
-          "id": 5,
-          "name": "PRESENCIAL HOME"
-        },
-        "attendanceModeID": 1,
-        "average": 7.5,
-        "birthPlace": {
-          "id": 42,
-          "name": "MALAGUEÑO",
-          "province": {
-            "country": {
-              "id": 4,
-              "name": "ARGENTINA",
-              "nationality": "ARGENTINA"
-            },
-            "id": 1,
-            "name": "CORDOBA"
-          }
-        },
-        "birthdate": "1977-05-16",
-        "categoriaInforme": 1,
-        "contactAvailability": {
-          "id": 1,
-          "name": "DNI"
-        },
-        "contactRequests": [
-          {
-            "attendanceMode": 1,
-            "career": {
-              "code": "VABG",
-              "id": 2,
-              "name": "Abogacía"
-            },
-            "country": {
-              "id": 4,
-              "name": "ARGENTINA",
-              "nationality": "ARGENTINA"
-            },
-            "courseMode": {
-              "code": 1,
-              "id": 1,
-              "name": "Mañana"
-            },
-            "id": {
-              "item": 2
-            },
-            "preEnrollmentCrm": 1,
-            "requestDate": "2019-06-30",
-            "status": 0,
-            "statusDate": "19-FEB-03",
-            "usrPortal": "CRSANCHEZ"
-          }
-        ],
-        "country": {
-          "id": 4,
-          "name": "ARGENTINA",
-          "nationality": "ARGENTINA"
-        },
-        "creationDate": "2008-01-30",
-        "creationSource": {
-          "id": 6,
-          "name": "WEB"
-        },
-        "documentNumber": 34107754,
-        "documentType": {
-          "id": 1,
-          "name": "DNI"
-        },
-        "firstContactName": "AMENGHI",
-        "gender": {
-          "code": "M",
-          "description": "FEMENINO",
-          "id": 1,
-          "name": "MASCULINO"
-        },
-        "graduationDate": "2010-10-20",
-        "id": 1032026,
-        "informadoStatus": 1,
-        "institutionId": {
-          "cue": 1,
-          "description": "UNIVERSIDAD NACIONAL DE TUCUMÁN",
-          "domId": 1,
-          "email": "-",
-          "equivValid": 2,
-          "id": 414,
-          "kind": 1,
-          "location": {
-            "id": 42,
-            "name": "MALAGUEÑO",
-            "province": {
-              "country": {
-                "id": 4,
-                "name": "ARGENTINA",
-                "nationality": "ARGENTINA"
-              },
-              "id": 1,
-              "name": "CORDOBA"
-            }
-          },
-          "sector": 2,
-          "state": 2
-        },
-        "lastName": "EIMFVQFAIJ",
-        "maritalStatus": {
-          "code": "S",
-          "id": 1,
-          "name": "SOLTERO"
-        },
-        "name": "CRISTIAN JULIO",
-        "nationality": {
-          "id": 4,
-          "name": "ARGENTINA",
-          "nationality": "ARGENTINA"
-        },
-        "origin": [
-          {
-            "id": {
-              "origin": 12
-            },
-            "status": 3
-          }
-        ],
-        "primaryEmail": "QVLIGWUFLP@gmail.com",
-        "relatives": 2,
-        "requestedInformation": "GENERAL",
-        "secondaryEmail": "LRLXJMIVST@gmail.com",
-        "siteId": 1,
-        "status": 1,
-        "statusDate": "2011-08-05",
-        "studyClass": 4,
-        "titleId": {
-          "description": "TECNICO AGRONOMO GENERAL",
-          "id": 33,
-          "institutionTitleLevel": {
-            "description": "SECUNDARIO",
-            "id": 33
-          }
-        },
-        "usrPortal": "CRSANCHEZ"
-      },
-      "country": {
-        "id": 4,
-        "name": "ARGENTINA",
-        "nationality": "ARGENTINA"
-      },
-      "documentNumber": 34107754,
-      "documentType": {
-        "id": 1,
-        "name": "DNI"
-      },
-      "economicSituation": 1,
-      "enrollmentUser": "GABUIN",
-      "gender": {
-        "code": "M",
-        "description": "FEMENINO",
-        "id": 1,
-        "name": "MASCULINO"
-      },
-      "generatedCard": 1,
-      "id": 11841,
-      "lastName": "EIMFVQFAIJ",
-      "loadDate": "2020-09-08T14:42:43",
-      "maritalStatus": {
-        "code": "S",
-        "id": 1,
-        "name": "SOLTERO"
-      },
-      "name": "CRISTIAN JULIO",
-      "nationality": {
-        "id": 4,
-        "name": "ARGENTINA",
-        "nationality": "ARGENTINA"
-      },
-      "primaryEmail": "QVLIGWUFLP@gmail.com",
-      "receivedKit": 2,
-      "secondaryEmail": "LRLXJMIVST@gmail.com",
-      "sentKit": 1,
-      "status": 1,
-      "statusDate": "2016-07-09T17:05:00",
-      "studentRecords": [
-        null
-      ],
-      "studentType": 2,
-      "usrPortal": "CRSANCHEZ"
-    },
-    "titleId": 0
-  },
-  "processFailure": "Tickets",
-  "site": {
-    "code": "string",
-    "id": "string",
-    "location": "string",
-    "name": "string",
-    "sedId": 0,
-    "siteId": 0,
-    "siteRefId": 0,
-    "type": "string"
-  },
-  "studentRecord": {
-    "academicStatus": 1,
-    "academicStatusDate": "2008-01-30T18:11:29",
-    "accountantStatus": 1,
-    "accountantStatusDate": "2008-01-30T18:11:29",
-    "admissionCourse": 99999,
-    "attendanceMode": {
-      "code": 5,
-      "description": "PRESENCIAL",
-      "group": "D",
-      "id": 5,
-      "name": "PRESENCIAL HOME"
-    },
-    "careerStudyPlan": {
-      "enabled": 2,
-      "home": 2,
-      "id": {
-        "career": {
-          "code": "VABG",
-          "id": 2,
-          "name": "Abogacía"
-        },
-        "studyClass": {
-          "attendanceModes": [
-            {
-              "code": 5,
-              "description": "PRESENCIAL",
-              "group": "D",
-              "id": 5,
-              "name": "PRESENCIAL HOME"
-            }
-          ],
-          "code": 4,
-          "id": 4,
-          "name": "GRADO PRESENCIAL HOME",
-          "state": "ACTIVE"
-        },
-        "studyPlan": {
-          "id": 2007,
-          "name": "PLAN 2007"
-        }
-      }
-    },
-    "courseModeZoneSede": {
-      "courseMode": {
-        "code": 1,
-        "id": 1,
-        "name": "Mañana"
-      },
-      "id": 3,
-      "sedeId": 4,
-      "status": 1,
-      "zone": 2,
-      "zoneId": 131
-    },
-    "enrollmentPaid": 1,
-    "future": 0,
-    "id": "ABG01798",
-    "idLms": "C",
-    "initialPeriod": {
-      "code": "Primer semestre 2019",
+  "eventType": "pre-enrollment-event",
+  "source": "pre-enrollment-event-test",
+  "data": {
+    "failureMessage": "Failed to generate tickets for: ABG01798",
+    "massive": true,
+    "opportunityDetailId": "string",
+    "period": {
       "from": "2019-01-03",
       "id": 0,
-      "subPeriod": "1/19 A",
-      "tipo": 1,
-      "to": "2019-06-30"
-    },
-    "inscriptionId": 1,
-    "origenInscripto": 4,
-    "refState": {
-      "refAvailable": false,
-      "refMsg": "Habilitado"
-    },
-    "sedId": 4,
-    "siteId": 3,
-    "siteRefId": 3,
-    "startDate": "2011-08-01T13:17:14",
-    "status": 2,
-    "statusDate": "2013-11-26T12:10:06",
-    "student": {
-      "addresses": [
+      "name": "Primer semestre 2019",
+      "salesFrom": "2019-01-03",
+      "salesTo": "2019-06-30",
+      "subperiods": [
         {
-          "apartment": "a",
-          "details": "-",
-          "fax": "-",
-          "floor": 1,
-          "id": 1341178,
-          "location": "Cordoba",
-          "locationId": 232,
-          "locationRef": {
-            "id": 42,
-            "name": "MALAGUEÑO",
-            "province": {
-              "country": {
-                "id": 4,
-                "name": "ARGENTINA",
-                "nationality": "ARGENTINA"
-              },
-              "id": 1,
-              "name": "CORDOBA"
-            }
-          },
-          "neighborhood": "Sachi",
-          "neighborhoodId": 21234,
-          "number": 2678,
-          "postalCode": 5002,
-          "primaryPhone": 115484631,
-          "secondaryPhone": 654847,
-          "street": "Raymundo Montenegro",
-          "streetId": 21246,
-          "tower": "b",
+          "description": "Periodo 1/19 A -- MARZO - MAYO",
+          "enrollment": "S",
+          "from": "2019-01-03",
+          "id": 0,
+          "name": "Primer semestre 2019",
+          "subperiod": "A",
+          "to": "2019-06-30",
           "type": 2
         }
       ],
-      "benefitKind": 0,
-      "birthDate": "1971-09-18",
-      "birthPlace": {
-        "id": 42,
-        "name": "MALAGUEÑO",
-        "province": {
-          "country": {
-            "id": 4,
-            "name": "ARGENTINA",
-            "nationality": "ARGENTINA"
-          },
-          "id": 1,
-          "name": "CORDOBA"
-        }
-      },
-      "contact": {
+      "to": "2019-06-30"
+    },
+    "previousStudies": {
+      "average": 0,
+      "cambioColegio": 0,
+      "cantMatAdeud": 0,
+      "estado": 0,
+      "graduationDate": "2018-06-30",
+      "id": 0,
+      "institutionId": 0,
+      "materiasRecuperadas1": 0,
+      "materiasRecuperadas2": 0,
+      "materiasRecuperadas3": 0,
+      "materiasRecuperadas4": 0,
+      "materiasRecuperadas5": 0,
+      "materiasRecuperadas6": 0,
+      "motivoCambio": 0,
+      "observaciones": "-",
+      "otraLocalidadColegio": "-",
+      "otroColegio": "-",
+      "otroTitulo": "-",
+      "paisId": 0,
+      "repeticionAnio1": 0,
+      "repeticionAnio2": 0,
+      "repeticionAnio3": 0,
+      "repeticionAnio4": 0,
+      "repeticionAnio5": 0,
+      "repeticionAnio6": 0,
+      "studentId": {
         "addresses": [
           {
             "apartment": "a",
@@ -499,16 +86,8 @@
             "type": 2
           }
         ],
-        "age": 40,
-        "attendanceMode": {
-          "code": 5,
-          "description": "PRESENCIAL",
-          "group": "D",
-          "id": 5,
-          "name": "PRESENCIAL HOME"
-        },
-        "attendanceModeID": 1,
-        "average": 7.5,
+        "benefitKind": 0,
+        "birthDate": "1971-09-18",
         "birthPlace": {
           "id": 42,
           "name": "MALAGUEÑO",
@@ -522,74 +101,51 @@
             "name": "CORDOBA"
           }
         },
-        "birthdate": "1977-05-16",
-        "categoriaInforme": 1,
-        "contactAvailability": {
-          "id": 1,
-          "name": "DNI"
-        },
-        "contactRequests": [
-          {
-            "attendanceMode": 1,
-            "career": {
-              "code": "VABG",
-              "id": 2,
-              "name": "Abogacía"
-            },
-            "country": {
-              "id": 4,
-              "name": "ARGENTINA",
-              "nationality": "ARGENTINA"
-            },
-            "courseMode": {
-              "code": 1,
-              "id": 1,
-              "name": "Mañana"
-            },
-            "id": {
-              "item": 2
-            },
-            "preEnrollmentCrm": 1,
-            "requestDate": "2019-06-30",
-            "status": 0,
-            "statusDate": "19-FEB-03",
-            "usrPortal": "CRSANCHEZ"
-          }
-        ],
-        "country": {
-          "id": 4,
-          "name": "ARGENTINA",
-          "nationality": "ARGENTINA"
-        },
-        "creationDate": "2008-01-30",
-        "creationSource": {
-          "id": 6,
-          "name": "WEB"
-        },
-        "documentNumber": 34107754,
-        "documentType": {
-          "id": 1,
-          "name": "DNI"
-        },
-        "firstContactName": "AMENGHI",
-        "gender": {
-          "code": "M",
-          "description": "FEMENINO",
-          "id": 1,
-          "name": "MASCULINO"
-        },
-        "graduationDate": "2010-10-20",
-        "id": 1032026,
-        "informadoStatus": 1,
-        "institutionId": {
-          "cue": 1,
-          "description": "UNIVERSIDAD NACIONAL DE TUCUMÁN",
-          "domId": 1,
-          "email": "-",
-          "equivValid": 2,
-          "id": 414,
-          "kind": 1,
-          "location": {
+        "contact": {
+          "addresses": [
+            {
+              "apartment": "a",
+              "details": "-",
+              "fax": "-",
+              "floor": 1,
+              "id": 1341178,
+              "location": "Cordoba",
+              "locationId": 232,
+              "locationRef": {
+                "id": 42,
+                "name": "MALAGUEÑO",
+                "province": {
+                  "country": {
+                    "id": 4,
+                    "name": "ARGENTINA",
+                    "nationality": "ARGENTINA"
+                  },
+                  "id": 1,
+                  "name": "CORDOBA"
+                }
+              },
+              "neighborhood": "Sachi",
+              "neighborhoodId": 21234,
+              "number": 2678,
+              "postalCode": 5002,
+              "primaryPhone": 115484631,
+              "secondaryPhone": 654847,
+              "street": "Raymundo Montenegro",
+              "streetId": 21246,
+              "tower": "b",
+              "type": 2
+            }
+          ],
+          "age": 40,
+          "attendanceMode": {
+            "code": 5,
+            "group": "D",
+            "id": 5,
+            "name": "PRESENCIAL HOME"
+          },
+          "attendanceModeID": 1,
+          "average": 7.5,
+          "birthPlace": {
             "id": 42,
             "name": "MALAGUEÑO",
             "province": {
@@ -602,10 +158,147 @@
               "name": "CORDOBA"
             }
           },
-          "sector": 2,
-          "state": 2
+          "birthdate": "1977-05-16",
+          "categoriaInforme": 1,
+          "contactAvailability": {
+            "id": 1,
+            "name": "DNI"
+          },
+          "contactRequests": [
+            {
+              "attendanceMode": 1,
+              "career": {
+                "code": "VABG",
+                "id": 2,
+                "name": "Abogacía"
+              },
+              "country": {
+                "id": 4,
+                "name": "ARGENTINA",
+                "nationality": "ARGENTINA"
+              },
+              "courseMode": {
+                "code": 1,
+                "id": 1,
+                "name": "Mañana"
+              },
+              "id": {
+                "item": 2
+              },
+              "preEnrollmentCrm": 1,
+              "requestDate": "2019-06-30",
+              "status": 0,
+              "statusDate": "19-FEB-03",
+              "usrPortal": "CRSANCHEZ"
+            }
+          ],
+          "country": {
+            "id": 4,
+            "name": "ARGENTINA",
+            "nationality": "ARGENTINA"
+          },
+          "creationDate": "2008-01-30",
+          "creationSource": {
+            "id": 6,
+            "name": "WEB"
+          },
+          "documentNumber": 34107754,
+          "documentType": {
+            "id": 1,
+            "name": "DNI"
+          },
+          "firstContactName": "AMENGHI",
+          "gender": {
+            "code": "M",
+            "id": 1,
+            "name": "MASCULINO"
+          },
+          "graduationDate": "2010-10-20",
+          "id": 1032026,
+          "informadoStatus": 1,
+          "institutionId": {
+            "cue": 1,
+            "description": "UNIVERSIDAD NACIONAL DE TUCUMÁN",
+            "domId": 1,
+            "email": "-",
+            "equivValid": 2,
+            "id": 414,
+            "kind": 1,
+            "location": {
+              "id": 42,
+              "name": "MALAGUEÑO",
+              "province": {
+                "country": {
+                  "id": 4,
+                  "name": "ARGENTINA",
+                  "nationality": "ARGENTINA"
+                },
+                "id": 1,
+                "name": "CORDOBA"
+              }
+            },
+            "sector": 2,
+            "state": 2
+          },
+          "lastName": "EIMFVQFAIJ",
+          "maritalStatus": {
+            "code": "S",
+            "id": 1,
+            "name": "SOLTERO"
+          },
+          "name": "CRISTIAN JULIO",
+          "nationality": {
+            "id": 4,
+            "name": "ARGENTINA",
+            "nationality": "ARGENTINA"
+          },
+          "origin": [
+            {
+              "id": {
+                "origin": 12
+              },
+              "status": 3
+            }
+          ],
+          "primaryEmail": "QVLIGWUFLP@gmail.com",
+          "relatives": 2,
+          "requestedInformation": "GENERAL",
+          "secondaryEmail": "LRLXJMIVST@gmail.com",
+          "siteId": 1,
+          "status": 1,
+          "statusDate": "2011-08-05",
+          "studyClass": 4,
+          "titleId": {
+            "description": "TECNICO AGRONOMO GENERAL",
+            "id": 33,
+            "institutionTitleLevel": {
+              "description": "SECUNDARIO",
+              "id": 33
+            }
+          },
+          "usrPortal": "CRSANCHEZ"
         },
+        "country": {
+          "id": 4,
+          "name": "ARGENTINA",
+          "nationality": "ARGENTINA"
+        },
+        "documentNumber": 34107754,
+        "documentType": {
+          "id": 1,
+          "name": "DNI"
+        },
+        "economicSituation": 1,
+        "enrollmentUser": "GABUIN",
+        "gender": {
+          "code": "M",
+          "id": 1,
+          "name": "MASCULINO"
+        },
+        "generatedCard": 1,
+        "id": 11841,
         "lastName": "EIMFVQFAIJ",
+        "loadDate": "2020-09-08T14:42:43",
         "maritalStatus": {
           "code": "S",
           "id": 1,
@@ -617,149 +310,451 @@
           "name": "ARGENTINA",
           "nationality": "ARGENTINA"
         },
-        "origin": [
-          {
-            "id": {
-              "origin": 12
-            },
-            "status": 3
-          }
-        ],
         "primaryEmail": "QVLIGWUFLP@gmail.com",
-        "relatives": 2,
-        "requestedInformation": "GENERAL",
+        "receivedKit": 2,
         "secondaryEmail": "LRLXJMIVST@gmail.com",
-        "siteId": 1,
+        "sentKit": 1,
         "status": 1,
-        "statusDate": "2011-08-05",
-        "studyClass": 4,
-        "titleId": {
-          "description": "TECNICO AGRONOMO GENERAL",
-          "id": 33,
-          "institutionTitleLevel": {
-            "description": "SECUNDARIO",
-            "id": 33
-          }
-        },
+        "statusDate": "2016-07-09T17:05:00",
+        "studentRecords": [
+          null
+        ],
+        "studentType": 2,
         "usrPortal": "CRSANCHEZ"
       },
-      "country": {
-        "id": 4,
-        "name": "ARGENTINA",
-        "nationality": "ARGENTINA"
-      },
-      "documentNumber": 34107754,
-      "documentType": {
-        "id": 1,
-        "name": "DNI"
-      },
-      "economicSituation": 1,
-      "enrollmentUser": "GABUIN",
-      "gender": {
-        "code": "M",
-        "description": "FEMENINO",
-        "id": 1,
-        "name": "MASCULINO"
-      },
-      "generatedCard": 1,
-      "id": 11841,
-      "lastName": "EIMFVQFAIJ",
-      "loadDate": "2020-09-08T14:42:43",
-      "maritalStatus": {
-        "code": "S",
-        "id": 1,
-        "name": "SOLTERO"
-      },
-      "name": "CRISTIAN JULIO",
-      "nationality": {
-        "id": 4,
-        "name": "ARGENTINA",
-        "nationality": "ARGENTINA"
-      },
-      "primaryEmail": "QVLIGWUFLP@gmail.com",
-      "receivedKit": 2,
-      "secondaryEmail": "LRLXJMIVST@gmail.com",
-      "sentKit": 1,
-      "status": 1,
-      "statusDate": "2016-07-09T17:05:00",
-      "studentRecords": [
-        null
-      ],
-      "studentType": 2,
-      "usrPortal": "CRSANCHEZ"
+      "titleId": 0
     },
-    "usrPortal": "OLIOTTA"
-  },
-  "tickets": [
-    {
-      "attendanceMode": 1,
-      "autorizado": 2,
-      "basePrice": 0,
-      "calipsoPromotion": 0,
-      "career": "01",
-      "cau": 3,
-      "code": 5,
-      "codigoDiplomatura": "C",
-      "costCenter": "ARG-WI.01.12.01.05.07.02.22.10.EH",
-      "coutaInt": 0,
-      "date": "2020-05-21T15:25:28.684859",
-      "detail": "Arancel A",
-      "discount": 0,
-      "discountAmmount": 0,
-      "discounts": [
-        {
-          "ammount": 20,
-          "fixed": false,
-          "name": "Refered",
-          "percentage": 30
+    "processFailure": "Tickets",
+    "site": {
+      "code": "string",
+      "id": "string",
+      "location": "string",
+      "name": "string",
+      "sedId": 0,
+      "siteId": 0,
+      "siteRefId": 0
+    },
+    "studentRecord": {
+      "academicStatus": 1,
+      "academicStatusDate": "2008-01-30T18:11:29",
+      "accountantStatus": 1,
+      "accountantStatusDate": "2008-01-30T18:11:29",
+      "admissionCourse": 99999,
+      "attendanceMode": {
+        "code": 5,
+        "group": "D",
+        "id": 5,
+        "name": "PRESENCIAL HOME"
+      },
+      "careerStudyPlan": {
+        "enabled": 2,
+        "home": 2,
+        "id": {
+          "career": {
+            "code": "VABG",
+            "id": 2,
+            "name": "Abogacía"
+          },
+          "studyClass": {
+            "attendanceModes": [
+              {
+                "code": 5,
+                "group": "D",
+                "id": 5,
+                "name": "PRESENCIAL HOME"
+              }
+            ],
+            "code": 4,
+            "id": 4,
+            "name": "GRADO PRESENCIAL HOME",
+            "state": "ACTIVE"
+          },
+          "studyPlan": {
+            "id": 2007,
+            "name": "PLAN 2007"
+          }
         }
-      ],
-      "enviado": "S",
-      "estadoContable": "H",
-      "estadoPago": "PAGADO",
-      "estadoPagoDiplomatura": "PAGADO",
-      "expires": "2020-10-08T03:00:00+0000",
-      "group": "D",
-      "id": 435645,
-      "idMon": 0,
-      "idSistemaOrigen": 0,
-      "installment": 3,
-      "installments": 3,
-      "listPrice": 5000,
-      "period": "1/20",
-      "points": 100,
-      "price": 0,
-      "priceId": 12377168,
-      "promotion": "S/D",
-      "region": "SR",
-      "schedule": 6432,
-      "scholarship": 0,
-      "scholarships": [
-        {
-          "description": "scholarship",
-          "fixedAmmount": 0,
-          "percentage": 0,
-          "periodCode": "2/19",
-          "ticketType": "MM",
-          "type": "B"
-        }
-      ],
-      "sector": "AM",
-      "studentRecord": "ABG01798",
-      "studentType": "I",
-      "subjects": 0,
-      "tariffType": 1,
-      "ticketType": "II",
-      "type": "II",
-      "unidOpe": 2,
+      },
+      "courseModeZoneSede": {
+        "courseMode": {
+          "code": 1,
+          "id": 1,
+          "name": "Mañana"
+        },
+        "id": 3,
+        "sedeId": 4,
+        "status": 1,
+        "zone": 2,
+        "zoneId": 131
+      },
+      "enrollmentPaid": 1,
+      "future": 0,
+      "id": "ABG01798",
+      "idLms": "C",
+      "initialPeriod": {
+        "code": "Primer semestre 2019",
+        "from": "2019-01-03",
+        "id": 0,
+        "subPeriod": "1/19 A",
+        "tipo": 1,
+        "to": "2019-06-30"
+      },
+      "inscriptionId": 1,
+      "origenInscripto": 4,
+      "refState": {
+        "refAvailable": false,
+        "refMsg": "Habilitado"
+      },
+      "sedId": 4,
+      "siteId": 3,
+      "siteRefId": 3,
+      "startDate": "2011-08-01T13:17:14",
+      "status": 2,
+      "statusDate": "2013-11-26T12:10:06",
+      "student": {
+        "addresses": [
+          {
+            "apartment": "a",
+            "details": "-",
+            "fax": "-",
+            "floor": 1,
+            "id": 1341178,
+            "location": "Cordoba",
+            "locationId": 232,
+            "locationRef": {
+              "id": 42,
+              "name": "MALAGUEÑO",
+              "province": {
+                "country": {
+                  "id": 4,
+                  "name": "ARGENTINA",
+                  "nationality": "ARGENTINA"
+                },
+                "id": 1,
+                "name": "CORDOBA"
+              }
+            },
+            "neighborhood": "Sachi",
+            "neighborhoodId": 21234,
+            "number": 2678,
+            "postalCode": 5002,
+            "primaryPhone": 115484631,
+            "secondaryPhone": 654847,
+            "street": "Raymundo Montenegro",
+            "streetId": 21246,
+            "tower": "b",
+            "type": 2
+          }
+        ],
+        "benefitKind": 0,
+        "birthDate": "1971-09-18",
+        "birthPlace": {
+          "id": 42,
+          "name": "MALAGUEÑO",
+          "province": {
+            "country": {
+              "id": 4,
+              "name": "ARGENTINA",
+              "nationality": "ARGENTINA"
+            },
+            "id": 1,
+            "name": "CORDOBA"
+          }
+        },
+        "contact": {
+          "addresses": [
+            {
+              "apartment": "a",
+              "details": "-",
+              "fax": "-",
+              "floor": 1,
+              "id": 1341178,
+              "location": "Cordoba",
+              "locationId": 232,
+              "locationRef": {
+                "id": 42,
+                "name": "MALAGUEÑO",
+                "province": {
+                  "country": {
+                    "id": 4,
+                    "name": "ARGENTINA",
+                    "nationality": "ARGENTINA"
+                  },
+                  "id": 1,
+                  "name": "CORDOBA"
+                }
+              },
+              "neighborhood": "Sachi",
+              "neighborhoodId": 21234,
+              "number": 2678,
+              "postalCode": 5002,
+              "primaryPhone": 115484631,
+              "secondaryPhone": 654847,
+              "street": "Raymundo Montenegro",
+              "streetId": 21246,
+              "tower": "b",
+              "type": 2
+            }
+          ],
+          "age": 40,
+          "attendanceMode": {
+            "code": 5,
+            "group": "D",
+            "id": 5,
+            "name": "PRESENCIAL HOME"
+          },
+          "attendanceModeID": 1,
+          "average": 7.5,
+          "birthPlace": {
+            "id": 42,
+            "name": "MALAGUEÑO",
+            "province": {
+              "country": {
+                "id": 4,
+                "name": "ARGENTINA",
+                "nationality": "ARGENTINA"
+              },
+              "id": 1,
+              "name": "CORDOBA"
+            }
+          },
+          "birthdate": "1977-05-16",
+          "categoriaInforme": 1,
+          "contactAvailability": {
+            "id": 1,
+            "name": "DNI"
+          },
+          "contactRequests": [
+            {
+              "attendanceMode": 1,
+              "career": {
+                "code": "VABG",
+                "id": 2,
+                "name": "Abogacía"
+              },
+              "country": {
+                "id": 4,
+                "name": "ARGENTINA",
+                "nationality": "ARGENTINA"
+              },
+              "courseMode": {
+                "code": 1,
+                "id": 1,
+                "name": "Mañana"
+              },
+              "id": {
+                "item": 2
+              },
+              "preEnrollmentCrm": 1,
+              "requestDate": "2019-06-30",
+              "status": 0,
+              "statusDate": "19-FEB-03",
+              "usrPortal": "CRSANCHEZ"
+            }
+          ],
+          "country": {
+            "id": 4,
+            "name": "ARGENTINA",
+            "nationality": "ARGENTINA"
+          },
+          "creationDate": "2008-01-30",
+          "creationSource": {
+            "id": 6,
+            "name": "WEB"
+          },
+          "documentNumber": 34107754,
+          "documentType": {
+            "id": 1,
+            "name": "DNI"
+          },
+          "firstContactName": "AMENGHI",
+          "gender": {
+            "code": "M",
+            "id": 1,
+            "name": "MASCULINO"
+          },
+          "graduationDate": "2010-10-20",
+          "id": 1032026,
+          "informadoStatus": 1,
+          "institutionId": {
+            "cue": 1,
+            "description": "UNIVERSIDAD NACIONAL DE TUCUMÁN",
+            "domId": 1,
+            "email": "-",
+            "equivValid": 2,
+            "id": 414,
+            "kind": 1,
+            "location": {
+              "id": 42,
+              "name": "MALAGUEÑO",
+              "province": {
+                "country": {
+                  "id": 4,
+                  "name": "ARGENTINA",
+                  "nationality": "ARGENTINA"
+                },
+                "id": 1,
+                "name": "CORDOBA"
+              }
+            },
+            "sector": 2,
+            "state": 2
+          },
+          "lastName": "EIMFVQFAIJ",
+          "maritalStatus": {
+            "code": "S",
+            "id": 1,
+            "name": "SOLTERO"
+          },
+          "name": "CRISTIAN JULIO",
+          "nationality": {
+            "id": 4,
+            "name": "ARGENTINA",
+            "nationality": "ARGENTINA"
+          },
+          "origin": [
+            {
+              "id": {
+                "origin": 12
+              },
+              "status": 3
+            }
+          ],
+          "primaryEmail": "QVLIGWUFLP@gmail.com",
+          "relatives": 2,
+          "requestedInformation": "GENERAL",
+          "secondaryEmail": "LRLXJMIVST@gmail.com",
+          "siteId": 1,
+          "status": 1,
+          "statusDate": "2011-08-05",
+          "studyClass": 4,
+          "titleId": {
+            "description": "TECNICO AGRONOMO GENERAL",
+            "id": 33,
+            "institutionTitleLevel": {
+              "description": "SECUNDARIO",
+              "id": 33
+            }
+          },
+          "usrPortal": "CRSANCHEZ"
+        },
+        "country": {
+          "id": 4,
+          "name": "ARGENTINA",
+          "nationality": "ARGENTINA"
+        },
+        "documentNumber": 34107754,
+        "documentType": {
+          "id": 1,
+          "name": "DNI"
+        },
+        "economicSituation": 1,
+        "enrollmentUser": "GABUIN",
+        "gender": {
+          "code": "M",
+          "id": 1,
+          "name": "MASCULINO"
+        },
+        "generatedCard": 1,
+        "id": 11841,
+        "lastName": "EIMFVQFAIJ",
+        "loadDate": "2020-09-08T14:42:43",
+        "maritalStatus": {
+          "code": "S",
+          "id": 1,
+          "name": "SOLTERO"
+        },
+        "name": "CRISTIAN JULIO",
+        "nationality": {
+          "id": 4,
+          "name": "ARGENTINA",
+          "nationality": "ARGENTINA"
+        },
+        "primaryEmail": "QVLIGWUFLP@gmail.com",
+        "receivedKit": 2,
+        "secondaryEmail": "LRLXJMIVST@gmail.com",
+        "sentKit": 1,
+        "status": 1,
+        "statusDate": "2016-07-09T17:05:00",
+        "studentRecords": [
+          null
+        ],
+        "studentType": 2,
+        "usrPortal": "CRSANCHEZ"
+      },
+      "usrPortal": "OLIOTTA"
+    },
+    "tickets": [
+      {
+        "attendanceMode": 1,
+        "autorizado": 2,
+        "basePrice": 0,
+        "calipsoPromotion": 0,
+        "career": "01",
+        "cau": 3,
+        "code": 5,
+        "codigoDiplomatura": "C",
+        "costCenter": "ARG-WI.01.12.01.05.07.02.22.10.EH",
+        "coutaInt": 0,
+        "date": "2020-05-21T15:25:28.684859",
+        "detail": "Arancel A",
+        "discount": 0,
+        "discountAmmount": 0,
+        "discounts": [
+          {
+            "ammount": 20,
+            "fixed": false,
+            "name": "Refered",
+            "percentage": 30
+          }
+        ],
+        "enviado": "S",
+        "estadoContable": "H",
+        "estadoPago": "PAGADO",
+        "estadoPagoDiplomatura": "PAGADO",
+        "expires": "2020-10-08T03:00:00+0000",
+        "group": "D",
+        "id": 435645,
+        "idMon": 0,
+        "idSistemaOrigen": 0,
+        "installment": 3,
+        "installments": 3,
+        "listPrice": 5000,
+        "period": "1/20",
+        "points": 100,
+        "price": 0,
+        "priceId": 12377168,
+        "promotion": "S/D",
+        "region": "SR",
+        "schedule": 6432,
+        "scholarship": 0,
+        "scholarships": [
+          {
+            "description": "scholarship",
+            "fixedAmmount": 0,
+            "percentage": 0,
+            "periodCode": "2/19",
+            "ticketType": "MM",
+            "type": "B"
+          }
+        ],
+        "sector": "AM",
+        "studentRecord": "ABG01798",
+        "studentType": "I",
+        "subjects": 0,
+        "tariffType": 1,
+        "ticketType": "II",
+        "type": "II",
+        "unidOpe": 2,
+        "usrPortal": "OLIOTTA"
+      }
+    ],
+    "user": {
+      "active": "S",
+      "fromDate": "2019-03-20T03:00:00",
+      "id": 92448,
+      "passwordExpiration": "2019-03-20T03:00:00",
       "usrPortal": "OLIOTTA"
     }
-  ],
-  "user": {
-    "active": "S",
-    "fromDate": "2019-03-20T03:00:00",
-    "id": 92448,
-    "passwordExpiration": "2019-03-20T03:00:00",
-    "usrPortal": "OLIOTTA"
   }
 }

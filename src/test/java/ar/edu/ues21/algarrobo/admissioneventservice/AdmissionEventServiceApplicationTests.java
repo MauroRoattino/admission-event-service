@@ -1,28 +1,15 @@
 package ar.edu.ues21.algarrobo.admissioneventservice;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertThat;
-import static org.springframework.kafka.test.assertj.KafkaConditions.key;
-import static org.springframework.kafka.test.hamcrest.KafkaMatchers.hasValue;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Map;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
-
+import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.Enrollment;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.EnrollmentEvent;
+import ar.edu.ues21.algarrobo.admissioneventservice.service.ProducerService;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.apache.kafka.common.serialization.StringDeserializer;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,12 +23,19 @@ import org.springframework.kafka.test.rule.EmbeddedKafkaRule;
 import org.springframework.kafka.test.utils.ContainerTestUtils;
 import org.springframework.kafka.test.utils.KafkaTestUtils;
 import org.springframework.test.annotation.DirtiesContext;
-//import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.EnrollmentEvent;
-import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.Enrollment;
-import ar.edu.ues21.algarrobo.admissioneventservice.service.ProducerService;
+import java.io.File;
+import java.io.IOException;
+import java.util.Map;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertThat;
+import static org.springframework.kafka.test.assertj.KafkaConditions.key;
+import static org.springframework.kafka.test.hamcrest.KafkaMatchers.hasValue;
 
 @DirtiesContext
 @RunWith(SpringRunner.class)
@@ -74,7 +68,7 @@ public class AdmissionEventServiceApplicationTests {
     }
 
     @Before
-    public void perTestSetUp() throws JsonParseException, JsonMappingException, IOException {
+    public void perTestSetUp() throws IOException {
         setupJSONsAndMocks();
 
         consumerRecords = new LinkedBlockingQueue<>();
@@ -86,6 +80,7 @@ public class AdmissionEventServiceApplicationTests {
 
         DefaultKafkaConsumerFactory<String, EnrollmentEvent> consumer = new DefaultKafkaConsumerFactory<>(consumerProperties);
 
+        consumer.setKeyDeserializer(new StringDeserializer());
         container = new KafkaMessageListenerContainer<>(consumer, containerProperties);
         container.setupMessageListener((MessageListener<String, String>) record -> {
             LOGGER.debug("Listened message='{}'", record.toString());

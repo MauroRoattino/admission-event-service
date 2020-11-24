@@ -36,6 +36,7 @@ public class AdmissionEventController {
         this.resendService = resendService;
     }
 
+    @Deprecated(forRemoval = true)
     @PreAuthorize("#oauth2.hasScope('admission-publish:write')")
     @ApiOperation(value = "Send a pre-enrollment event to Kafka cluster", response = RecordMetadata.class)
     @ApiResponses(value = {
@@ -52,7 +53,23 @@ public class AdmissionEventController {
         return ResponseEntity.ok(response);
     }
 
+    @PreAuthorize("#oauth2.hasScope('admission-publish:write')")
+    @ApiOperation(value = "Send a pre-enrollment event to Kafka cluster", response = RecordMetadata.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Message sent")
+    })
+    @PostMapping(value = "/events/pre-enrollment-event/{id}")
+    public ResponseEntity<EnrollmentEvent> sendAdmissionEventV2(
+            @RequestBody Enrollment enrollmentEvent,
+            @RequestHeader(value = "eventType", defaultValue = "pre-enrollment-event") String eventType,
+            @RequestHeader(value = "source", defaultValue = "-") String source, @PathVariable String id) {
+        LOGGER.info("Sending message");
+        producerService.sendEnrollmentEvent(enrollmentEvent, eventType, source);
+        EnrollmentEvent response = new EnrollmentEvent(enrollmentEvent, eventType, source);
+        return ResponseEntity.ok(response);
+    }
 
+    @Deprecated(forRemoval = true)
     @PreAuthorize("#oauth2.hasScope('admission-publish:write')")
     @ApiOperation(value = "Asynchronously send a list of pre-enrollment events to Kafka cluster", response = RecordMetadata.class)
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Messages sent")})
@@ -67,12 +84,26 @@ public class AdmissionEventController {
         return ResponseEntity.ok("Messages sent");
     }
 
+    @PreAuthorize("#oauth2.hasScope('admission-publish:write')")
+    @ApiOperation(value = "Asynchronously send a list of pre-enrollment events to Kafka cluster", response = RecordMetadata.class)
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Messages sent")})
+    @PostMapping(value = "/events/admission")
+    public ResponseEntity<String> sendManyAdmissionEventsV2(
+            @RequestBody List<Enrollment> enrollmentList,
+            @RequestHeader(value = "eventType", defaultValue = "pre-enrollment-event") String eventType,
+            @RequestHeader(value = "source", defaultValue = "-") String source) {
+
+        LOGGER.info("Sending {} administration pre-enrollment events to Kafka", enrollmentList.size());
+        producerService.sendManyAdmissionEvents(enrollmentList, eventType, source);
+        return ResponseEntity.ok("Messages sent");
+    }
+
     @PreAuthorize("#oauth2.hasScope('admission-publish:read')")
     @ApiOperation(value = "Get admission events pending to be sended Kafka")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Messages sent")
     })
-    @GetMapping(value = "/admissionEvent/resend")
+    @GetMapping(value = "/events/admission/resend")
     public ResponseEntity<List<String>> getPendingAdmissionEvent() {
         LOGGER.info("Getting pending admission events");
         return ResponseEntity.ok(resendService.getAdmissionPendingEvents());
@@ -83,7 +114,7 @@ public class AdmissionEventController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Messages sent")
     })
-    @PostMapping(value = "/admissionEvent/resend")
+    @PostMapping(value = "/events/admission/resend")
     public ResponseEntity<String> sendPendingAdmissionEvent() {
         LOGGER.info("Sending pending student-record events");
         resendService.resendPendingAdmissionEvents();

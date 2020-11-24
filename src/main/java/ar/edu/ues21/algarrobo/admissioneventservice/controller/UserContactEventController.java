@@ -35,6 +35,7 @@ public class UserContactEventController {
         this.resendService = resendService;
     }
 
+    @Deprecated(forRemoval = true)
     @PreAuthorize("#oauth2.hasScope('contact-publish:write')")
     @ApiOperation(value = "Send a user contact event to Kafka cluster", response = RecordMetadata.class)
     @ApiResponses(value = {
@@ -51,10 +52,40 @@ public class UserContactEventController {
     }
 
     @PreAuthorize("#oauth2.hasScope('contact-publish:write')")
+    @ApiOperation(value = "Send a user contact event to Kafka cluster", response = RecordMetadata.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Message sent")
+    })
+    @PostMapping(value = "/events/user-contact/{id}")
+    public ResponseEntity<String> sendUserContactEventV2(
+            @RequestBody UserData contact,
+            @RequestHeader(value = "eventType", defaultValue = "contact-event") String eventType,
+            @RequestHeader(value = "source", defaultValue = "-") String source, @PathVariable String id) {
+        LOGGER.info("Sending message");
+        producerService.sendUserContactEvent(contact, eventType, source);
+        return ResponseEntity.ok("Contact event sent");
+    }
+
+    @Deprecated(forRemoval = true)
+    @PreAuthorize("#oauth2.hasScope('contact-publish:write')")
     @ApiOperation(value = "Asynchronously send a list of user contact events to Kafka cluster", response = RecordMetadata.class)
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Messages sent")})
     @PostMapping(value = "/sendManyUserContactEvents")
     public ResponseEntity<String> sendManyUserContactEvents(
+            @RequestBody List<UserData> userContacts,
+            @RequestHeader(value = "eventType", defaultValue = "contact-event") String eventType,
+            @RequestHeader(value = "source", defaultValue = "-") String source) {
+
+        LOGGER.info("Sending {} user-contact events to Kafka", userContacts.size());
+        producerService.sendManyUserContactEvents(userContacts, eventType, source);
+        return ResponseEntity.ok("Messages sent");
+    }
+
+    @PreAuthorize("#oauth2.hasScope('contact-publish:write')")
+    @ApiOperation(value = "Asynchronously send a list of user contact events to Kafka cluster", response = RecordMetadata.class)
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Messages sent")})
+    @PostMapping(value = "/events/user-contact")
+    public ResponseEntity<String> sendManyUserContactEventsV2(
             @RequestBody List<UserData> userContacts,
             @RequestHeader(value = "eventType", defaultValue = "contact-event") String eventType,
             @RequestHeader(value = "source", defaultValue = "-") String source) {
@@ -69,7 +100,7 @@ public class UserContactEventController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Messages sent")
     })
-    @GetMapping(value = "/userContactEvent/resend")
+    @GetMapping(value = "events/user-contact-event/resend")
     public ResponseEntity<List<String>> getPendingUserContactEvent() {
         LOGGER.info("Getting pending user contact events");
         return ResponseEntity.ok(resendService.getUserContactPendingEvents());
@@ -80,7 +111,7 @@ public class UserContactEventController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Messages sent")
     })
-    @PostMapping(value = "/userContactEvent/resend")
+    @PostMapping(value = "/events/user-contact-event/resend")
     public ResponseEntity<String> sendPendingUserContactEvent() {
         LOGGER.info("Sending pending user contact events");
         resendService.resendPendingUserContactEvents();

@@ -131,8 +131,6 @@ integracion:
 publicacion:
   stage: publicacion
   image: hub.ues21.edu.ar/algarrobo/cigroup/docker:aws
-  only:
-    - master
   except:
     - tags
   services:
@@ -155,12 +153,11 @@ publicacion:
     - docker push 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
   tags:
     - aws-runner-alpine
+  when: manual
 
 publicacion siglo:
   stage: publicacion
   image: hub.ues21.edu.ar/algarrobo/cigroup/docker:aws
-  only:
-    - master
   except:
     - tags
   services:
@@ -178,6 +175,7 @@ publicacion siglo:
     - docker tag ${REGISTRY_NAME}  ${CI_REGISTRY_IMAGE}:latest
     - docker push ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION}
     - docker push ${CI_REGISTRY_IMAGE}:latest
+  when: manual
 
  #--------------------------------------------------------------------------- 
 
@@ -195,6 +193,7 @@ despliegue siglo:
     - gitlab-ssh "docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} ${CI_REGISTRY}"
     - gitlab-ssh "docker pull ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION}"
     - gitlab-ssh "docker service create -e ADMISSION_EVENT_SERVICE_VERSION=${ADMISSION_EVENT_SERVICE_VERSION} --name admission-event-service --secret mensajeria-admision-event-service-confluent-kafka.properties --label traefik.port=8080 --label 'traefik.frontend.rule=Host:apidev.ues21.edu.ar;PathPrefix:/admission-event-service/api' --label 'traefik.docker.network=lb_traefik' --network lb_traefik ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION}"
+  when: manual
 
 
 despliegue:
@@ -219,4 +218,5 @@ despliegue:
     - docker run --rm -e DOCKER_MANAGER_IP=${AWS_INT_BACK_SWARM_MANAGER_HOST} -e AWS_REGION=${AWS_REGION} 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${AWS_DEPLOY_TOOL}:latest docker "service update --image 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID} --with-registry-auth ${SERVICE_NAME}" -e int -c ${STACK_NAME}
   tags:
     - aws-runner-alpine
+  when: manual
   

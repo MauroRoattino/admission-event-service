@@ -5,6 +5,7 @@ import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.EventBase;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.StudentRecordEvent;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.UserContactEvent;
 import ar.edu.ues21.algarrobo.admissioneventservice.service.CallbackService;
+import ar.edu.ues21.algarrobo.admissioneventservice.service.ResendService;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.Logger;
@@ -30,24 +31,28 @@ public class ProducerEngine {
     private final Producer<String, UserContactEvent> userContactEventProducer;
     private final Producer<String, StudentRecordEvent> studentRecordEventProducer;
     private final CallbackService callbackService;
+    private final ResendService resendService;
 
     @Autowired
     public ProducerEngine(Producer<String, EnrollmentEvent> enrollmentEventProducer,
                           Producer<String, UserContactEvent> userContactEventProducer,
                           Producer<String, StudentRecordEvent> studentRecordEventProducer,
-                          CallbackService callbackService) {
+                          CallbackService callbackService,
+                          ResendService resendService) {
         this.enrollmentEventProducer = enrollmentEventProducer;
         this.userContactEventProducer = userContactEventProducer;
         this.studentRecordEventProducer = studentRecordEventProducer;
         this.callbackService = callbackService;
+        this.resendService = resendService;
     }
 
     private <T extends EventBase> void sendMessage(Producer<String, T> producer, String topic, T eventBase) {
-
+        resendService.deleteEventFromResendIfPending(topic, eventBase.getEventId());
         producer.send(new ProducerRecord<>(topic, eventBase.getEventId(), eventBase), (metadata, exception) -> {
             callbackService.sendCallbackMessage(eventBase, metadata, exception);
             if (exception != null) {
-                exception.printStackTrace();
+                resendService.saveEventToResend(topic, eventBase);
+                LOGGER.error("Encounter an error while sending event to kafka. Error: " + exception.getMessage());
             } else {
                 LOGGER.info("Produced record to topic {} partition [{}] @ offset {}.",
                         metadata.topic(), metadata.partition(), metadata.offset());
@@ -59,8 +64,7 @@ public class ProducerEngine {
         this.sendMessage(enrollmentEventProducer, ADMISSION_PREENROLLMENT_TOPIC, enrollmentEvent);
     }
 
-    public void sendUserContactEvent(
-            UserContactEvent userContactEvent) {
+    public void sendUserContactEvent(UserContactEvent userContactEvent) {
         this.sendMessage(userContactEventProducer, USER_CONTACT_TOPIC, userContactEvent);
     }
 

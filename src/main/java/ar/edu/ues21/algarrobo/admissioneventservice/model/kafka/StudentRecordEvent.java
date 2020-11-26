@@ -8,6 +8,9 @@ public class StudentRecordEvent extends EventBase {
     @ApiModelProperty(name = "event data")
     private AcademicLifeStudentRecord data;
 
+    public StudentRecordEvent() {
+    }
+
     public StudentRecordEvent(AcademicLifeStudentRecord data, String eventType, String source) {
         this.data = data;
         this.setEventType(eventType);

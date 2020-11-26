@@ -9,6 +9,9 @@ public abstract class EventBase implements EventBaseInterface {
     @ApiModelProperty(name = "source")
     private String source;
 
+    public EventBase() {
+    }
+
     public String getEventType() {
         return eventType;
     }

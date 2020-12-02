@@ -51,11 +51,12 @@ public class ProducerEngine {
         producer.send(new ProducerRecord<>(topic, eventBase.getEventId(), eventBase), (metadata, exception) -> {
             callbackService.sendCallbackMessage(eventBase, metadata, exception);
             if (exception != null) {
+                LOGGER.error("Encounter an error while sending event to kafka - EventId: {} - Error: {}",
+                        eventBase.getEventId(), exception.getMessage());
                 resendService.saveEventToResend(topic, eventBase);
-                LOGGER.error("Encounter an error while sending event to kafka. Error: " + exception.getMessage());
             } else {
-                LOGGER.info("Produced record to topic {} partition [{}] @ offset {}.",
-                        metadata.topic(), metadata.partition(), metadata.offset());
+                LOGGER.info("Succesfully sended event of eventId {} to topic {} partition [{}] @ offset {}",
+                        eventBase.getEventId(), metadata.topic(), metadata.partition(), metadata.offset());
             }
         });
     }

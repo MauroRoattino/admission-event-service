@@ -5,6 +5,8 @@ import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.EventBase;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.StudentRecordEvent;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.UserContactEvent;
 import ar.edu.ues21.algarrobo.admissioneventservice.repository.ResendRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
@@ -29,6 +31,8 @@ public class ResendService {
     @Value("${kafka.topic.user.contact}")
     private String USER_CONTACT_TOPIC;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ResendService.class);
+
     @Autowired
     public ResendService(ResendRepository resendRepository, @Lazy ProducerService producerService) {
         this.resendRepository = resendRepository;
@@ -36,6 +40,7 @@ public class ResendService {
     }
 
     public void saveEventToResend(String topicName, EventBase event) {
+        LOGGER.warn("Saving event of eventId: {} for resend later", event.getEventId());
         resendRepository.addEventToMap(topicName, event.getEventId(), event);
     }
 

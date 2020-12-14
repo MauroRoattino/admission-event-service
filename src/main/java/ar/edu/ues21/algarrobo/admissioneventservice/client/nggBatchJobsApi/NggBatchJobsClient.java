@@ -8,6 +8,6 @@ import retrofit2.http.PUT;
 
 public interface NggBatchJobsClient {
 
-    @PUT("v1/jobs/error")
+    @PUT("v1/jobs/callback")
     Call<Void> sendCallback(@Body CallbackRequest callbackRequest);
 }

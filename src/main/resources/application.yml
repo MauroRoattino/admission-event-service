@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: ${PORT:8080}
   servlet:
     context-path: /admission-event-service/api
   compression:
@@ -36,11 +36,11 @@ kafka:
     path: ${ADMISSION_EVENT_KAFKA_CONFIG_PATH:/run/secrets/mensajeria-admision-event-service-confluent-kafka.properties}
   topic:
     admission:
-      pre_enrollment: admission.preenrollment
+      pre_enrollment: ${PRE_ENROLLMENT_QUEUE:admission.preenrollment}
     academic_life:
-      student-record: academic-life.student-record
+      student-record: ${STUDENT_RECORD_QUEUE:academic-life.student-record}
     user:
-      contact: user.contact
+      contact: ${USER_CONTACT_QUEUE:user.contact}
 
 resend:
   file-location: ${RESEND_FILE_LOCATION:./resend}

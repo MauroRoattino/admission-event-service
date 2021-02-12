@@ -49,7 +49,7 @@ public class ProducerEngine {
     private <T extends EventBase> void sendMessage(Producer<String, T> producer, String topic, T eventBase) {
         resendService.deleteEventFromResendIfPending(topic, eventBase.getEventId());
         producer.send(new ProducerRecord<>(topic, eventBase.getEventId(), eventBase), (metadata, exception) -> {
-            callbackService.sendCallbackMessage(eventBase, metadata, exception);
+                callbackService.sendCallbackMessage(eventBase, metadata, exception);
             if (exception != null) {
                 LOGGER.error("Encounter an error while sending event to kafka - EventId: {} - Error: {}",
                         eventBase.getEventId(), exception.getMessage());

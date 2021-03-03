@@ -22,7 +22,7 @@ public class Discount {
     private Double percentage;
 
     @ApiModelProperty(example = "20.0")
-    private Double ammount;
+    private Double amount;
 
     private VTickets parent;
 }

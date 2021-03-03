@@ -88,28 +88,17 @@ public class VTickets{
     @Builder.Default
     private List<Scholarship> scholarships = new ArrayList<>();
 
-    public Double getPrice() {
-        Double basePrice = getBasePrice();
-        Double otherPromotions = descuentos.stream().map(d -> d.getAmmount() ).reduce(0d, Double::sum) ;
-        return round( basePrice - otherPromotions ,2);
+    @ApiModelProperty(example = "0")
+    @Builder.Default
+    private Double price = 0d;
 
-    }
+    @ApiModelProperty(example = "0")
+    @Builder.Default
+    private Double basePrice = 0d;
 
-    public Double getBasePrice() {
-        return round( valorBruto - getDiscountAmmount(),2);
-    }
-
-    public Double getDiscountAmmount() {
-        return round( valorBruto * ((porcentajeBeca + porcentajeDescuento) / 100d),2);
-    }
-
-    public static double round(double value, int places) {
-        if (places < 0) throw new IllegalArgumentException();
-    
-        BigDecimal bd = BigDecimal.valueOf(value);
-        bd = bd.setScale(places, RoundingMode.HALF_UP);
-        return bd.doubleValue();
-    }
+    @ApiModelProperty(example = "0")
+    @Builder.Default
+    private Double discountAmmount = 0d;
 
     @ApiModelProperty(example = "0")
     @JsonProperty("subjects")

@@ -50,7 +50,7 @@ public class StudentRecord {
 
     private Student student;
 
-    @ApiModelProperty(example = "2")
+    @ApiModelProperty(example = "2", value = "If enrollment's field massive is true, this value is hardcoded to 5")
     private Long status;
 
     @ApiModelProperty(example = "4")

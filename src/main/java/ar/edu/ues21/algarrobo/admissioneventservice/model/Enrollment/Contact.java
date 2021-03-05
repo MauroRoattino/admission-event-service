@@ -49,10 +49,12 @@ public class Contact {
     @ApiModelProperty(value = "The informado's document number", example = "34107754")
     private Long documentNumber;
 
-    @ApiModelProperty(value = "The informado's primary email", example = "QVLIGWUFLP@gmail.com")
+    @ApiModelProperty(example = "QVLIGWUFLP@gmail.com",
+            value = "If this email is empty, it will be populated with the _secondary email_ or a default email (notengomail@ues21.edu.ar)")
     private String primaryEmail;
 
-    @ApiModelProperty(value = "The informado's secondary email", example = "LRLXJMIVST@gmail.com")
+    @ApiModelProperty(example = "LRLXJMIVST@gmail.com",
+            value = "If this email is empty, it will be populated with the _primary email_ or a default email (notengomail@ues21.edu.ar)")
     private String secondaryEmail;
 
     @ApiModelProperty(value = "The informado's birth place")
@@ -129,7 +131,9 @@ public class Contact {
     @ApiModelProperty(value = "The site id", example = "7.5")
     private Double average;
 
-    @ApiModelProperty(value = "Source code from crm", example = "38")
+    @ApiModelProperty(example = "38",
+            value = "If the field massive in enrollment is true, the value is 39, which means the enrollment came from a batch process. " +
+                    "Otherwise, the value is left as it is, except it is null. If it is null, then it is 38")
     private String crmSource;
 }
 

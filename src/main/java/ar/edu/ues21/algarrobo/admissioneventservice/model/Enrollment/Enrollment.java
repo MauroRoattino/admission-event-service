@@ -12,7 +12,8 @@ import lombok.NoArgsConstructor;
 /**
  * Represents all information of an Enrollment
  */
-@ApiModel("Enrollment")
+@ApiModel(value = "Enrollment", description = "This Enrollment is retrieved from the " +
+        "[Admission API](https://api.ues21.edu.ar/admission-api/api/swagger-ui.html#/default-enrollment-controller/getContextUsingGET)")
 @Data
 @Builder
 @NoArgsConstructor

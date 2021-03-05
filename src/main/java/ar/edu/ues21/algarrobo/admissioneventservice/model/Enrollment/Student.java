@@ -57,10 +57,12 @@ public class Student {
     @ApiModelProperty(value = "student's document number", example = "34107754")
     private Long documentNumber;
 
-    @ApiModelProperty(value = "student's primary email", example = "QVLIGWUFLP@gmail.com")
+    @ApiModelProperty(example = "QVLIGWUFLP@gmail.com",
+            value = "If this email is empty, it will be populated with the _secondary email_ or a default email (notengomail@ues21.edu.ar)")
     private String primaryEmail;
 
-    @ApiModelProperty(value = "student's secondary email", example = "LRLXJMIVST@gmail.com")
+    @ApiModelProperty(example = "LRLXJMIVST@gmail.com",
+            value = "If this email is empty, it will be populated with the _primary email_ or a default email (notengomail@ues21.edu.ar)")
     private String secondaryEmail;
 
     @ApiModelProperty(value = "student's birth place")

@@ -18,6 +18,11 @@ public class AcademicLifeStudent {
 
     private Gender gender;
 
+    @ApiModelProperty(name = "addresses",
+            value = "This field is populated from the " +
+            "[User API](https://api.ues21.edu.ar/user/api/swagger-ui.html#/Users/findStudentUsingGET). If the User API " +
+            "returned addresses for this student, then these will be used. Otherwise, it will be populated with one default address " +
+            "that corresponds to _NO DATA_")
     private List<UserAddress> addresses;
 
     @ApiModelProperty(name = "birthDate", example = "1987-10-30")
@@ -32,10 +37,12 @@ public class AcademicLifeStudent {
     @ApiModelProperty(name = "documentNumber", example = "36541463")
     private Long documentNumber;
 
-    @ApiModelProperty(name = "primaryEmail", example = "penelope.cruz@gmail.com")
+    @ApiModelProperty(name = "primaryEmail", example = "penelope.cruz@gmail.com",
+            value = "If this email is empty, it will be populated with the _secondary email_ or a default email (notengomail@ues21.edu.ar)")
     private String primaryEmail;
 
-    @ApiModelProperty(name = "secondaryEmail", example = "penelope.cruz2@gmail.com")
+    @ApiModelProperty(name = "secondaryEmail", example = "penelope.cruz2@gmail.com",
+            value = "If this email is empty, it will be populated with the _primary email_ or a default email (notengomail@ues21.edu.ar)")
     private String secondaryEmail;
 
     @ApiModelProperty(name = "status", example = "1")
@@ -44,7 +51,8 @@ public class AcademicLifeStudent {
     @ApiModelProperty(name = "usrPortal", example = "PPEREDABERNARDI")
     private String usrPortal;
 
-    @ApiModelProperty(name = "personType", example = "Estudiante")
+    @ApiModelProperty(name = "personType", example = "Estudiante",
+            value = "This value is hardcoded in ngg-batch-jobs batch processing. It will always be _Estudiante_")
     private String personType;
 
     public String getId() {

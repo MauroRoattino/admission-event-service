@@ -1,6 +1,11 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.model.User;
 
 import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.Location;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+import java.util.List;
+
 
 public class UserAddress {
     private String apartment;
@@ -13,7 +18,9 @@ public class UserAddress {
     private Long neighborhoodId;
     private String number;
     private String postalCode;
+    @ApiModelProperty(value = "If this field is null, it will be populated with _telephoneNumber2_ or have a default value of _N/A_")
     private String telephoneNumber1;
+    @ApiModelProperty(value = "If this field is null, it will be populated with _telephoneNumber1_ or have a default value of _N/A_")
     private String telephoneNumber2;
     private String street;
     private Long streetId;

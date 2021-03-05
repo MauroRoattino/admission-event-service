@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@ApiModel("Locations")
+@ApiModel(description = "If this field is null in the incoming request, it will be populated with default values (_SIN DATOS_)")
 @Data
 @Builder
 @NoArgsConstructor

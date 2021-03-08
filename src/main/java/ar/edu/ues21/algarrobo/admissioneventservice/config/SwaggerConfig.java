@@ -2,6 +2,7 @@ package ar.edu.ues21.algarrobo.admissioneventservice.config;
 
 import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.AcademicLifeStudentRecord;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.StudentRecordEvent;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.UserContactEvent;
 import com.fasterxml.classmate.TypeResolver;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,7 +41,10 @@ public class SwaggerConfig {
                 .build()
                 .apiInfo(apiEndPointsInfo())
                 .genericModelSubstitutes()
-                .additionalModels(typeResolver.resolve(StudentRecordEvent.class))
+                .additionalModels(
+                        typeResolver.resolve(StudentRecordEvent.class),
+                        typeResolver.resolve(UserContactEvent.class)
+                )
                 .tags(
                         new Tag("academic-life.student-record", "Kafka Topic Producer"),
                         new Tag("admission.preenrollment", "Kafka Topic Producer"),

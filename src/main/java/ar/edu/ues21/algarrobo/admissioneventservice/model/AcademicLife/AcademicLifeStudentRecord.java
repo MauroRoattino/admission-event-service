@@ -7,12 +7,15 @@ import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.Status.St
 import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.Student.AcademicLifeStudent;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.SubjectStatus.SubjectStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
+@ApiModel(description = "This student record is retrieved from the " +
+        "[student-record API](https://api.ues21.edu.ar/student-records/api/swagger-ui.html#/Student%20Record/getStudentsWithFiltersUsingGET).")
 public class AcademicLifeStudentRecord {
 
     @ApiModelProperty(name = "id", example = "PUB01287")
@@ -48,7 +51,8 @@ public class AcademicLifeStudentRecord {
 
     private AcademicLifePeriod lastPeriod;
 
-    @ApiModelProperty(name = "graduateDate", example = "2020-07-27T00:00:00")
+    @ApiModelProperty(name = "graduateDate", example = "2020-07-27T00:00:00",
+                    notes = "If the status.id is equal to 16, then this field will be populated with the status.date")
     private String graduateDate;
 
     private List<SubjectStatus> subjectStatus;

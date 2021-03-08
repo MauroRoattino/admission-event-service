@@ -1,8 +1,12 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.model.kafka;
 
 import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.Enrollment;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel(description = "This is the type of event that will be produced to __Kafka__. " +
+        "The name of the topic that this event is produced to is __admission.preenrollment__",
+        parent = EventBase.class)
 public class EnrollmentEvent extends EventBase {
 
     @ApiModelProperty(name = "event data")

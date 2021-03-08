@@ -11,9 +11,18 @@ import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.CreationSou
 import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.DocumentType;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.MaritalStatus;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.User.Origin.UserOrigin;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel(description = "This UserData is retrieved from:\n " +
+        "\t * [User API](https://api.ues21.edu.ar/user/api/swagger-ui.html#/Users/findStudentUsingGET) if the contact type being send is from a student.\n" +
+        "\t * [Admission API](http://api.ues21.edu.ar/admission-api/api/swagger-ui.html#/default-contacts-controller/getUsingGET) if the contact type being send is from a informed person.")
 public class UserData {
 
+    @ApiModelProperty(
+            value = "If the User API " +
+                    "returned addresses for this student, then these will be used. Otherwise, it will be populated with one default address " +
+                    "that corresponds to _NO DATA_")
     private List<UserAddress> addresses;
 
     private String age;
@@ -40,9 +49,11 @@ public class UserData {
     private String name;
     private UserNationality nationality;
     private List<UserOrigin> origin;
+    @ApiModelProperty(value = "If this email is empty, it will be populated with the _secondary email_ or a default email (notengomail@ues21.edu.ar)")
     private String primaryEmail;
     private String relatives;
     private String requestedInformation;
+    @ApiModelProperty(value = "If this email is empty, it will be populated with the _primary email_ or a default email (notengomail@ues21.edu.ar)")
     private String secondaryEmail;
     private Integer siteId;
     private String status;

@@ -119,7 +119,7 @@ public class VTickets{
     @JsonProperty("type")
     private String tipo;
 
-    @ApiModelProperty(example = "5000.00")
+    @ApiModelProperty(example = "5000.00", value = "This value is always 0")
     @JsonProperty("listPrice")
     @Builder.Default()
     private double valorBruto = 0d;
@@ -198,7 +198,7 @@ public class VTickets{
     @ApiModelProperty(example = "OLIOTTA")
     private String usrPortal;
 
-    @ApiModelProperty(example = "12377168")
+    @ApiModelProperty(example = "12377168", value = "This field is always 0")
     private Long priceId;
 
     

@@ -7,6 +7,8 @@ import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.UserContactEvent
 import ar.edu.ues21.algarrobo.admissioneventservice.repository.ResendRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
@@ -57,11 +59,13 @@ public class ResendService {
 
     public void resendPendingStudentRecordEvents() {
         List<EventBase> pendingEvents = resendRepository.getEventsFromMap(STUDENT_RECORD_TOPIC, StudentRecordEvent.class);
-        pendingEvents.forEach(eventBase ->
+        pendingEvents.forEach(eventBase -> {
+                LOGGER.info("Resending event with ID = {} to topic = {}", eventBase.getEventId(), STUDENT_RECORD_TOPIC);
                 producerService.sendStudentRecordEvent(
                         ((StudentRecordEvent) eventBase).getData(),
                         eventBase.getEventType(),
-                        eventBase.getSource()));
+                        eventBase.getSource());
+        });
     }
 
     public List<String> getUserContactPendingEvents() {
@@ -73,11 +77,13 @@ public class ResendService {
 
     public void resendPendingUserContactEvents() {
         List<EventBase> pendingEvents = resendRepository.getEventsFromMap(USER_CONTACT_TOPIC, UserContactEvent.class);
-        pendingEvents.forEach(eventBase ->
+        pendingEvents.forEach(eventBase -> {
+                LOGGER.info("Resending event with ID = {} to topic = {}", eventBase.getEventId(), USER_CONTACT_TOPIC);
                 producerService.sendUserContactEvent(
                         ((UserContactEvent) eventBase).getData(),
                         eventBase.getEventType(),
-                        eventBase.getSource()));
+                        eventBase.getSource());
+        });
     }
 
     public List<String> getAdmissionPendingEvents() {
@@ -89,10 +95,12 @@ public class ResendService {
 
     public void resendPendingAdmissionEvents() {
         List<EventBase> pendingEvents = resendRepository.getEventsFromMap(ADMISSION_PREENROLLMENT_TOPIC, EnrollmentEvent.class);
-        pendingEvents.forEach(eventBase ->
-                producerService.sendEnrollmentEvent(
-                        ((EnrollmentEvent) eventBase).getData(),
-                        eventBase.getEventType(),
-                        eventBase.getSource()));
+        pendingEvents.forEach(eventBase -> {
+            LOGGER.info("Resending event with ID = {} to topic = {}", eventBase.getEventId(), ADMISSION_PREENROLLMENT_TOPIC);
+            producerService.sendEnrollmentEvent(
+                    ((EnrollmentEvent) eventBase).getData(),
+                    eventBase.getEventType(),
+                    eventBase.getSource());
+        });
     }
 }

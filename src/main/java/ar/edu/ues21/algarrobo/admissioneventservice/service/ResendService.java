@@ -60,7 +60,7 @@ public class ResendService {
     public void resendPendingStudentRecordEvents() {
         List<EventBase> pendingEvents = resendRepository.getEventsFromMap(STUDENT_RECORD_TOPIC, StudentRecordEvent.class);
         pendingEvents.forEach(eventBase -> {
-                LOGGER.info("Resending event with ID = {} to topic = {}", eventBase.getEventId(), STUDENT_RECORD_TOPIC);
+                LOGGER.info("RESEND - Resending event with ID = {} to topic = {}", eventBase.getEventId(), STUDENT_RECORD_TOPIC);
                 producerService.sendStudentRecordEvent(
                         ((StudentRecordEvent) eventBase).getData(),
                         eventBase.getEventType(),
@@ -78,7 +78,7 @@ public class ResendService {
     public void resendPendingUserContactEvents() {
         List<EventBase> pendingEvents = resendRepository.getEventsFromMap(USER_CONTACT_TOPIC, UserContactEvent.class);
         pendingEvents.forEach(eventBase -> {
-                LOGGER.info("Resending event with ID = {} to topic = {}", eventBase.getEventId(), USER_CONTACT_TOPIC);
+                LOGGER.info("RESEND - Resending event with ID = {} to topic = {}", eventBase.getEventId(), USER_CONTACT_TOPIC);
                 producerService.sendUserContactEvent(
                         ((UserContactEvent) eventBase).getData(),
                         eventBase.getEventType(),
@@ -96,7 +96,7 @@ public class ResendService {
     public void resendPendingAdmissionEvents() {
         List<EventBase> pendingEvents = resendRepository.getEventsFromMap(ADMISSION_PREENROLLMENT_TOPIC, EnrollmentEvent.class);
         pendingEvents.forEach(eventBase -> {
-            LOGGER.info("Resending event with ID = {} to topic = {}", eventBase.getEventId(), ADMISSION_PREENROLLMENT_TOPIC);
+            LOGGER.info("RESEND - Resending event with ID = {} to topic = {}", eventBase.getEventId(), ADMISSION_PREENROLLMENT_TOPIC);
             producerService.sendEnrollmentEvent(
                     ((EnrollmentEvent) eventBase).getData(),
                     eventBase.getEventType(),

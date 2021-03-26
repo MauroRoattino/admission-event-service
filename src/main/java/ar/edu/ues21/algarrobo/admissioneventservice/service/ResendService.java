@@ -1,9 +1,6 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.service;
 
-import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.EnrollmentEvent;
-import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.EventBase;
-import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.StudentRecordEvent;
-import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.UserContactEvent;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.*;
 import ar.edu.ues21.algarrobo.admissioneventservice.repository.ResendRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +29,12 @@ public class ResendService {
 
     @Value("${kafka.topic.user.contact}")
     private String USER_CONTACT_TOPIC;
+
+    @Value("${kafka.topic.assessment.report}")
+    private String ASSESSMENT_REPORT_TOPIC;
+
+    @Value("${kafka.topic.assessment.subscriptGroup}")
+    private String ASSESSMENT_SUBSCRIPTGROUP_TOPIC;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ResendService.class);
 
@@ -93,6 +96,7 @@ public class ResendService {
                 .collect(Collectors.toList());
     }
 
+
     public void resendPendingAdmissionEvents() {
         List<EventBase> pendingEvents = resendRepository.getEventsFromMap(ADMISSION_PREENROLLMENT_TOPIC, EnrollmentEvent.class);
         pendingEvents.forEach(eventBase -> {
@@ -103,4 +107,41 @@ public class ResendService {
                     eventBase.getSource());
         });
     }
+
+    public List<String> getAssessmentReportPendingEvents() {
+        return resendRepository.getEventsFromMap(ASSESSMENT_REPORT_TOPIC, AssessmentReportEvent.class)
+                .stream()
+                .map(EventBase::getEventId)
+                .collect(Collectors.toList());
+    }
+
+    public void resendPendingAssessmentReportEvents() {
+        List<EventBase> pendingEvents = resendRepository.getEventsFromMap(ASSESSMENT_REPORT_TOPIC, AssessmentReportEvent.class);
+        pendingEvents.forEach(eventBase -> {
+            LOGGER.info("RESEND - Resending event with ID = {} to topic = {}", eventBase.getEventId(), ASSESSMENT_REPORT_TOPIC);
+            producerService.sendAssessmentReportEvent(
+                    ((AssessmentReportEvent) eventBase).getData(),
+                    eventBase.getEventType(),
+                    eventBase.getSource());
+        });
+    }
+
+    public List<String> getSubscriptGroupPendingEvents() {
+        return resendRepository.getEventsFromMap(ASSESSMENT_SUBSCRIPTGROUP_TOPIC, SubscriptGroupEvent.class)
+                .stream()
+                .map(EventBase::getEventId)
+                .collect(Collectors.toList());
+    }
+
+    public void resendSubscriptGroupPendingEvents() {
+        List<EventBase> pendingEvents = resendRepository.getEventsFromMap(ASSESSMENT_SUBSCRIPTGROUP_TOPIC, SubscriptGroupEvent.class);
+        pendingEvents.forEach(eventBase -> {
+            LOGGER.info("RESEND - Resending event with ID = {} to topic = {}", eventBase.getEventId(), ASSESSMENT_SUBSCRIPTGROUP_TOPIC);
+            producerService.sendSubscriptGroupEvent(
+                    ((SubscriptGroupEvent) eventBase).getData(),
+                    eventBase.getEventType(),
+                    eventBase.getSource());
+        });
+    }
+
 }

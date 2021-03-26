@@ -4,8 +4,6 @@ import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.*;
 import ar.edu.ues21.algarrobo.admissioneventservice.repository.ResendRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.Marker;
-import org.slf4j.MarkerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
@@ -120,7 +118,7 @@ public class ResendService {
         pendingEvents.forEach(eventBase -> {
             LOGGER.info("RESEND - Resending event with ID = {} to topic = {}", eventBase.getEventId(), ASSESSMENT_REPORT_TOPIC);
             producerService.sendAssessmentReportEvent(
-                    ((AssessmentReportEvent) eventBase).getData(),
+                    ((AssessmentReportEvent) eventBase).getAssessmentReport(),
                     eventBase.getEventType(),
                     eventBase.getSource());
         });
@@ -138,7 +136,7 @@ public class ResendService {
         pendingEvents.forEach(eventBase -> {
             LOGGER.info("RESEND - Resending event with ID = {} to topic = {}", eventBase.getEventId(), ASSESSMENT_SUBSCRIPTGROUP_TOPIC);
             producerService.sendSubscriptGroupEvent(
-                    ((SubscriptGroupEvent) eventBase).getData(),
+                    ((SubscriptGroupEvent) eventBase).getSubscriptGroup(),
                     eventBase.getEventType(),
                     eventBase.getSource());
         });

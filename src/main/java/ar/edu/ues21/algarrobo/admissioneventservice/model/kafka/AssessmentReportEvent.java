@@ -10,24 +10,24 @@ import io.swagger.annotations.ApiModelProperty;
 public class AssessmentReportEvent extends EventBase {
 
     @ApiModelProperty(name = "event data")
-    private AssessmentReport data;
+    private AssessmentReport assessmentReport;
 
-    public AssessmentReportEvent(AssessmentReport data, String eventType, String eventSource) {
-        this.data = data;
+    public AssessmentReportEvent(AssessmentReport assessmentReport, String eventType, String eventSource) {
+        this.assessmentReport = assessmentReport;
         this.setEventType(eventType);
         this.setSource(eventSource);
     }
 
     @Override
     public String getEventId() {
-        return data.getId();
+        return assessmentReport.getId();
     }
 
-    public AssessmentReport getData() {
-        return data;
+    public AssessmentReport getAssessmentReport() {
+        return assessmentReport;
     }
 
-    public void setData(AssessmentReport data) {
-        this.data = data;
+    public void setAssessmentReport(AssessmentReport assessmentReport) {
+        this.assessmentReport = assessmentReport;
     }
 }

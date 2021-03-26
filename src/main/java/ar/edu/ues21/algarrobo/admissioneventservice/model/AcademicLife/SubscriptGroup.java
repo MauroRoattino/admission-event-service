@@ -12,25 +12,25 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SubscriptGroup {
 
-    @ApiModelProperty(value = "external course id")
+    @ApiModelProperty(value = "external course id", example = "1050")
     private String externalCourseId;
 
-    @ApiModelProperty(value = "id")
+    @ApiModelProperty(value = "id" , example = "1")
     private String externalId;
 
-    @ApiModelProperty(value = "last name")
+    @ApiModelProperty(value = "last name", example = "Perez")
     private String lastName;
 
-    @ApiModelProperty(value = "subscript group name")
+    @ApiModelProperty(value = "subscript group name", example = "Romina")
     private String name;
 
-    @ApiModelProperty(value = "settings id")
+    @ApiModelProperty(value = "settings id", example = "1")
     private String settingSubjectId;
 
-    @ApiModelProperty(value = "subject id")
+    @ApiModelProperty(value = "subject id", example = "1")
     private String subjectId;
 
-    @ApiModelProperty(value = "user name")
+    @ApiModelProperty(value = "user name", example = "rominaperez")
     private String username;
 
 }

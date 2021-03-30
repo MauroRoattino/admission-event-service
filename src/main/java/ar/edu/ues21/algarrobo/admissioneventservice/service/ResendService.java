@@ -15,6 +15,8 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.stream.Collectors;
 
 @Service
@@ -102,5 +104,21 @@ public class ResendService {
                     eventBase.getEventType(),
                     eventBase.getSource());
         });
+    }
+
+    public void addTopicToBlacklist(String topicName) {
+        this.resendRepository.addTopicToBlacklist(topicName);
+    }
+
+    public void removeTopicFromBlacklist(String topicName) {
+        this.resendRepository.removeTopicFromBlacklist(topicName);
+    }
+
+    public Boolean isTopicResendActive(String topicName) {
+        return !this.resendRepository.isTopicInBlacklist(topicName);
+    }
+
+    public List<String> getResendBlacklist() {
+        return this.resendRepository.getBlacklistAsList();
     }
 }

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.mapdb.DB;
 import org.mapdb.DBMaker;
+import org.mapdb.HTreeMap;
 import org.mapdb.Serializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,13 +17,14 @@ import org.springframework.stereotype.Repository;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.ConcurrentMap;
 import java.util.stream.Collectors;
 
 @Repository
 public class ResendRepository {
+
+    private final static String RESEND_BLACKLIST_MAP = "resend-blacklist";
 
     private final DB db;
 
@@ -64,6 +66,34 @@ public class ResendRepository {
         ConcurrentMap<String, String> map = getMap(topicName);
         map.remove(key);
         db.commit();
+    }
+
+    public void addTopicToBlacklist(String topicName) {
+        ConcurrentMap<String, String> map = getMap(RESEND_BLACKLIST_MAP);
+        map.put(topicName, "1");
+        db.commit();
+
+    }
+
+    public void removeTopicFromBlacklist(String topicName) {
+        ConcurrentMap<String, String> map = getMap(RESEND_BLACKLIST_MAP);
+        map.remove(topicName);
+        db.commit();
+
+    }
+
+    public Boolean isTopicInBlacklist(String topicName) {
+        ConcurrentMap<String, String> map = getMap(RESEND_BLACKLIST_MAP);
+        return map.keySet().contains(topicName);
+    }
+
+    public List<String> getBlacklistAsList() {
+        ConcurrentMap<String, String> map = getMap(RESEND_BLACKLIST_MAP);
+        List<String> blacklistedTopics = new ArrayList<>();
+        map.keySet().stream()
+                .forEach(topicName -> blacklistedTopics.add(topicName));
+
+        return blacklistedTopics;
     }
 
     public List<EventBase> getEventsFromMap(String topicName, Class<? extends EventBase> eventTypeClass) {

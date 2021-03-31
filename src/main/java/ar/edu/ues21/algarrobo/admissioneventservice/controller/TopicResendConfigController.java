@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -28,6 +29,8 @@ public class TopicResendConfigController {
     }
 
     @PutMapping("/blacklist/{topicName}")
+    @PreAuthorize("#oauth2.hasScope('student-record-publish:write') or #oauth2.hasScope('admission-publish:write') or " +
+            "#oauth2.hasScope('contact-publish:write')")
     @ApiOperation(value = "Activate/deactivate resends for a certain topic")
     public ResponseEntity modifyTopicBlacklist(
             @Valid @RequestBody BlacklistOperation operation,

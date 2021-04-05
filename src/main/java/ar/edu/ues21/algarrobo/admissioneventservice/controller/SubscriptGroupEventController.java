@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api(tags = "assessment.subscriptGroup")
+@Api(tags = "assessment.group-subscription")
 @RestController
 @RequestMapping("/v1")
 public class SubscriptGroupEventController {
@@ -40,7 +40,7 @@ public class SubscriptGroupEventController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Message sent")
     })
-    @PostMapping(value = "/events/subscriptGroup")
+    @PostMapping(value = "/events/group-subscription")
     public ResponseEntity<String> sendAssessmentReport(
             @RequestBody SubscriptGroup subscriptGroup,
             @RequestHeader(value = "eventType", defaultValue = "subscript-group-event") String eventType,

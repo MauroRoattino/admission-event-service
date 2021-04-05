@@ -3,13 +3,13 @@ package ar.edu.ues21.algarrobo.admissioneventservice.service;
 import ar.edu.ues21.algarrobo.admissioneventservice.client.admissionapi.AdmissionClient;
 import ar.edu.ues21.algarrobo.admissioneventservice.engine.ProducerEngine;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.AcademicLifeStudentRecord;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.Report.AssessmentReport;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.Student.AcademicLifeStudent;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.SubscriptGroup;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.Enrollment.*;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.User.UserAddress;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.User.UserData;
-import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.EnrollmentEvent;
-import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.StudentRecordEvent;
-import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.UserContactEvent;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.*;
 import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,6 +56,18 @@ public class ProducerService {
         for (Enrollment enrollment : enrollments) {
             sendEnrollmentEvent(enrollment, eventType, source);
         }
+    }
+
+    @Async
+    public void sendAssessmentReportEvent(AssessmentReport data, String eventType, String source){
+        AssessmentReportEvent assessmentReportEvent = new AssessmentReportEvent(data, eventType, source);
+        producerEngine.sendAssessmentReportEvent(assessmentReportEvent);
+    }
+
+    @Async
+    public void sendSubscriptGroupEvent(SubscriptGroup data, String eventType, String source){
+        SubscriptGroupEvent subscriptGroupEvent = new SubscriptGroupEvent(data, eventType, source);
+        producerEngine.sendSubscriptGroupEvent(subscriptGroupEvent);
     }
 
     @Async

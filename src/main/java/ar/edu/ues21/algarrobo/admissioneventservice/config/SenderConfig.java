@@ -1,8 +1,6 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.config;
 
-import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.EnrollmentEvent;
-import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.StudentRecordEvent;
-import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.UserContactEvent;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.*;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
@@ -115,6 +113,20 @@ public class SenderConfig {
     public Producer<String, StudentRecordEvent> studentRecordEventProducer() {
         Map<String, Object> props = producerConfigs();
         props.put(ProducerConfig.CLIENT_ID_CONFIG, "student-record-producer");
+        return new KafkaProducer<>(props);
+    }
+
+    @Bean
+    public Producer<String, AssessmentReportEvent> assessmentReportEventProducer() {
+        Map<String, Object> props = producerConfigs();
+        props.put(ProducerConfig.CLIENT_ID_CONFIG, "assessment-report-producer");
+        return new KafkaProducer<>(props);
+    }
+
+    @Bean
+    public Producer<String, SubscriptGroupEvent> subscriptGroupEventProducer() {
+        Map<String, Object> props = producerConfigs();
+        props.put(ProducerConfig.CLIENT_ID_CONFIG, "subscript-group-producer");
         return new KafkaProducer<>(props);
     }
 }

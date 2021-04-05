@@ -56,13 +56,18 @@ public class ProducerEngine {
     }
 
     private <T extends EventBase> void sendMessage(Producer<String, T> producer, String topic, T eventBase) {
-        resendService.deleteEventFromResendIfPending(topic, eventBase.getEventId());
+        Boolean resendsActive = resendService.isTopicResendActive(topic);
+
+        if (resendsActive) {
+            resendService.deleteEventFromResendIfPending(topic, eventBase.getEventId());
+        }
+
         producer.send(new ProducerRecord<>(topic, eventBase.getEventId(), eventBase), (metadata, exception) -> {
                 callbackService.sendCallbackMessage(eventBase, metadata, exception);
             if (exception != null) {
                 LOGGER.error("Encounter an error while sending event to kafka - EventId: {} - Error: {}",
                         eventBase.getEventId(), exception.getMessage());
-                resendService.saveEventToResend(topic, eventBase);
+                if (resendsActive) resendService.saveEventToResend(topic, eventBase);
             } else {
                 LOGGER.info("Succesfully sended event of eventId {} to topic {} partition [{}] @ offset {}",
                         eventBase.getEventId(), metadata.topic(), metadata.partition(), metadata.offset());

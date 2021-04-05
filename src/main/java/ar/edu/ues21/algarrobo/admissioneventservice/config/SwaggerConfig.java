@@ -1,6 +1,5 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.config;
 
-import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.AcademicLifeStudentRecord;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.StudentRecordEvent;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.UserContactEvent;
 import com.fasterxml.classmate.TypeResolver;
@@ -8,7 +7,6 @@ import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -48,7 +46,10 @@ public class SwaggerConfig {
                 .tags(
                         new Tag("academic-life.student-record", "Kafka Topic Producer"),
                         new Tag("admission.preenrollment", "Kafka Topic Producer"),
-                        new Tag("user.contact", "Kafka Topic Producer")
+                        new Tag("user.contact", "Kafka Topic Producer"),
+                        new Tag("assessment.report", "Kafka Topic Producer"),
+                        new Tag("assessment.subscriptGroup", "Kafka Topic Producer")
+
                 );
     }
 
@@ -101,13 +102,17 @@ public class SwaggerConfig {
     }
 
     private AuthorizationScope[] authorizationScopes() {
-        final AuthorizationScope[] authorizationScopes = new AuthorizationScope[6];
+        final AuthorizationScope[] authorizationScopes = new AuthorizationScope[10];
         authorizationScopes[0] = new AuthorizationScope("admission-publish:write", "Write scope");
         authorizationScopes[1] = new AuthorizationScope("admission-publish:read", "read scope");
         authorizationScopes[2] = new AuthorizationScope("contact-publish:write", "Write scope");
         authorizationScopes[3] = new AuthorizationScope("contact-publish:read", "read scope");
         authorizationScopes[4] = new AuthorizationScope("student-record-publish:write", "Write scope");
         authorizationScopes[5] = new AuthorizationScope("student-record-publish:read", "read scope");
+        authorizationScopes[6] = new AuthorizationScope("assessment-report-publish:write", "write scope");
+        authorizationScopes[7] = new AuthorizationScope("assessment-report-publish:read", "read scope");
+        authorizationScopes[8] = new AuthorizationScope("subscript-group-publish:write", "write scope");
+        authorizationScopes[9] = new AuthorizationScope("subscript-group-publish:read", "read scope");
 
         return authorizationScopes;
     }

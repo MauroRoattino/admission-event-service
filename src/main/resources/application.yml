@@ -41,6 +41,9 @@ kafka:
       student-record: ${STUDENT_RECORD_QUEUE:academic-life.student-record}
     user:
       contact: ${USER_CONTACT_QUEUE:user.contact}
+    assessment:
+      report: ${ASSESSMENT_REPORT_QUEUE:assessment.report}
+      subscriptGroup: ${ASSESSMENT_SUBSCRIPTGROUP_QUEUE:assessment.subscriptGroup}
 
 resend:
   file-location: ${RESEND_FILE_LOCATION:./resend}

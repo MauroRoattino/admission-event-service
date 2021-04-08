@@ -33,7 +33,7 @@ public class SubscriptGroupEventController {
         this.resendService = resendService;
     }
 
-    @PreAuthorize("#oauth2.hasScope('subscript-group-publish:write')")
+    @PreAuthorize("#oauth2.hasScope('assessment-group-subscription-publish:write')")
     @ApiOperation(value = "Asynchronously send a subscript group event to Kafka Topic \"assessment.subscriptGroup\"",
             notes = "The model that is produced to Kafka is \"SubscriptGroupEvent\"",
             response = String.class)
@@ -50,7 +50,7 @@ public class SubscriptGroupEventController {
         return ResponseEntity.ok("Subscript Group event sent");
     }
 
-    @PreAuthorize("#oauth2.hasScope('subscript-group-publish:read')")
+    @PreAuthorize("#oauth2.hasScope('assessment-group-subscription-publish:read')")
     @ApiOperation(value = "Get subscript-group pending to be sended Kafka", response = String[].class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Messages sent")
@@ -61,7 +61,7 @@ public class SubscriptGroupEventController {
         return ResponseEntity.ok(resendService.getSubscriptGroupPendingEvents());
     }
 
-    @PreAuthorize("#oauth2.hasScope('subscript-group-publish:write')")
+    @PreAuthorize("#oauth2.hasScope('assessment-group-subscription-publish:write')")
     @ApiOperation(value = "Send pending subscript-group events to Kafka",
             response = String.class)
     @ApiResponses(value = {

@@ -111,8 +111,8 @@ public class SwaggerConfig {
         authorizationScopes[5] = new AuthorizationScope("student-record-publish:read", "read scope");
         authorizationScopes[6] = new AuthorizationScope("assessment-report-publish:write", "write scope");
         authorizationScopes[7] = new AuthorizationScope("assessment-report-publish:read", "read scope");
-        authorizationScopes[8] = new AuthorizationScope("subscript-group-publish:write", "write scope");
-        authorizationScopes[9] = new AuthorizationScope("subscript-group-publish:read", "read scope");
+        authorizationScopes[8] = new AuthorizationScope("assessment-group-subscription-publish:write", "write scope");
+        authorizationScopes[9] = new AuthorizationScope("assessment-group-subscription-publish:read", "read scope");
 
         return authorizationScopes;
     }

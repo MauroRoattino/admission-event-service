@@ -61,7 +61,7 @@ compilacion:
     paths:
       - /builds/algarrobo/admission-event-service/pom.xml
       - /builds/algarrobo/admission-event-service/target/admission-event-service-${ADMISSION_EVENT_SERVICE_VERSION}.jar
-    expire_in: 1 hrs
+    expire_in: 3 hrs
 
 #---------------------------------------------------------------------------
 
@@ -83,11 +83,13 @@ dockerize:
     - mkdir docker-image
     - docker save ${REGISTRY_NAME} > docker-image/${REGISTRY_NAME}.tar
   artifacts:
-    expire_in: 1 hrs
+    expire_in: 3 hrs
     paths:
       - docker-image
   tags:
     - aws-runner-alpine
+  only:
+    - master
 
 #---------------------------------------------------------------------------
 
@@ -125,6 +127,8 @@ integracion:
   tags:
     - aws-runner-alpine
   allow_failure: true
+  only:
+    - master
 
 #---------------------------------------------------------------------------
 
@@ -153,7 +157,8 @@ publicacion:
     - docker push 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID}
   tags:
     - aws-runner-alpine
-  when: manual
+  only: 
+    - master
 
 publicacion siglo:
   stage: publicacion
@@ -174,8 +179,9 @@ publicacion siglo:
     - docker tag ${REGISTRY_NAME}  ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION}
     - docker tag ${REGISTRY_NAME}  ${CI_REGISTRY_IMAGE}:latest
     - docker push ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION}
-    - docker push ${CI_REGISTRY_IMAGE}:latest
-  when: manual
+    - docker push ${CI_REGISTRY_IMAGE}:latest  
+  only: 
+    - master
 
  #--------------------------------------------------------------------------- 
 
@@ -192,8 +198,9 @@ despliegue siglo:
     - gitlab-ssh "docker service rm admission-event-service || true"
     - gitlab-ssh "docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} ${CI_REGISTRY}"
     - gitlab-ssh "docker pull ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION}"
-    - gitlab-ssh "docker service create -e ADMISSION_EVENT_SERVICE_VERSION=${ADMISSION_EVENT_SERVICE_VERSION} --name admission-event-service --secret mensajeria-admision-event-service-confluent-kafka.properties --label traefik.port=8080 --label 'traefik.frontend.rule=Host:apidev.ues21.edu.ar;PathPrefix:/admission-event-service/api' --label 'traefik.docker.network=lb_traefik' --network lb_traefik ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION}"
-  when: manual
+    - gitlab-ssh "docker service create -e ADMISSION_EVENT_SERVICE_VERSION=${ADMISSION_EVENT_SERVICE_VERSION} --name admission-event-service --secret mensajeria-admision-event-service-confluent-kafka.properties --label traefik.port=8080 --label 'traefik.frontend.rule=Host:apidev.ues21.edu.ar;PathPrefix:/admission-event-service/api' --label 'traefik.docker.network=lb_traefik' --network lb_traefik ${CI_REGISTRY_IMAGE}:${ADMISSION_EVENT_SERVICE_VERSION}"  
+  only: 
+    - master
 
 
 despliegue:
@@ -218,5 +225,6 @@ despliegue:
     - docker run --rm -e DOCKER_MANAGER_IP=${AWS_INT_BACK_SWARM_MANAGER_HOST} -e AWS_REGION=${AWS_REGION} 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${AWS_DEPLOY_TOOL}:latest docker "service update --image 930137440523.dkr.ecr.${AWS_REGION}.amazonaws.com/${REGISTRY_NAME}:${RELEASE}.${CI_PIPELINE_ID} --with-registry-auth ${SERVICE_NAME}" -e int -c ${STACK_NAME}
   tags:
     - aws-runner-alpine
-  when: manual
+  only: 
+    - master
   

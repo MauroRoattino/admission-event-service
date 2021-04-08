@@ -33,7 +33,7 @@ public class ResendService {
     @Value("${kafka.topic.assessment.report}")
     private String ASSESSMENT_REPORT_TOPIC;
 
-    @Value("${kafka.topic.assessment.subscriptGroup}")
+    @Value("${kafka.topic.assessment.group.subscription}")
     private String ASSESSMENT_SUBSCRIPTGROUP_TOPIC;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ResendService.class);

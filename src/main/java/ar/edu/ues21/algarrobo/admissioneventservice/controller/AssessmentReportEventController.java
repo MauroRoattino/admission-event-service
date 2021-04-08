@@ -1,6 +1,7 @@
 package ar.edu.ues21.algarrobo.admissioneventservice.controller;
 
 import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.Report.AssessmentReport;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.AssessmentReportEvent;
 import ar.edu.ues21.algarrobo.admissioneventservice.service.ProducerService;
 import ar.edu.ues21.algarrobo.admissioneventservice.service.ResendService;
 import io.swagger.annotations.Api;
@@ -42,13 +43,14 @@ public class AssessmentReportEventController {
             @ApiResponse(code = 200, message = "Message sent")
     })
     @PostMapping(value = "/events/assessments/reports")
-    public ResponseEntity<String> sendAssessmentReport(
+    public ResponseEntity<AssessmentReportEvent> sendAssessmentReport(
             @RequestBody AssessmentReport assessmentReport,
             @RequestHeader(value = "eventType", defaultValue = "assessment-report-event") String eventType,
             @RequestHeader(value = "source", defaultValue = "-") String source) {
         LOGGER.info("Sending assessment report event");
         producerService.sendAssessmentReportEvent(assessmentReport, eventType, source);
-        return ResponseEntity.ok("Assessment report event sent");
+        AssessmentReportEvent event = new AssessmentReportEvent(assessmentReport, eventType, source);
+        return ResponseEntity.ok(event);
     }
 
     @PreAuthorize("#oauth2.hasScope('assessment-report-publish:read')")

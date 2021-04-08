@@ -2,6 +2,7 @@ package ar.edu.ues21.algarrobo.admissioneventservice.controller;
 
 import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.Report.AssessmentReport;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.SubscriptGroup;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.kafka.SubscriptGroupEvent;
 import ar.edu.ues21.algarrobo.admissioneventservice.service.ProducerService;
 import ar.edu.ues21.algarrobo.admissioneventservice.service.ResendService;
 import io.swagger.annotations.Api;
@@ -41,13 +42,14 @@ public class SubscriptGroupEventController {
             @ApiResponse(code = 200, message = "Message sent")
     })
     @PostMapping(value = "/events/assessments-groups/subscriptions")
-    public ResponseEntity<String> sendAssessmentReport(
+    public ResponseEntity<SubscriptGroupEvent> sendAssessmentReport(
             @RequestBody SubscriptGroup subscriptGroup,
             @RequestHeader(value = "eventType", defaultValue = "subscript-group-event") String eventType,
             @RequestHeader(value = "source", defaultValue = "-") String source) {
         LOGGER.info("Sending subscript group event");
         producerService.sendSubscriptGroupEvent(subscriptGroup, eventType, source);
-        return ResponseEntity.ok("Subscript Group event sent");
+        SubscriptGroupEvent event = new SubscriptGroupEvent(subscriptGroup, eventType, source);
+        return ResponseEntity.ok(event);
     }
 
     @PreAuthorize("#oauth2.hasScope('assessment-group-subscription-publish:read')")

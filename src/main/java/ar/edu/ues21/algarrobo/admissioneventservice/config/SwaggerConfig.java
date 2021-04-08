@@ -48,7 +48,7 @@ public class SwaggerConfig {
                         new Tag("admission.preenrollment", "Kafka Topic Producer"),
                         new Tag("user.contact", "Kafka Topic Producer"),
                         new Tag("assessment.report", "Kafka Topic Producer"),
-                        new Tag("assessment.group-subscription", "Kafka Topic Producer")
+                        new Tag("assessment.group.subscription", "Kafka Topic Producer")
 
                 );
     }

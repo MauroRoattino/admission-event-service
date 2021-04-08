@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api(tags = "assessment.group-subscription")
+@Api(tags = "assessment.group.subscription")
 @RestController
 @RequestMapping("/v1")
 public class SubscriptGroupEventController {

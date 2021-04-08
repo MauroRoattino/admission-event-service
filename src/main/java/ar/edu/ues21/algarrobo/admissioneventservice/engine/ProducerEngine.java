@@ -27,7 +27,7 @@ public class ProducerEngine {
     @Value("${kafka.topic.assessment.report}")
     private String ASSESSMENT_REPORT_TOPIC;
 
-    @Value("${kafka.topic.assessment.subscriptGroup}")
+    @Value("${kafka.topic.assessment.group.subscription}")
     private String ASSESSMENT_SUBSCRIPTGROUP_TOPIC;
 
     private final Producer<String, EnrollmentEvent> enrollmentEventProducer;

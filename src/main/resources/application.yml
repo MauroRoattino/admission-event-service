@@ -43,7 +43,8 @@ kafka:
       contact: ${USER_CONTACT_QUEUE:user.contact}
     assessment:
       report: ${ASSESSMENT_REPORT_QUEUE:assessment.report}
-      subscriptGroup: ${ASSESSMENT_SUBSCRIPTGROUP_QUEUE:assessment.group-subscription}
+      group:
+        subscription: ${ASSESSMENT_GROUP_SUBSCRIPTION_QUEUE:assessment.group.subscription}
 
 resend:
   file-location: ${RESEND_FILE_LOCATION:./resend}

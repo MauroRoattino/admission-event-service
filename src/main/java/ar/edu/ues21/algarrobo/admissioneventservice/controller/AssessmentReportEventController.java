@@ -41,7 +41,7 @@ public class AssessmentReportEventController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Message sent")
     })
-    @PostMapping(value = "/events/assessment-report")
+    @PostMapping(value = "/events/assessments/reports")
     public ResponseEntity<String> sendAssessmentReport(
             @RequestBody AssessmentReport assessmentReport,
             @RequestHeader(value = "eventType", defaultValue = "assessment-report-event") String eventType,

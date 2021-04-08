@@ -40,7 +40,7 @@ public class SubscriptGroupEventController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Message sent")
     })
-    @PostMapping(value = "/events/group-subscription")
+    @PostMapping(value = "/events/assessments-groups/subscriptions")
     public ResponseEntity<String> sendAssessmentReport(
             @RequestBody SubscriptGroup subscriptGroup,
             @RequestHeader(value = "eventType", defaultValue = "subscript-group-event") String eventType,

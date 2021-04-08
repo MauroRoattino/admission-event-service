@@ -20,7 +20,7 @@ public class SubscriptGroupEvent extends EventBase{
 
     @Override
     public String getEventId() {
-        return subscriptGroup.getExternalId();
+        return subscriptGroup.getId();
     }
 
     public SubscriptGroup getSubscriptGroup() {

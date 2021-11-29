@@ -24,6 +24,8 @@ public class SubscriptGroup {
     @ApiModelProperty(value = "id" , example = "1")
     private Long externalId;
 
+    private SubscriptionStatus status;
+
     @ApiModelProperty(value = "last name", example = "Perez")
     private String lastName;
 

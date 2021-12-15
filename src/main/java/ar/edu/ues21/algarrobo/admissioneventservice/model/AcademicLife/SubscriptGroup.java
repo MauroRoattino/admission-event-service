@@ -19,10 +19,10 @@ public class SubscriptGroup {
     private String assessmentGroupId;
 
     @ApiModelProperty(value = "external course id", example = "1050")
-    private Long externalCourseId;
+    private String externalCourseId;
 
     @ApiModelProperty(value = "id" , example = "1")
-    private Long externalId;
+    private String externalId;
 
     private SubscriptionStatus status;
 

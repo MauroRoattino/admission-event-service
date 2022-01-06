@@ -3,6 +3,7 @@ package ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.CareerStudyPlan.AcademicLifeCareerStudyPlan;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.Metadata.StudentRecordMetadata;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.Metadata.StudentRecordMetadataCourseMode;
+import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.Promotions.Promotion;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.Status.StudentRecordStatus;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.Student.AcademicLifeStudent;
 import ar.edu.ues21.algarrobo.admissioneventservice.model.AcademicLife.SubjectStatus.SubjectStatus;
@@ -76,6 +77,8 @@ public class AcademicLifeStudentRecord {
     private Date validTo;
 
     private StudentRecordMetadataCourseMode courseMode;
+
+    private List<Promotion> promotions;
 
     public String getId() {
         return id;
@@ -267,5 +270,13 @@ public class AcademicLifeStudentRecord {
 
     public void setCourseMode(StudentRecordMetadataCourseMode courseMode) {
         this.courseMode = courseMode;
+    }
+
+    public List<Promotion> getPromotions() {
+        return promotions;
+    }
+
+    public void setPromotions(List<Promotion> promotions) {
+        this.promotions = promotions;
     }
 }
